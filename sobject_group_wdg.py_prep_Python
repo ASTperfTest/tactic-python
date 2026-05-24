@@ -13,42 +13,31 @@
 
 __all__ = ['SObjectGroupWdg', 'SObjectGroupCmd', 'ItemInContainerWdg']
 
-
+from pyasm.web import *
 from pyasm.security import Login
 from pyasm.search import Search, SObjectConfig, SearchType, SObjectFactory
 from pyasm.command import Command
-from pyasm.web import HtmlElement, SpanWdg, DivWdg, Table, WebContainer
-from pyasm.widget import CheckboxWdg, IconSubmitWdg, HiddenRowToggleWdg, HiddenWdg
+from pyasm.widget import CheckboxWdg, IconWdg, IconSubmitWdg, HiddenRowToggleWdg, HiddenWdg
 
 
-from tactic.ui.common import BaseRefreshWdg
 
-class SObjectGroupWdg(BaseRefreshWdg):
+class SObjectGroupWdg(Widget):
     GROUP_TABLE_NAME = 'group_tbl'
     ADD_LABEL = 'Add'
 
-       
-
-
-    def get_args_keys(my):
-        return {
-            'left_type': 'search type on the left side',
-            'right_type': 'search type on the right side',
-            'search_type': 'search type binding the left and right type'
-        }
+    def __init__(my, item_cls, container_cls, grouping_cls, name="SObjectGroupWdg"):
+        my.item_cls = item_cls
+        my.item_sobj = my.container_sobj = None 
+        my.container_cls = container_cls
+        my.grouping_cls  = grouping_cls
+        super(SObjectGroupWdg, my).__init__()
 
         
     def init(my):
         
- 
-        my.item_cls = my.kwargs.get('left_search_type')
-        my.container_cls = my.kwargs.get('right_search_type')
-        my.grouping_cls  = my.kwargs.get('search_type')
-
-        my.item_sobj = my.container_sobj = None 
         
         # List the items
-        search = Search(my.item_cls)
+        search = Search(my.item_cls.SEARCH_TYPE)
         my._order_search(search)    
         
         items = search.get_sobjects()
@@ -88,7 +77,7 @@ class SObjectGroupWdg(BaseRefreshWdg):
         control_div = DivWdg()
         control_div.add_style('padding: 100px 10px 0 10px')
 
-        button = IconSubmitWdg(my.ADD_LABEL, "stock_insert-slide.png", True)
+        button = IconSubmitWdg(my.ADD_LABEL, IconWdg.INSERT, True)
         button.add_style('padding: 2px 30px 4px 30px')
         control_div.add(button)
         
@@ -106,7 +95,7 @@ class SObjectGroupWdg(BaseRefreshWdg):
         # register command here
         if my.item_sobj and my.container_sobj:
             marshaller = WebContainer.register_cmd("pyasm.widget.SObjectGroupCmd")
-            marshaller.set_option("grouping_search_type", my.grouping_cls)
+            marshaller.set_option("grouping_search_type", my.grouping_cls.SEARCH_TYPE)
             marshaller.set_option("item_foreign_key", my.item_sobj.get_foreign_key())
             marshaller.set_option("container_foreign_key", my.container_sobj.get_foreign_key())
         
@@ -117,7 +106,7 @@ class SObjectGroupWdg(BaseRefreshWdg):
             
     def _get_target_span(my):
         # get the target span
-        search = Search(my.container_cls)
+        search = Search(my.container_cls.SEARCH_TYPE)
         my._order_search(search)
         groups = search.get_sobjects()
         if groups:
@@ -140,7 +129,7 @@ class SObjectGroupWdg(BaseRefreshWdg):
         group_table.add_cell(checkbox)
         col_name = group_table.get_next_col_name() 
         
-        toggle_control = HiddenRowToggleWdg(col_name=col_name, is_control=True, auto_index=True)
+        toggle_control = HiddenRowToggleWdg(col_name, is_control=True, auto_index=True)
       
         group_table.add_cell(toggle_control)
         group_table.add_cell('MASTER CONTROL')
@@ -166,7 +155,7 @@ class SObjectGroupWdg(BaseRefreshWdg):
             num_items = group_details.get_num_items()
             if num_items:
                 td = group_table.add_cell( "( %s )" % num_items, 'no_wrap')
-                td.add_color(color)
+                td.add_style('color: #777')
             else:
                 group_table.add_blank_cell()
        
@@ -195,11 +184,11 @@ class ItemInContainerWdg(HtmlElement):
     def get_items(my):
         if not my.item_sobj:
             return []
-        search = Search( my.item_cls )
+        search = Search( my.item_cls.SEARCH_TYPE )
         query = "%s in (select %s from %s where \
             %s = '%s')" % (my.item_sobj.get_primary_key(), \
             my.item_sobj.get_foreign_key(), \
-            SearchType.get(my.grouping_cls).get_table(),\
+            SearchType.get(my.grouping_cls.SEARCH_TYPE).get_table(),\
             my.group.get_foreign_key(),\
             my.group.get_value(my.group.get_primary_key()))
         
@@ -222,7 +211,7 @@ class ItemInContainerWdg(HtmlElement):
             item_td.set_attr("nowrap", "1")
             
             delete = IconSubmitWdg("Remove from group", \
-                "stock_stop-16.png",add_hidden=False)
+                IconWdg.DELETE, add_hidden=False)
             delete.add_event("onclick","document.form.remove_cmd.value=\
                 '%s|%s';document.form.submit();" \
                 % (my.group.get_primary_key_value(), item.get_primary_key_value()) )
