@@ -1,4 +1,4 @@
-#!/usr/bin/python 
+#!/usr/bin/python
 ###########################################################
 #
 # Copyright (c) 2005, Southpaw Technology
@@ -11,23 +11,49 @@
 #
 #
 
-import tacticenv
-from pyasm.security import *
-from pyasm.unittest import UnittestEnvironment
-from pyasm.biz import Project
+
 import unittest
+
+from widget import *
+from web_state import *
 
 class WidgetTest(unittest.TestCase):
 
-    def setUp(my):
-        # intitialize the framework as a batch process
-        my.batch = Batch()
 
-    def test(my):
-        pass
+    def test_url(my):
+
+        base = "http://www.yahoo.com"
+        url = Url( base )
+        url.set_option("widget","EditWdg")
+        url.set_option("args","person")
+        
+        url_str = url.get_url()
+
+        my.assertEquals("%s?widget=EditWdg&args=person" % base, url_str)
+
+
+    def test_state(my):
+
+        # set the state
+        state = WebState.get()
+        state.add_state("episode_code", "TF01A")
+        state.add_state("scene", "TF01A-003")
+
+        base = "http://www.yahoo.com"
+        url = Url(base)
+        state.add_state_to_url(url)
+
+        url_str = url.to_string()
+
+        my.assertEquals("%s?episode=TF01A&scene=TF01A-003" % base, url_str)
 
 
 
-if __name__ == "__main__":
+        
+
+
+if __name__ == '__main__':
     unittest.main()
+
+
 

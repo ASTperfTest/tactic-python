@@ -10,59 +10,35 @@
 #
 #
 
-from widget_config import *
+# web framework interface and implementations
+from translation import *
+from web_environment import *
+from palette import *
 
-# basic widgets
-from web_wdg import *
-from error_wdg import *
-from layout_wdg import *
-from file_wdg import *
-from input_wdg import *
-from filter_wdg import *
-from table_element_wdg import *
-from applet import *
-from icon_wdg import *
-from menu import *
-from annotate_wdg import *
+from callback import *
 
-from task_wdg import *
+# security for redirects
+from url_security import *
 
-#from shadowbox_wdg import *
-#from preference_wdg import *
+# global web container
+from web_container import *
+from web_state import *
 
-from timecard_wdg import *
+# basic widget classes
+from widget import *
+from html_wdg import *
+from web_tools import *
 
-# some higher level widgets
-from serial_status import *
-from parallel_status import *
-from discussion_wdg import *
-from tab_wdg import *
-from statistic_wdg import *
-from gantt_wdg import *
+#from command_delegator import *
+#from event_container import *
 
-from sobject_browser_wdg import *
+# the web application widget
+from web_app import *
 
-from clipboard_wdg import *
+from app_server import *
+from simple_app_server import *
+from widget_app_server import *
+from web_init import *
 
-from web_attr import *
+from monitor import *
 
-from dynamic_loader_page import *
-from upload_server_page import *
-
-from dependency_wdg import *
-
-from search_limit_wdg import *
-from sobject_group_wdg import *
-
-from project_wdg import *
-from header_wdg import *
-
-from custom_info_wdg import *
-from custom_view_app_wdg import *
-from custom_view_wdg import *
-from my_tactic_summary_wdg import *
-from creator_wdg import *
-
-from naming_wdg import *
-
-from base_tab_wdg import *
