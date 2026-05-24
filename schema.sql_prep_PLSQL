@@ -1,0 +1,150 @@
+﻿--
+-- postgresql database dump
+--
+
+set client_encoding = 'sql_ascii';
+set check_function_bodies = false;
+set client_min_messages = warning;
+
+--
+-- name: schema public; type: comment; schema: -; owner: postgres
+--
+
+comment on schema public is 'standard public schema';
+
+
+set search_path = public, pg_catalog;
+
+set default_tablespace = '';
+
+set default_with_oids = false;
+
+--
+-- name: custom_property; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table custom_property (
+    id serial not null,
+    search_type character varying(256),
+    name character varying(256),
+    description text,
+    "login" character varying(256)
+);
+
+
+alter table public.custom_property owner to postgres;
+
+--
+-- name: naming; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table naming (
+    id serial not null,
+    search_type character varying(100),
+    dir_naming text,
+    file_naming text
+);
+
+
+alter table public.naming owner to postgres;
+
+--
+-- name: person; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table person (
+    id serial not null,
+    code character varying(256),
+    name_first character varying(100),
+    name_last character varying(100),
+    nationality character varying(100),
+    description text,
+    picture text,
+    discussion text,
+    approval text,
+    city_code character varying(256)
+);
+
+
+alter table public.person owner to postgres;
+
+
+create table city (
+    id serial not null,
+    code character varying(256),
+    name character varying(256),
+    country_code character varying(256),
+    s_status character varying(32)
+);
+
+create table country (
+    id serial not null,
+    code character varying(256),
+    name character varying(256),
+    s_status character varying(32)
+);
+
+
+--
+-- name: prod_setting; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table prod_setting (
+    id serial not null,
+    "code" character varying(256),
+    "key" character varying(100),
+    value text,
+    description text,
+    "type" character varying(30),
+    search_type character varying(200)
+);
+
+
+alter table public.prod_setting owner to postgres;
+
+--
+-- name: status; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table status (
+    id serial not null,
+    status text,
+    "timestamp" timestamp without time zone default now(),
+    name character varying(128)
+);
+
+
+alter table public.status owner to postgres;
+
+--
+-- name: custom_property_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only custom_property
+    add constraint custom_property_pkey primary key (id);
+
+
+--
+-- name: status_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only status
+    add constraint status_pkey primary key (id);
+
+
+--
+-- name: public; type: acl; schema: -; owner: postgres
+--
+
+revoke all on schema public from public;
+revoke all on schema public from postgres;
+grant all on schema public to postgres;
+grant all on schema public to public;
+
+
+--
+-- postgresql database dump complete
+--
+
+
+ 
