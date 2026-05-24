@@ -1,0 +1,603 @@
+﻿-- pg_dump -u postgres --schema-only -t naming -t custom_config -t custom_script -t custom_property  -t pref_setting -t widget_config -t prod_setting sample3d > config_schema.sql
+
+
+--
+-- postgresql database dump
+--
+
+--set client_encoding = 'utf8';
+--set standard_conforming_strings = off;
+--set check_function_bodies = false;
+--set client_min_messages = warning;
+--set escape_string_warning = off;
+
+--set search_path = public, pg_catalog;
+
+--set default_tablespace = '';
+
+--set default_with_oids = false;
+
+--
+-- name: custom_property; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table custom_property (
+    id integer primary key identity not null,
+    search_type character varying(256),
+    name character varying(256),
+    description text,
+    login character varying(256)
+);
+
+
+--alter table public.custom_property owner to tactic;
+
+--
+-- name: custom_property_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+--create sequence custom_property_id_seq
+--   start with 1
+--   increment by 1
+--   no maxvalue
+--   no minvalue
+--   cache 1;
+
+
+--alter table public.custom_property_id_seq owner to postgres;
+
+--
+-- name: custom_property_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+--alter sequence custom_property_id_seq owned by custom_property.id;
+
+
+--
+-- name: custom_script; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table custom_script (
+    id integer primary key identity not null,
+    code character varying(256),
+    title character varying(256),
+    description text,
+    folder character varying(1024),
+    script text,
+    login character varying(256),
+    [timestamp] datetime2(6),
+    s_status character varying(256)
+);
+
+
+--alter table public.custom_script owner to postgres;
+
+--
+-- name: custom_script_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+--create sequence custom_script_id_seq
+--    start with 1
+--    increment by 1
+--    no maxvalue
+--    no minvalue
+--    cache 1;
+
+
+--alter table public.custom_script_id_seq owner to postgres;
+
+--
+-- name: custom_script_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+--alter sequence custom_script_id_seq owned by custom_script.id;
+
+
+--
+-- name: naming; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table naming (
+    id integer primary key identity not null,
+    search_type character varying(100),
+    dir_naming text,
+    file_naming text,
+    sandbox_dir_naming text,
+    snapshot_type character varying(256),
+    context character varying(256),
+    code character varying(256),
+    latest_versionless bit,
+    current_versionless bit,
+    manual_version bit
+);
+
+
+--alter table public.naming owner to postgres;
+
+--
+-- name: naming_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+--create sequence naming_id_seq
+--    start with 1
+--    increment by 1
+--    no maxvalue
+--    no minvalue
+--    cache 1;
+
+
+--alter table public.naming_id_seq owner to postgres;
+
+--
+-- name: naming_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+--alter sequence naming_id_seq owned by naming.id;
+
+
+--
+-- name: prod_setting; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table prod_setting (
+    id integer primary key identity not null,
+    [key] character varying(100),
+    value text,
+    description text,
+    type character varying(30),
+    search_type character varying(200),
+    category character varying(256)
+);
+
+
+--alter table public.prod_setting owner to postgres;
+
+--
+-- name: prod_setting_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+--create sequence prod_setting_id_seq
+--    increment by 1
+--    no maxvalue
+--    no minvalue
+--    cache 1;
+
+
+--alter table public.prod_setting_id_seq owner to postgres;
+
+--
+-- name: prod_setting_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+--alter sequence prod_setting_id_seq owned by prod_setting.id;
+
+
+--
+-- name: widget_config; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table widget_config (
+    id integer primary key identity not null,
+    code character varying(256),
+    [view] character varying(256),
+    category character varying(256),
+    search_type character varying(256),
+    login character varying(256),
+    config text,
+    [timestamp] datetime2(6),
+    s_status character varying(32)
+);
+
+
+--alter table public.widget_config owner to postgres;
+
+--
+-- name: widget_config_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+--create sequence widget_config_id_seq
+--    increment by 1
+--    no maxvalue
+--    no minvalue
+--    cache 1;
+
+
+--alter table public.widget_config_id_seq owner to postgres;
+
+--
+-- name: widget_config_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+--alter sequence widget_config_id_seq owned by widget_config.id;
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+--alter table custom_property alter column id set default nextval('custom_property_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+--alter table custom_script alter column id set default nextval('custom_script_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+--alter table naming alter column id set default nextval('naming_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+--alter table prod_setting alter column id set default nextval('prod_setting_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+--alter table widget_config alter column id set default nextval('widget_config_id_seq'::regclass);
+
+
+--
+-- name: custom_property_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+--alter table only custom_property
+--    add constraint custom_property_pkey primary key (id);
+
+
+--
+-- name: custom_script_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+--alter table only custom_script
+--    add constraint custom_script_pkey primary key (id);
+
+
+--
+-- name: key_search_type_unique; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+--alter table only prod_setting
+--    add constraint key_search_type_unique unique ("key", search_type);
+
+
+--
+-- name: naming_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+--alter table only naming
+--    add constraint naming_pkey primary key (id);
+
+
+--
+-- name: prod_setting_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+--alter table only prod_setting
+--    add constraint prod_setting_pkey primary key (id);
+
+
+--
+-- name: widget_config_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+--alter table only widget_config
+--    add constraint widget_config_pkey primary key (id);
+
+
+--
+-- name: prod_setting_name_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+--create index prod_setting_name_idx on prod_setting using btree ("key");
+
+
+--
+-- name: widget_config_code_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+--create unique index widget_config_code_idx on widget_config using btree (code);
+
+
+--
+-- name: spt_url; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table spt_url (
+    id integer primary key identity not null,
+    code character varying(256),
+    url character varying(256),
+    widget text,
+    description text,
+    [timestamp] datetime2(6),
+    s_status character varying(256)
+);
+
+
+--alter table public.spt_url owner to postgres;
+
+--
+-- name: spt_url_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+--create sequence spt_url_id_seq
+--    increment by 1
+--    no maxvalue
+--    no minvalue
+--    cache 1;
+
+
+--alter table public.spt_url_id_seq owner to postgres;
+
+--
+-- name: spt_url_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+--alter sequence spt_url_id_seq owned by spt_url.id;
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+--alter table spt_url alter column id set default nextval('spt_url_id_seq'::regclass);
+
+
+--
+-- name: spt_url_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+--alter table only spt_url
+--    add constraint spt_url_pkey primary key (id);
+
+
+--
+-- name: spt_client_trigger; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table spt_client_trigger (
+    id integer primary key identity not null,
+    code character varying(256),
+    event character varying(256),
+    callback character varying(256),
+    description text,
+    [timestamp] datetime2(6),
+    s_status character varying(32)
+);
+
+
+--alter table public.spt_client_trigger owner to postgres;
+
+--
+-- name: spt_client_trigger_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+--create sequence spt_client_trigger_id_seq
+--    start with 1
+--    increment by 1
+--    no maxvalue
+--    no minvalue
+--    cache 1;
+
+
+--alter table public.spt_client_trigger_id_seq owner to postgres;
+
+--
+-- name: spt_client_trigger_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+--alter sequence spt_client_trigger_id_seq owned by spt_client_trigger.id;
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+--alter table spt_client_trigger alter column id set default nextval('spt_client_trigger_id_seq'::regclass);
+
+
+--
+-- name: spt_client_trigger_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+--alter table only spt_client_trigger
+--    add constraint spt_client_trigger_pkey primary key (id);
+
+
+
+--
+-- name: spt_plugin; type: table; schema: public; owner: postgres; tablespace: 
+--
+create table spt_plugin (
+    id integer primary key identity not null,
+    code varchar(256),
+    version varchar(256),
+    description text,
+    manifest text,
+    [timestamp] datetime2(6),
+    s_status varchar(256)
+);
+
+
+
+
+--alter table public.spt_plugin owner to postgres;
+
+--
+-- name: spt_plugin_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+--create sequence spt_plugin_id_seq
+--    start with 1
+--    increment by 1
+--    no maxvalue
+--    no minvalue
+--    cache 1;
+
+
+--alter table public.spt_plugin_id_seq owner to postgres;
+
+--
+-- name: spt_plugin_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+--alter sequence spt_plugin_id_seq owned by spt_plugin.id;
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+--alter table spt_plugin alter column id set default nextval('spt_plugin_id_seq'::regclass);
+
+
+--
+-- name: spt_plugin_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+--alter table only spt_plugin
+--    add constraint spt_plugin_pkey primary key (id);
+
+
+
+
+--
+-- name: spt_trigger; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table spt_trigger (
+    id integer primary key identity not null,
+    code varchar(256),
+    class_name varchar(256),
+    script_path varchar(256),
+    title varchar(256),
+    description text,
+    event varchar(256),
+    mode varchar(256),
+    process varchar(256),
+    listen_process varchar(256),
+    trigger_type varchar(256),
+    data text,    
+    [timestamp] datetime2(6),
+    s_status varchar(256)
+);
+
+
+
+--alter table public.spt_trigger owner to postgres;
+
+
+
+--
+-- name: spt_trigger_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+--create sequence spt_trigger_id_seq
+--    start with 1
+--    increment by 1
+--    no maxvalue
+--    no minvalue
+--    cache 1;
+
+
+--alter table public.spt_trigger_id_seq owner to postgres;
+
+--
+-- name: spt_trigger_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+--alter sequence spt_trigger_id_seq owned by spt_trigger.id;
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+--alter table spt_trigger alter column id set default nextval('spt_trigger_id_seq'::regclass);
+
+
+--
+-- name: spt_trigger_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+--alter table only spt_trigger
+--    add constraint spt_trigger_pkey primary key (id);
+
+
+
+
+
+
+--
+-- name: spt_process; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table spt_process (
+    id integer primary key identity not null,
+    code varchar(256),
+    pipeline_code varchar(256),
+    process varchar(256),
+    color varchar(256),    
+    sort_order integer,
+    [timestamp] datetime2(6),
+    s_status varchar(256)
+);
+
+
+
+--alter table public.spt_process owner to postgres;
+
+
+
+--
+-- name: spt_process_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+--create sequence spt_process_id_seq
+--    start with 1
+--    increment by 1
+--    no maxvalue
+--    no minvalue
+--    cache 1;
+
+
+--alter table public.spt_process_id_seq owner to postgres;
+
+--
+-- name: spt_process_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+--alter sequence spt_process_id_seq owned by spt_process.id;
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+--alter table spt_process alter column id set default nextval('spt_process_id_seq'::regclass);
+
+
+--
+-- name: spt_process_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+--alter table only spt_process
+--    add constraint spt_process_pkey primary key (id);
+
+
+
+--
+-- postgresql database dump complete
+--
+
+
+ 

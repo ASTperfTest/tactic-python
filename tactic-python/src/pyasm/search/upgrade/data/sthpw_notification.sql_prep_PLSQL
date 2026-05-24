@@ -1,0 +1,55 @@
+﻿
+
+-- deprecated
+
+--
+-- postgresql database dump
+--
+
+set client_encoding = 'utf8';
+set check_function_bodies = false;
+set client_min_messages = warning;
+
+set search_path = public, pg_catalog;
+
+--
+-- name: notification_id_seq; type: sequence set; schema: public; owner: postgres
+--
+
+select pg_catalog.setval(pg_catalog.pg_get_serial_sequence('notification', 'id'), 17, true);
+
+
+--
+-- data for name: notification; type: table data; schema: public; owner: postgres
+--
+
+insert into notification (id, code, description, "type", search_type, project_code, rules, message, email_handler_cls) values (17, 'comment_add', 'adding a comment to an asset', 'email', 'sthpw/note', 'bar', null, null, null);
+insert into notification (id, code, description, "type", search_type, project_code, rules, message, email_handler_cls) values (9, 'comment_add', 'client adding a comment', 'email', 'sthpw/note', 'bar', '<rules>
+
+<rule group="sobject" key="context" value="client"/>
+
+</rules>', 'wow man.', null);
+insert into notification (id, code, description, "type", search_type, project_code, rules, message, email_handler_cls) values (10, 'status_change', 'changing of status to complete', 'email', 'prod/asset', 'bar', '<rules>
+
+<rule group="command" key="to" value="approved"/>
+
+</rules>
+
+', 'yo man.  it''s done.', null);
+insert into notification (id, code, description, "type", search_type, project_code, rules, message, email_handler_cls) values (11, 'sobject_edit', 'assignment of task', 'email', 'sthpw/task', 'bar', '<rules>
+
+<rule group=''sobject'' key=''assigned'' value=''.*''/>
+
+</rules>', 'task assigned', 'pyasm.command.taskassignemailhandler');
+insert into notification (id, code, description, "type", search_type, project_code, rules, message, email_handler_cls) values (13, 'status_change', 'changing of status', 'email', 'prod/asset', 'bar', null, null, null);
+insert into notification (id, code, description, "type", search_type, project_code, rules, message, email_handler_cls) values (12, 'asset_checkin', 'checkin of an asset', 'email', 'prod/asset', 'bar', null, 'hello', null);
+insert into notification (id, code, description, "type", search_type, project_code, rules, message, email_handler_cls) values (15, 'shot_checkin', 'checkin of a shot', 'email', 'prod/shot', 'bar', null, null, null);
+insert into notification (id, code, description, "type", search_type, project_code, rules, message, email_handler_cls) values (14, 'shot_set_checkin', 'checkin of a shot set', 'email', 'prod/shot', 'bar', null, null, null);
+
+
+--
+-- postgresql database dump complete
+--
+
+
+ 

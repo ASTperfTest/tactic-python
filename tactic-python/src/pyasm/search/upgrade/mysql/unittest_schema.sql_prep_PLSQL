@@ -1,0 +1,49 @@
+﻿set sql_mode='ansi_quotes';
+--
+--
+
+
+create table city (
+    id serial primary key,
+    code character varying(256),
+    name character varying(256),
+    country_code character varying(256),
+    constraint "city_code_idx" unique (code)
+);
+
+
+
+create table country (
+    id serial primary key,
+    code character varying(256),
+    name character varying(256),
+    s_status character varying(32),
+    constraint "country_code_idx" unique (code)
+);
+
+
+
+
+
+create table person (
+    id serial primary key,
+    code character varying(256),
+    name_first character varying(100),
+    name_last character varying(100),
+    nationality character varying(100),
+    description text,
+    picture text,
+    discussion text,
+    approval text,
+    city_code character varying(256),
+    metadata text,
+    age integer,
+    timestamp timestamp default current_timestamp,
+    birth_date timestamp null,
+    pipeline_code character varying(256),
+    constraint "person_code_idx" unique (code)
+);
+
+
+
+ 

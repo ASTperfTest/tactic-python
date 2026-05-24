@@ -1,0 +1,154 @@
+﻿/*
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.html or http://ckeditor.com/license
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CKEDITOR.focusManager = function( editor )
+{
+ if ( editor.focusManager )
+  return editor.focusManager;
+
+
+
+
+
+
+
+ this.hasFocus = false;
+
+
+
+
+
+ this._ =
+ {
+  editor : editor
+ };
+
+ return this;
+};
+
+CKEDITOR.focusManager.prototype =
+{
+
+
+
+
+
+
+
+
+
+
+ focus : function()
+ {
+  if ( this._.timer )
+   clearTimeout( this._.timer );
+
+  if ( !this.hasFocus )
+  {
+   // If another editor has the current focus, we first "blur" it. In
+   // this way the events happen in a more logical sequence, like:
+   //  "focus 1" > "blur 1" > "focus 2"
+   // ... instead of:
+   //  "focus 1" > "focus 2" > "blur 1"
+   if ( CKEDITOR.currentInstance )
+    CKEDITOR.currentInstance.focusManager.forceBlur();
+
+   var editor = this._.editor;
+
+   editor.container.getChild( 1 ).addClass( 'cke_focus' );
+
+   this.hasFocus = true;
+   editor.fire( 'focus' );
+  }
+ },
+
+
+
+
+
+
+
+
+
+
+
+ blur : function()
+ {
+  var focusManager = this;
+
+  if ( focusManager._.timer )
+   clearTimeout( focusManager._.timer );
+
+  focusManager._.timer = setTimeout(
+   function()
+   {
+    delete focusManager._.timer;
+    focusManager.forceBlur();
+   }
+   , 100 );
+ },
+
+
+
+
+
+
+
+
+
+ forceBlur : function()
+ {
+  if ( this.hasFocus )
+  {
+   var editor = this._.editor;
+
+   editor.container.getChild( 1 ).removeClass( 'cke_focus' );
+
+   this.hasFocus = false;
+   editor.fire( 'blur' );
+  }
+ }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

@@ -1,0 +1,107 @@
+﻿
+
+
+
+
+
+
+
+
+function script___533213057() {src("../ckeditor.js");}CxConstr_578837127();
+function script___835309709() {src("sample.js");}CxConstr_298686046();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   //         
+
+    CKEDITOR.replace( 'editor1', {
+     extraPlugins : 'autogrow'
+    });
+
+   //   
+   
+
+
+
+
+
+
+   //         
+
+    CKEDITOR.replace( 'editor2', {
+     extraPlugins : 'autogrow',
+     autoGrow_maxHeight : 400
+    });
+
+   //   
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

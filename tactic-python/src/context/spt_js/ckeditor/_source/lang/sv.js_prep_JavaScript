@@ -1,0 +1,811 @@
+﻿/*
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.html or http://ckeditor.com/license
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CKEDITOR.lang['sv'] =
+{
+
+
+
+
+
+
+ dir : 'ltr',
+
+
+
+
+
+ editorTitle : 'Rich text editor, %1, tryck ALT 0 for hjalp.',
+
+ // ARIA descriptions.
+ toolbars : 'Editor toolbars', // MISSING
+ editor  : 'Rich Text Editor',
+
+ // Toolbar buttons without dialogs.
+ source   : 'Kalla',
+ newPage   : 'Ny sida',
+ save   : 'Spara',
+ preview   : 'Forhandsgranska',
+ cut    : 'Klipp ut',
+ copy   : 'Kopiera',
+ paste   : 'Klistra in',
+ print   : 'Skriv ut',
+ underline  : 'Understruken',
+ bold   : 'Fet',
+ italic   : 'Kursiv',
+ selectAll  : 'Markera allt',
+ removeFormat : 'Radera formatering',
+ strike   : 'Genomstruken',
+ subscript  : 'Nedsankta tecken',
+ superscript  : 'Upphojda tecken',
+ horizontalrule : 'Infoga horisontal linje',
+ pagebreak  : 'Infoga sidbrytning',
+ pagebreakAlt  : 'Sidbrytning',
+ unlink   : 'Radera lank',
+ undo   : 'angra',
+ redo   : 'Gor om',
+
+ // Common messages and labels.
+ common :
+ {
+  browseServer : 'Bladdra pa server',
+  url    : 'URL',
+  protocol  : 'Protokoll',
+  upload   : 'Ladda upp',
+  uploadSubmit : 'Skicka till server',
+  image   : 'Bild',
+  flash   : 'Flash',
+  form   : 'Formular',
+  checkbox  : 'Kryssruta',
+  radio   : 'Alternativknapp',
+  textField  : 'Textfalt',
+  textarea  : 'Textruta',
+  hiddenField  : 'Dolt falt',
+  button   : 'Knapp',
+  select   : 'Flervalslista',
+  imageButton  : 'Bildknapp',
+  notSet   : '<ej angivet>',
+  id    : 'Id',
+  name   : 'Namn',
+  langDir   : 'Sprakriktning',
+  langDirLtr  : 'Vanster till Hoger (VTH)',
+  langDirRtl  : 'Hoger till Vanster (HTV)',
+  langCode  : 'Sprakkod',
+  longDescr  : 'URL-beskrivning',
+  cssClass  : 'Stilmall',
+  advisoryTitle : 'Titel',
+  cssStyle  : 'Stilmall',
+  ok    : 'OK',
+  cancel   : 'Avbryt',
+  close   : 'Stang',
+  preview   : 'Forhandsgranska',
+  generalTab  : 'Allmant',
+  advancedTab  : 'Avancerad',
+  validateNumberFailed : 'Vardet ar inte ett nummer.',
+  confirmNewPage : 'Alla andringar i innehallet kommer att forloras. Ar du saker pa att du vill ladda en ny sida?',
+  confirmCancel : 'Nagra av de alternativ har andrats. Ar du saker pa att stanga dialogrutan?',
+  options   : 'Alternativ',
+  target   : 'Mal',
+  targetNew  : 'Nytt fonster (_blank)',
+  targetTop  : 'Oversta fonstret (_top)',
+  targetSelf  : 'Samma fonster (_self)',
+  targetParent : 'Foregaende fonster (_parent)',
+  langDirLTR  : 'Vanster till hoger (LTR)',
+  langDirRTL  : 'Hoger till vanster (RTL)',
+  styles   : 'Stil',
+  cssClasses  : 'Stilmallar',
+  width   : 'Bredd',
+  height   : 'Hojd',
+  align   : 'Justering',
+  alignLeft  : 'Vanster',
+  alignRight  : 'Hoger',
+  alignCenter  : 'Centrerad',
+  alignTop  : 'Overkant',
+  alignMiddle  : 'Mitten',
+  alignBottom  : 'Nederkant',
+  invalidHeight : 'Hojd maste vara ett nummer.',
+  invalidWidth : 'Bredd maste vara ett nummer.',
+
+  // Put the voice-only part of the label in the span.
+  unavailable  : '%1<span class="cke_accessibility">, Ej tillganglig</span>'
+ },
+
+ contextmenu :
+ {
+  options : 'Context Menu Options'
+ },
+
+ // Special char dialog.
+ specialChar  :
+ {
+  toolbar  : 'Klistra in utokat tecken',
+  title  : 'Valj utokat tecken',
+  options : 'Special Character Options'
+ },
+
+ // Link dialog.
+ link :
+ {
+  toolbar  : 'Infoga/Redigera lank',
+  other   : '<annan>',
+  menu  : 'Redigera lank',
+  title  : 'Lank',
+  info  : 'Lankinformation',
+  target  : 'Mal',
+  upload  : 'Ladda upp',
+  advanced : 'Avancerad',
+  type  : 'Lanktyp',
+  toUrl  : 'URL',
+  toAnchor : 'Ankare i sidan',
+  toEmail  : 'E-post',
+  targetFrame  : '<ram>',
+  targetPopup  : '<popup-fonster>',
+  targetFrameName : 'Malets ramnamn',
+  targetPopupName : 'Popup-fonstrets namn',
+  popupFeatures : 'Popup-fonstrets egenskaper',
+  popupResizable : 'Resizable',
+  popupStatusBar : 'Statusfalt',
+  popupLocationBar: 'Adressfalt',
+  popupToolbar : 'Verktygsfalt',
+  popupMenuBar : 'Menyfalt',
+  popupFullScreen : 'Helskarm (endast IE)',
+  popupScrollBars : 'Scrolllista',
+  popupDependent : 'Beroende (endast Netscape)',
+  popupLeft  : 'Position fran vanster',
+  popupTop  : 'Position fran sidans topp',
+  id    : 'Id',
+  langDir   : 'Sprakriktning',
+  langDirLTR  : 'Vanster till hoger (VTH)',
+  langDirRTL  : 'Hoger till vanster (HTV)',
+  acccessKey  : 'Behorighetsnyckel',
+  name   : 'Namn',
+  langCode   : 'Sprakriktning',
+  tabIndex   : 'Tabindex',
+  advisoryTitle  : 'Titel',
+  advisoryContentType : 'Innehallstyp',
+  cssClasses  : 'Stylesheet class',
+  charset   : 'Teckenuppstallning',
+  styles   : 'Stilmall',
+  rel   : 'Relationship', // MISSING
+  selectAnchor  : 'Valj ett ankare',
+  anchorName  : 'efter ankarnamn',
+  anchorId   : 'efter objektid',
+  emailAddress  : 'E-postadress',
+  emailSubject  : 'Amne',
+  emailBody  : 'Innehall',
+  noAnchors  : '(Inga ankare kunde hittas)',
+  noUrl   : 'Var god ange lankens URL',
+  noEmail   : 'Var god ange E-postadress'
+ },
+
+ // Anchor dialog
+ anchor :
+ {
+  toolbar  : 'Infoga/Redigera ankarlank',
+  menu  : 'Egenskaper for ankarlank',
+  title  : 'Egenskaper for ankarlank',
+  name  : 'Ankarnamn',
+  errorName : 'Var god ange ett ankarnamn'
+ },
+
+ // List style dialog
+ list:
+ {
+  numberedTitle  : 'Egenskaper for punktlista',
+  bulletedTitle  : 'Egenskaper for punktlista',
+  type    : 'Typ',
+  start    : 'Start',
+  validateStartNumber    :'List start number must be a whole number.',
+  circle    : 'Cirkel',
+  disc    : 'Disk',
+  square    : 'Fyrkant',
+  none    : 'Ingen',
+  notset    : '<ej angiven>',
+  armenian   : 'Armenisk numrering',
+  georgian   : 'Georgisk numrering (an, ban, gan, etc.)',
+  lowerRoman   : 'Romerska gemener (i, ii, iii, iv, v, etc.)',
+  upperRoman   : 'Romerska versaler (I, II, III, IV, V, etc.)',
+  lowerAlpha   : 'Alpha gemener (a, b, c, d, e, etc.)',
+  upperAlpha   : 'Alpha versaler (A, B, C, D, E, etc.)',
+  lowerGreek   : 'Grekiska gemener (alpha, beta, gamma, etc.)',
+  decimal    : 'Decimal (1, 2, 3, etc.)',
+  decimalLeadingZero : 'Decimal nolla (01, 02, 03, etc.)'
+ },
+
+ // Find And Replace Dialog
+ findAndReplace :
+ {
+  title    : 'Sok och ersatt',
+  find    : 'Sok',
+  replace    : 'Ersatt',
+  findWhat   : 'Sok efter:',
+  replaceWith   : 'Ersatt med:',
+  notFoundMsg   : 'Angiven text kunde ej hittas.',
+  matchCase   : 'Skiftlage',
+  matchWord   : 'Inkludera hela ord',
+  matchCyclic   : 'Matcha cykliska',
+  replaceAll   : 'Ersatt alla',
+  replaceSuccessMsg : '%1 forekomst(er) ersatta.'
+ },
+
+ // Table Dialog
+ table :
+ {
+  toolbar  : 'Tabell',
+  title  : 'Tabellegenskaper',
+  menu  : 'Tabellegenskaper',
+  deleteTable : 'Radera tabell',
+  rows  : 'Rader',
+  columns  : 'Kolumner',
+  border  : 'Kantstorlek',
+  widthPx  : 'pixlar',
+  widthPc  : 'procent',
+  widthUnit : 'enhet bredd',
+  cellSpace : 'Cellavstand',
+  cellPad  : 'Cellutfyllnad',
+  caption  : 'Rubrik',
+  summary  : 'Sammanfattning',
+  headers  : 'Ruberiker',
+  headersNone  : 'Ingen',
+  headersColumn : 'Forsta kolumnen',
+  headersRow  : 'Forsta raden',
+  headersBoth  : 'Bada',
+  invalidRows  : 'Antal rader maste vara storre an 0.',
+  invalidCols  : 'Antal kolumner maste vara ett nummer storre an 0.',
+  invalidBorder : 'Ram maste vara ett nummer.',
+  invalidWidth : 'Tabell maste vara ett nummer.',
+  invalidHeight : 'Tabellens hojd maste vara ett nummer.',
+  invalidCellSpacing : 'Luft i cell maste vara ett nummer.',
+  invalidCellPadding : 'Luft i cell maste vara ett nummer.',
+
+  cell :
+  {
+   menu   : 'Cell',
+   insertBefore : 'Lagg till cell fore',
+   insertAfter  : 'Lagg till cell efter',
+   deleteCell  : 'Radera celler',
+   merge   : 'Sammanfoga celler',
+   mergeRight  : 'Sammanfoga hoger',
+   mergeDown  : 'Sammanfoga ner',
+   splitHorizontal : 'Dela cell horisontellt',
+   splitVertical : 'Dela cell vertikalt',
+   title   : 'Egenskaper for cell',
+   cellType  : 'Celltyp',
+   rowSpan   : 'Rad spann',
+   colSpan   : 'Kolumnen spann',
+   wordWrap  : 'Radbrytning',
+   hAlign   : 'Horisontell justering',
+   vAlign   : 'Vertikal justering',
+   alignBaseline : 'Baslinje',
+   bgColor   : 'Bakgrundsfarg',
+   borderColor  : 'Ramfarg',
+   data   : 'Data',
+   header   : 'Rubrik',
+   yes    : 'Ja',
+   no    : 'Nej',
+   invalidWidth : 'Cellens bredd maste vara ett nummer.',
+   invalidHeight : 'Cellens hojd maste vara ett nummer.',
+   invalidRowSpan : 'Radutvidgning maste vara ett heltal.',
+   invalidColSpan : 'Kolumn maste vara ett heltal.',
+   chooseColor  : 'Valj'
+  },
+
+  row :
+  {
+   menu   : 'Rad',
+   insertBefore : 'Lagg till Rad Fore',
+   insertAfter  : 'Lagg till rad efter',
+   deleteRow  : 'Radera rad'
+  },
+
+  column :
+  {
+   menu   : 'Kolumn',
+   insertBefore : 'Lagg till kolumn fore',
+   insertAfter  : 'Lagg till kolumn efter',
+   deleteColumn : 'Radera kolumn'
+  }
+ },
+
+ // Button Dialog.
+ button :
+ {
+  title  : 'Egenskaper for knapp',
+  text  : 'Text (varde)',
+  type  : 'Typ',
+  typeBtn  : 'Knapp',
+  typeSbm  : 'Skicka',
+  typeRst  : 'aterstall'
+ },
+
+ // Checkbox and Radio Button Dialogs.
+ checkboxAndRadio :
+ {
+  checkboxTitle : 'Egenskaper for kryssruta',
+  radioTitle : 'Egenskaper for alternativknapp',
+  value  : 'Varde',
+  selected : 'Vald'
+ },
+
+ // Form Dialog.
+ form :
+ {
+  title  : 'Egenskaper for formular',
+  menu  : 'Egenskaper for formular',
+  action  : 'Funktion',
+  method  : 'Metod',
+  encoding : 'Kodning'
+ },
+
+ // Select Field Dialog.
+ select :
+ {
+  title  : 'Egenskaper for flervalslista',
+  selectInfo : 'Information',
+  opAvail  : 'Befintliga val',
+  value  : 'Varde',
+  size  : 'Storlek',
+  lines  : 'Linjer',
+  chkMulti : 'Tillat flerval',
+  opText  : 'Text',
+  opValue  : 'Varde',
+  btnAdd  : 'Lagg till',
+  btnModify : 'Redigera',
+  btnUp  : 'Upp',
+  btnDown  : 'Ner',
+  btnSetValue : 'Markera som valt varde',
+  btnDelete : 'Radera'
+ },
+
+ // Textarea Dialog.
+ textarea :
+ {
+  title  : 'Egenskaper for textruta',
+  cols  : 'Kolumner',
+  rows  : 'Rader'
+ },
+
+ // Text Field Dialog.
+ textfield :
+ {
+  title  : 'Egenskaper for textfalt',
+  name  : 'Namn',
+  value  : 'Varde',
+  charWidth : 'Teckenbredd',
+  maxChars : 'Max antal tecken',
+  type  : 'Typ',
+  typeText : 'Text',
+  typePass : 'Losenord'
+ },
+
+ // Hidden Field Dialog.
+ hidden :
+ {
+  title : 'Egenskaper for dolt falt',
+  name : 'Namn',
+  value : 'Varde'
+ },
+
+ // Image Dialog.
+ image :
+ {
+  title  : 'Bildegenskaper',
+  titleButton : 'Egenskaper for bildknapp',
+  menu  : 'Bildegenskaper',
+  infoTab  : 'Bildinformation',
+  btnUpload : 'Skicka till server',
+  upload  : 'Ladda upp',
+  alt   : 'Alternativ text',
+  lockRatio : 'Las hojd/bredd forhallanden',
+  unlockRatio : 'Las upp forhallanden',
+  resetSize : 'aterstall storlek',
+  border  : 'Kant',
+  hSpace  : 'Horis. marginal',
+  vSpace  : 'Vert. marginal',
+  alertUrl : 'Var god och ange bildens URL',
+  linkTab  : 'Lank',
+  button2Img : 'Vill du omvandla den valda bildknappen pa en enkel bild?',
+  img2Button : 'Vill du omvandla den valda bildknappen pa en enkel bild?',
+  urlMissing : 'Bildkallans URL saknas.',
+  validateBorder : 'Kantlinje maste vara ett heltal.',
+  validateHSpace : 'HSpace maste vara ett heltal.',
+  validateVSpace : 'VSpace maste vara ett heltal.'
+ },
+
+ // Flash Dialog
+ flash :
+ {
+  properties  : 'Flashegenskaper',
+  propertiesTab : 'Egenskaper',
+  title   : 'Flashegenskaper',
+  chkPlay   : 'Automatisk uppspelning',
+  chkLoop   : 'Upprepa/Loopa',
+  chkMenu   : 'Aktivera Flashmeny',
+  chkFull   : 'Tillat helskarm',
+   scale   : 'Skala',
+  scaleAll  : 'Visa allt',
+  scaleNoBorder : 'Ingen ram',
+  scaleFit  : 'Exakt passning',
+  access   : 'Script-tillgang',
+  accessAlways : 'Alltid',
+  accessSameDomain: 'Samma doman',
+  accessNever  : 'Aldrig',
+  alignAbsBottom : 'Absolut nederkant',
+  alignAbsMiddle : 'Absolut centrering',
+  alignBaseline : 'Baslinje',
+  alignTextTop : 'Text overkant',
+  quality   : 'Kvalitet',
+  qualityBest  : 'Bast',
+  qualityHigh  : 'Hog',
+  qualityAutoHigh : 'Auto Hog',
+  qualityMedium : 'Medium',
+  qualityAutoLow : 'Auto Lag',
+  qualityLow  : 'Lag',
+  windowModeWindow: 'Fonster',
+  windowModeOpaque: 'Opaque',
+  windowModeTransparent : 'Transparent',
+  windowMode  : 'Fonsterlage',
+  flashvars  : 'Variabler for Flash',
+  bgcolor   : 'Bakgrundsfarg',
+  hSpace   : 'Horis. marginal',
+  vSpace   : 'Vert. marginal',
+  validateSrc  : 'Var god ange lankens URL',
+  validateHSpace : 'HSpace maste vara ett nummer.',
+  validateVSpace : 'VSpace maste vara ett nummer.'
+ },
+
+ // Speller Pages Dialog
+ spellCheck :
+ {
+  toolbar   : 'Stavningskontroll',
+  title   : 'Kontrollera stavning',
+  notAvailable : 'Tyvarr ar tjansten ej tillganglig nu',
+  errorLoading : 'Tjansten ar ej tillganglig: %s.',
+  notInDic  : 'Saknas i ordlistan',
+  changeTo  : 'Andra till',
+  btnIgnore  : 'Ignorera',
+  btnIgnoreAll : 'Ignorera alla',
+  btnReplace  : 'Ersatt',
+  btnReplaceAll : 'Ersatt alla',
+  btnUndo   : 'angra',
+  noSuggestions : '- Forslag saknas -',
+  progress  : 'Stavningskontroll pagar...',
+  noMispell  : 'Stavningskontroll slutford: Inga stavfel patraffades.',
+  noChanges  : 'Stavningskontroll slutford: Inga ord rattades.',
+  oneChange  : 'Stavningskontroll slutford: Ett ord rattades.',
+  manyChanges  : 'Stavningskontroll slutford: %1 ord rattades.',
+  ieSpellDownload : 'Stavningskontrollen ar ej installerad. Vill du gora det nu?'
+ },
+
+ smiley :
+ {
+  toolbar : 'Smiley',
+  title : 'Infoga smiley',
+  options : 'Smileyinstallningar'
+ },
+
+ elementsPath :
+ {
+  eleLabel : 'Elementets sokvag',
+  eleTitle : '%1 element'
+ },
+
+ numberedlist : 'Numrerad lista',
+ bulletedlist : 'Punktlista',
+ indent   : 'Oka indrag',
+ outdent   : 'Minska indrag',
+
+ justify :
+ {
+  left : 'Vansterjustera',
+  center : 'Centrera',
+  right : 'Hogerjustera',
+  block : 'Justera till marginaler'
+ },
+
+ blockquote : 'Blockcitat',
+
+ clipboard :
+ {
+  title  : 'Klistra in',
+  cutError : 'Sakerhetsinstallningar i Er weblasare tillater inte atgarden Klipp ut. Anvand (Ctrl/Cmd+X) istallet.',
+  copyError : 'Sakerhetsinstallningar i Er weblasare tillater inte atgarden Kopiera. Anvand (Ctrl/Cmd+C) istallet',
+  pasteMsg : 'Var god och klistra in Er text i rutan nedan genom att anvanda (<STRONG>Ctrl/Cmd+V</STRONG>) klicka sen pa <STRONG>OK</STRONG>.',
+  securityMsg : 'Pa grund av din webblasares sakerhetsinstallningar kan verktyget inte fa atkomst till urklippsdatan. Var god och anvand detta fonster istallet.',
+  pasteArea : 'Paste Area'
+ },
+
+ pastefromword :
+ {
+  confirmCleanup : 'Texten du vill klistra in verkar vara kopierad fran Word. Vill du rensa innan du klistrar?',
+  toolbar   : 'Klistra in fran Word',
+  title   : 'Klistra in fran Word',
+  error   : 'Det var inte mojligt att stada upp den inklistrade data pa grund av ett internt fel'
+ },
+
+ pasteText :
+ {
+  button : 'Klistra in som vanlig text',
+  title : 'Klistra in som vanlig text'
+ },
+
+ templates :
+ {
+  button   : 'Sidmallar',
+  title   : 'Sidmallar',
+  options : 'Installningar for mall',
+  insertOption : 'Ersatt aktuellt innehall',
+  selectPromptMsg : 'Var god valj en mall att anvanda med editorn<br>(allt nuvarande innehall raderas):',
+  emptyListMsg : '(Ingen mall ar vald)'
+ },
+
+ showBlocks : 'Visa block',
+
+ stylesCombo :
+ {
+  label  : 'Anpassad stil',
+  panelTitle : 'Formatmallar',
+  panelTitle1 : 'Blockstil',
+  panelTitle2 : 'Inbaddad stil',
+  panelTitle3 : 'Objektets stil'
+ },
+
+ format :
+ {
+  label  : 'Teckenformat',
+  panelTitle : 'Teckenformat',
+
+  tag_p  : 'Normal',
+  tag_pre  : 'Formaterad',
+  tag_address : 'Adress',
+  tag_h1  : 'Rubrik 1',
+  tag_h2  : 'Rubrik 2',
+  tag_h3  : 'Rubrik 3',
+  tag_h4  : 'Rubrik 4',
+  tag_h5  : 'Rubrik 5',
+  tag_h6  : 'Rubrik 6',
+  tag_div  : 'Normal (DIV)'
+ },
+
+ div :
+ {
+  title    : 'Skapa Div container',
+  toolbar    : 'Skapa Div container',
+  cssClassInputLabel : 'Stilmallar',
+  styleSelectLabel : 'Stil',
+  IdInputLabel  : 'Id',
+  languageCodeInputLabel : ' Sprakkod',
+  inlineStyleInputLabel : 'Inline Style',
+  advisoryTitleInputLabel : 'Radgivande titel',
+  langDirLabel  : 'Sprakriktning',
+  langDirLTRLabel  : 'Vanster till Hoger (LTR)',
+  langDirRTLLabel  : 'Hoger till vanster (RTL)',
+  edit    : 'Redigera Div',
+  remove    : 'Ta bort Div'
+   },
+
+ iframe :
+ {
+  title  : 'iFrame Egenskaper',
+  toolbar  : 'iFrame',
+  noUrl  : 'Skriv in URL for iFrame',
+  scrolling : 'Aktivera rullningslister',
+  border  : 'Visa ramkant'
+ },
+
+ font :
+ {
+  label  : 'Typsnitt',
+  voiceLabel : 'Typsnitt',
+  panelTitle : 'Typsnitt'
+ },
+
+ fontSize :
+ {
+  label  : 'Storlek',
+  voiceLabel : 'Teckenstorlek',
+  panelTitle : 'Storlek'
+ },
+
+ colorButton :
+ {
+  textColorTitle : 'Textfarg',
+  bgColorTitle : 'Bakgrundsfarg',
+  panelTitle  : 'Farger',
+  auto   : 'Automatisk',
+  more   : 'Fler farger...'
+ },
+
+ colors :
+ {
+  '000' : 'Svart',
+  '800000' : 'Rodbrun',
+  '8B4513' : 'Morkbrun',
+  '2F4F4F' : 'Skiffergra',
+  '008080' : 'Kricka',
+  '000080' : 'Marinbla',
+  '4B0082' : 'Indigo',
+  '696969' : 'Morkgra',
+  'B22222' : 'Tegelsten',
+  'A52A2A' : 'Brun',
+  'DAA520' : 'Mork guld',
+  '006400' : 'Morkgron',
+  '40E0D0' : 'Turkos',
+  '0000CD' : 'Medium bla',
+  '800080' : 'Lila',
+  '808080' : 'Gra',
+  'F00' : 'Rod',
+  'FF8C00' : 'Morkorange',
+  'FFD700' : 'Guld',
+  '008000' : 'Gron',
+  '0FF' : 'Turkos',
+  '00F' : 'Bla',
+  'EE82EE' : 'Violett',
+  'A9A9A9' : 'Matt gra',
+  'FFA07A' : 'Laxrosa',
+  'FFA500' : 'Orange',
+  'FFFF00' : 'Gul',
+  '00FF00' : 'Lime',
+  'AFEEEE' : 'Ljusturkos',
+  'ADD8E6' : 'Ljusbla',
+  'DDA0DD' : 'Plommon',
+  'D3D3D3' : 'Ljusgra',
+  'FFF0F5' : 'Ljus lavender',
+  'FAEBD7' : 'Antikvit',
+  'FFFFE0' : 'Ljusgul',
+  'F0FFF0' : 'Honung',
+  'F0FFFF' : 'Azurbla',
+  'F0F8FF' : 'Alicebla',
+  'E6E6FA' : 'Lavender',
+  'FFF' : 'Vit'
+ },
+
+ scayt :
+ {
+  title   : 'Stavningskontroll medan du skriver',
+  opera_title  : 'Stods ej av Opera',
+  enable   : 'Aktivera SCAYT',
+  disable   : 'Inaktivera SCAYT',
+  about   : 'Om SCAYT',
+  toggle   : 'Vaxla SCAYT',
+  options   : 'Installningar',
+  langs   : 'Sprak',
+  moreSuggestions : 'Fler forslag',
+  ignore   : 'Ignorera',
+  ignoreAll  : 'Ignorera alla',
+  addWord   : 'Lagg till ord',
+  emptyDic  : 'Ordlistans namn far ej vara tomt.',
+
+  optionsTab  : 'Installningar',
+  allCaps   : 'Ignorera alla ord med enbart versaler',
+  ignoreDomainNames : 'Ignorera domannamn',
+  mixedCase  : 'Ignorera ord med blandat shiftlage',
+  mixedWithDigits : 'Ignorera ord med nummer',
+
+  languagesTab : 'Sprak',
+
+  dictionariesTab : 'Ordlistor',
+  dic_field_name : 'Ordlistans namn',
+  dic_create  : 'Skapa',
+  dic_restore  : 'aterstall',
+  dic_delete  : 'Ta bort',
+  dic_rename  : 'Byt namn',
+  dic_info  : 'Inledningsvis lagras ordlistan i en cookie. Nar ordlista vaxer till en punkt dar det inte kan lagras i en cookie, lagras den pa var server. For att lagra din personliga ordlista pa var server du ska ange ett namn for din ordbok. Om du redan har en lagrad ordbok, skriv namnet och klicka pa knappen aterstall.',
+
+  aboutTab  : 'Om'
+ },
+
+ about :
+ {
+  title  : 'Om CKEditor',
+  dlgTitle : 'Om CKEditor',
+  help : 'Check $1 for help.', // MISSING
+  userGuide : 'CKEditor User\'s Guide', // MISSING
+  moreInfo : 'For information av licenciering besok var hemsida:',
+  copy  : 'Copyright &copy; $1. Alla rattigheter reserverade.'
+ },
+
+ maximize : 'Maximera',
+ minimize : 'Minimera',
+
+ fakeobjects :
+ {
+  anchor  : 'Ankare',
+  flash  : 'Flashanimation',
+  iframe  : 'iFrame',
+  hiddenfield : 'Gomt falt',
+  unknown  : 'Okant objekt'
+ },
+
+ resize : 'Dra for att andra storlek',
+
+ colordialog :
+ {
+  title  : 'Valj farg',
+  options : 'Fargalternativ',
+  highlight : 'Markera',
+  selected : 'Vald farg',
+  clear  : 'Rensa'
+ },
+
+ toolbarCollapse : 'Dolj verktygsfalt',
+ toolbarExpand : 'Visa verktygsfalt',
+
+ toolbarGroups :
+ {
+  document : 'Document', // MISSING
+  clipboard : 'Clipboard/Undo', // MISSING
+  editing : 'Editing', // MISSING
+  forms : 'Forms', // MISSING
+  basicstyles : 'Basic Styles', // MISSING
+  paragraph : 'Paragraph', // MISSING
+  links : 'Links', // MISSING
+  insert : 'Insert', // MISSING
+  styles : 'Styles', // MISSING
+  colors : 'Colors', // MISSING
+  tools : 'Tools' // MISSING
+ },
+
+ bidi :
+ {
+  ltr : 'Text riktning fran vanster till hoger',
+  rtl : 'Text riktning fran hoger till vanster'
+ },
+
+ docprops :
+ {
+  label : 'Document Properties', // MISSING
+  title : 'Document Properties', // MISSING
+  design : 'Design', // MISSING
+  meta : 'Meta Tags', // MISSING
+  chooseColor : 'Choose', // MISSING
+  other : 'Other...', // MISSING
+  docTitle : 'Page Title', // MISSING
+  charset :  'Character Set Encoding', // MISSING
+  charsetOther : 'Other Character Set Encoding', // MISSING
+  charsetASCII : 'ASCII', // MISSING
+  charsetCE : 'Central European', // MISSING
+  charsetCT : 'Chinese Traditional (Big5)', // MISSING
+  charsetCR : 'Cyrillic', // MISSING
+  charsetGR : 'Greek', // MISSING
+  charsetJP : 'Japanese', // MISSING
+  charsetKR : 'Korean', // MISSING
+  charsetTR : 'Turkish', // MISSING
+  charsetUN : 'Unicode (UTF-8)', // MISSING
+  charsetWE : 'Western European', // MISSING
+  docType : 'Document Type Heading', // MISSING
+  docTypeOther : 'Other Document Type Heading', // MISSING
+  xhtmlDec : 'Include XHTML Declarations', // MISSING
+  bgColor : 'Background Color', // MISSING
+  bgImage : 'Background Image URL', // MISSING
+  bgFixed : 'Non-scrolling (Fixed) Background', // MISSING
+  txtColor : 'Text Color', // MISSING
+  margin : 'Page Margins', // MISSING
+  marginTop : 'Top', // MISSING
+  marginLeft : 'Left', // MISSING
+  marginRight : 'Right', // MISSING
+  marginBottom : 'Bottom', // MISSING
+  metaKeywords : 'Document Indexing Keywords (comma separated)', // MISSING
+  metaDescription : 'Document Description', // MISSING
+  metaAuthor : 'Author', // MISSING
+  metaCopyright : 'Copyright', // MISSING
+  previewHtml : '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>' // MISSING
+ }
+};
+
+ 

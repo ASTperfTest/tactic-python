@@ -1,0 +1,2361 @@
+﻿--
+-- postgresql database dump
+--
+
+set client_encoding = 'utf8';
+set check_function_bodies = false;
+set client_min_messages = warning;
+
+--
+-- name: schema public; type: comment; schema: -; owner: postgres
+--
+
+comment on schema public is 'standard public schema';
+
+
+--
+-- name: plpgsql; type: procedural language; schema: -; owner: 
+--
+
+create procedural language plpgsql;
+
+
+set search_path = public, pg_catalog;
+
+--
+-- name: gtsvector_in(cstring); type: function; schema: public; owner: postgres
+--
+
+create function gtsvector_in(cstring) returns gtsvector
+    as '$libdir/tsearch2', 'gtsvector_in'
+    language c strict;
+
+
+alter function public.gtsvector_in(cstring) owner to postgres;
+
+--
+-- name: gtsvector_out(gtsvector); type: function; schema: public; owner: postgres
+--
+
+create function gtsvector_out(gtsvector) returns cstring
+    as '$libdir/tsearch2', 'gtsvector_out'
+    language c strict;
+
+
+alter function public.gtsvector_out(gtsvector) owner to postgres;
+
+--
+-- name: gtsvector; type: type; schema: public; owner: postgres
+--
+
+create type gtsvector (
+    internallength = variable,
+    input = gtsvector_in,
+    output = gtsvector_out,
+    alignment = int4,
+    storage = plain
+);
+
+
+alter type public.gtsvector owner to postgres;
+
+--
+-- name: tsquery_in(cstring); type: function; schema: public; owner: postgres
+--
+
+create function tsquery_in(cstring) returns tsquery
+    as '$libdir/tsearch2', 'tsquery_in'
+    language c strict;
+
+
+alter function public.tsquery_in(cstring) owner to postgres;
+
+--
+-- name: tsquery_out(tsquery); type: function; schema: public; owner: postgres
+--
+
+create function tsquery_out(tsquery) returns cstring
+    as '$libdir/tsearch2', 'tsquery_out'
+    language c strict;
+
+
+alter function public.tsquery_out(tsquery) owner to postgres;
+
+--
+-- name: tsquery; type: type; schema: public; owner: postgres
+--
+
+create type tsquery (
+    internallength = variable,
+    input = tsquery_in,
+    output = tsquery_out,
+    alignment = int4,
+    storage = plain
+);
+
+
+alter type public.tsquery owner to postgres;
+
+--
+-- name: tsvector_in(cstring); type: function; schema: public; owner: postgres
+--
+
+create function tsvector_in(cstring) returns tsvector
+    as '$libdir/tsearch2', 'tsvector_in'
+    language c strict;
+
+
+alter function public.tsvector_in(cstring) owner to postgres;
+
+--
+-- name: tsvector_out(tsvector); type: function; schema: public; owner: postgres
+--
+
+create function tsvector_out(tsvector) returns cstring
+    as '$libdir/tsearch2', 'tsvector_out'
+    language c strict;
+
+
+alter function public.tsvector_out(tsvector) owner to postgres;
+
+--
+-- name: tsvector; type: type; schema: public; owner: postgres
+--
+
+create type tsvector (
+    internallength = variable,
+    input = tsvector_in,
+    output = tsvector_out,
+    alignment = int4,
+    storage = extended
+);
+
+
+alter type public.tsvector owner to postgres;
+
+--
+-- name: statinfo; type: type; schema: public; owner: postgres
+--
+
+create type statinfo as (
+ word text,
+ ndoc integer,
+ nentry integer
+);
+
+
+alter type public.statinfo owner to postgres;
+
+--
+-- name: tokenout; type: type; schema: public; owner: postgres
+--
+
+create type tokenout as (
+ tokid integer,
+ token text
+);
+
+
+alter type public.tokenout owner to postgres;
+
+--
+-- name: tokentype; type: type; schema: public; owner: postgres
+--
+
+create type tokentype as (
+ tokid integer,
+ alias text,
+ descr text
+);
+
+
+alter type public.tokentype owner to postgres;
+
+--
+-- name: tsdebug; type: type; schema: public; owner: postgres
+--
+
+create type tsdebug as (
+ ts_name text,
+ tok_type text,
+ description text,
+ token text,
+ dict_name text[],
+ tsvector tsvector
+);
+
+
+alter type public.tsdebug owner to postgres;
+
+--
+-- name: _get_parser_from_curcfg(); type: function; schema: public; owner: postgres
+--
+
+create function _get_parser_from_curcfg() returns text
+    as $$ select prs_name from pg_ts_cfg where oid = show_curcfg() $$
+    language sql immutable strict;
+
+
+alter function public._get_parser_from_curcfg() owner to postgres;
+
+--
+-- name: concat(tsvector, tsvector); type: function; schema: public; owner: postgres
+--
+
+create function concat(tsvector, tsvector) returns tsvector
+    as '$libdir/tsearch2', 'concat'
+    language c immutable strict;
+
+
+alter function public.concat(tsvector, tsvector) owner to postgres;
+
+--
+-- name: dex_init(internal); type: function; schema: public; owner: postgres
+--
+
+create function dex_init(internal) returns internal
+    as '$libdir/tsearch2', 'dex_init'
+    language c;
+
+
+alter function public.dex_init(internal) owner to postgres;
+
+--
+-- name: dex_lexize(internal, internal, integer); type: function; schema: public; owner: postgres
+--
+
+create function dex_lexize(internal, internal, integer) returns internal
+    as '$libdir/tsearch2', 'dex_lexize'
+    language c strict;
+
+
+alter function public.dex_lexize(internal, internal, integer) owner to postgres;
+
+--
+-- name: exectsq(tsvector, tsquery); type: function; schema: public; owner: postgres
+--
+
+create function exectsq(tsvector, tsquery) returns boolean
+    as '$libdir/tsearch2', 'exectsq'
+    language c immutable strict;
+
+
+alter function public.exectsq(tsvector, tsquery) owner to postgres;
+
+--
+-- name: function exectsq(tsvector, tsquery); type: comment; schema: public; owner: postgres
+--
+
+comment on function exectsq(tsvector, tsquery) is 'boolean operation with text index';
+
+
+--
+-- name: get_covers(tsvector, tsquery); type: function; schema: public; owner: postgres
+--
+
+create function get_covers(tsvector, tsquery) returns text
+    as '$libdir/tsearch2', 'get_covers'
+    language c strict;
+
+
+alter function public.get_covers(tsvector, tsquery) owner to postgres;
+
+--
+-- name: gtsvector_compress(internal); type: function; schema: public; owner: postgres
+--
+
+create function gtsvector_compress(internal) returns internal
+    as '$libdir/tsearch2', 'gtsvector_compress'
+    language c;
+
+
+alter function public.gtsvector_compress(internal) owner to postgres;
+
+--
+-- name: gtsvector_consistent(gtsvector, internal, integer); type: function; schema: public; owner: postgres
+--
+
+create function gtsvector_consistent(gtsvector, internal, integer) returns boolean
+    as '$libdir/tsearch2', 'gtsvector_consistent'
+    language c;
+
+
+alter function public.gtsvector_consistent(gtsvector, internal, integer) owner to postgres;
+
+--
+-- name: gtsvector_decompress(internal); type: function; schema: public; owner: postgres
+--
+
+create function gtsvector_decompress(internal) returns internal
+    as '$libdir/tsearch2', 'gtsvector_decompress'
+    language c;
+
+
+alter function public.gtsvector_decompress(internal) owner to postgres;
+
+--
+-- name: gtsvector_penalty(internal, internal, internal); type: function; schema: public; owner: postgres
+--
+
+create function gtsvector_penalty(internal, internal, internal) returns internal
+    as '$libdir/tsearch2', 'gtsvector_penalty'
+    language c strict;
+
+
+alter function public.gtsvector_penalty(internal, internal, internal) owner to postgres;
+
+--
+-- name: gtsvector_picksplit(internal, internal); type: function; schema: public; owner: postgres
+--
+
+create function gtsvector_picksplit(internal, internal) returns internal
+    as '$libdir/tsearch2', 'gtsvector_picksplit'
+    language c;
+
+
+alter function public.gtsvector_picksplit(internal, internal) owner to postgres;
+
+--
+-- name: gtsvector_same(gtsvector, gtsvector, internal); type: function; schema: public; owner: postgres
+--
+
+create function gtsvector_same(gtsvector, gtsvector, internal) returns internal
+    as '$libdir/tsearch2', 'gtsvector_same'
+    language c;
+
+
+alter function public.gtsvector_same(gtsvector, gtsvector, internal) owner to postgres;
+
+--
+-- name: gtsvector_union(internal, internal); type: function; schema: public; owner: postgres
+--
+
+create function gtsvector_union(internal, internal) returns integer[]
+    as '$libdir/tsearch2', 'gtsvector_union'
+    language c;
+
+
+alter function public.gtsvector_union(internal, internal) owner to postgres;
+
+--
+-- name: headline(oid, text, tsquery, text); type: function; schema: public; owner: postgres
+--
+
+create function headline(oid, text, tsquery, text) returns text
+    as '$libdir/tsearch2', 'headline'
+    language c immutable strict;
+
+
+alter function public.headline(oid, text, tsquery, text) owner to postgres;
+
+--
+-- name: headline(oid, text, tsquery); type: function; schema: public; owner: postgres
+--
+
+create function headline(oid, text, tsquery) returns text
+    as '$libdir/tsearch2', 'headline'
+    language c immutable strict;
+
+
+alter function public.headline(oid, text, tsquery) owner to postgres;
+
+--
+-- name: headline(text, text, tsquery, text); type: function; schema: public; owner: postgres
+--
+
+create function headline(text, text, tsquery, text) returns text
+    as '$libdir/tsearch2', 'headline_byname'
+    language c immutable strict;
+
+
+alter function public.headline(text, text, tsquery, text) owner to postgres;
+
+--
+-- name: headline(text, text, tsquery); type: function; schema: public; owner: postgres
+--
+
+create function headline(text, text, tsquery) returns text
+    as '$libdir/tsearch2', 'headline_byname'
+    language c immutable strict;
+
+
+alter function public.headline(text, text, tsquery) owner to postgres;
+
+--
+-- name: headline(text, tsquery, text); type: function; schema: public; owner: postgres
+--
+
+create function headline(text, tsquery, text) returns text
+    as '$libdir/tsearch2', 'headline_current'
+    language c immutable strict;
+
+
+alter function public.headline(text, tsquery, text) owner to postgres;
+
+--
+-- name: headline(text, tsquery); type: function; schema: public; owner: postgres
+--
+
+create function headline(text, tsquery) returns text
+    as '$libdir/tsearch2', 'headline_current'
+    language c immutable strict;
+
+
+alter function public.headline(text, tsquery) owner to postgres;
+
+--
+-- name: length(tsvector); type: function; schema: public; owner: postgres
+--
+
+create function length(tsvector) returns integer
+    as '$libdir/tsearch2', 'tsvector_length'
+    language c immutable strict;
+
+
+alter function public.length(tsvector) owner to postgres;
+
+--
+-- name: lexize(oid, text); type: function; schema: public; owner: postgres
+--
+
+create function lexize(oid, text) returns text[]
+    as '$libdir/tsearch2', 'lexize'
+    language c strict;
+
+
+alter function public.lexize(oid, text) owner to postgres;
+
+--
+-- name: lexize(text, text); type: function; schema: public; owner: postgres
+--
+
+create function lexize(text, text) returns text[]
+    as '$libdir/tsearch2', 'lexize_byname'
+    language c strict;
+
+
+alter function public.lexize(text, text) owner to postgres;
+
+--
+-- name: lexize(text); type: function; schema: public; owner: postgres
+--
+
+create function lexize(text) returns text[]
+    as '$libdir/tsearch2', 'lexize_bycurrent'
+    language c strict;
+
+
+alter function public.lexize(text) owner to postgres;
+
+--
+-- name: parse(oid, text); type: function; schema: public; owner: postgres
+--
+
+create function parse(oid, text) returns setof tokenout
+    as '$libdir/tsearch2', 'parse'
+    language c strict;
+
+
+alter function public.parse(oid, text) owner to postgres;
+
+--
+-- name: parse(text, text); type: function; schema: public; owner: postgres
+--
+
+create function parse(text, text) returns setof tokenout
+    as '$libdir/tsearch2', 'parse_byname'
+    language c strict;
+
+
+alter function public.parse(text, text) owner to postgres;
+
+--
+-- name: parse(text); type: function; schema: public; owner: postgres
+--
+
+create function parse(text) returns setof tokenout
+    as '$libdir/tsearch2', 'parse_current'
+    language c strict;
+
+
+alter function public.parse(text) owner to postgres;
+
+--
+-- name: pg_file_length(text); type: function; schema: public; owner: postgres
+--
+
+create function pg_file_length(text) returns bigint
+    as $_$select len from pg_file_stat($1) as s(len int8, c timestamp, a timestamp, m timestamp, i bool)$_$
+    language sql strict;
+
+
+alter function public.pg_file_length(text) owner to postgres;
+
+--
+-- name: pg_file_rename(text, text); type: function; schema: public; owner: postgres
+--
+
+create function pg_file_rename(text, text) returns boolean
+    as $_$select pg_file_rename($1, $2, null); $_$
+    language sql strict;
+
+
+alter function public.pg_file_rename(text, text) owner to postgres;
+
+--
+-- name: plpgsql_call_handler(); type: function; schema: public; owner: postgres
+--
+
+create function plpgsql_call_handler() returns language_handler
+    as '$libdir/plpgsql', 'plpgsql_call_handler'
+    language c;
+
+
+alter function public.plpgsql_call_handler() owner to postgres;
+
+--
+-- name: plpgsql_validator(oid); type: function; schema: public; owner: postgres
+--
+
+create function plpgsql_validator(oid) returns void
+    as '$libdir/plpgsql', 'plpgsql_validator'
+    language c;
+
+
+alter function public.plpgsql_validator(oid) owner to postgres;
+
+--
+-- name: prsd_end(internal); type: function; schema: public; owner: postgres
+--
+
+create function prsd_end(internal) returns void
+    as '$libdir/tsearch2', 'prsd_end'
+    language c;
+
+
+alter function public.prsd_end(internal) owner to postgres;
+
+--
+-- name: prsd_getlexeme(internal, internal, internal); type: function; schema: public; owner: postgres
+--
+
+create function prsd_getlexeme(internal, internal, internal) returns integer
+    as '$libdir/tsearch2', 'prsd_getlexeme'
+    language c;
+
+
+alter function public.prsd_getlexeme(internal, internal, internal) owner to postgres;
+
+--
+-- name: prsd_headline(internal, internal, internal); type: function; schema: public; owner: postgres
+--
+
+create function prsd_headline(internal, internal, internal) returns internal
+    as '$libdir/tsearch2', 'prsd_headline'
+    language c;
+
+
+alter function public.prsd_headline(internal, internal, internal) owner to postgres;
+
+--
+-- name: prsd_lextype(internal); type: function; schema: public; owner: postgres
+--
+
+create function prsd_lextype(internal) returns internal
+    as '$libdir/tsearch2', 'prsd_lextype'
+    language c;
+
+
+alter function public.prsd_lextype(internal) owner to postgres;
+
+--
+-- name: prsd_start(internal, integer); type: function; schema: public; owner: postgres
+--
+
+create function prsd_start(internal, integer) returns internal
+    as '$libdir/tsearch2', 'prsd_start'
+    language c;
+
+
+alter function public.prsd_start(internal, integer) owner to postgres;
+
+--
+-- name: querytree(tsquery); type: function; schema: public; owner: postgres
+--
+
+create function querytree(tsquery) returns text
+    as '$libdir/tsearch2', 'tsquerytree'
+    language c strict;
+
+
+alter function public.querytree(tsquery) owner to postgres;
+
+--
+-- name: rank(real[], tsvector, tsquery); type: function; schema: public; owner: postgres
+--
+
+create function rank(real[], tsvector, tsquery) returns real
+    as '$libdir/tsearch2', 'rank'
+    language c immutable strict;
+
+
+alter function public.rank(real[], tsvector, tsquery) owner to postgres;
+
+--
+-- name: rank(real[], tsvector, tsquery, integer); type: function; schema: public; owner: postgres
+--
+
+create function rank(real[], tsvector, tsquery, integer) returns real
+    as '$libdir/tsearch2', 'rank'
+    language c immutable strict;
+
+
+alter function public.rank(real[], tsvector, tsquery, integer) owner to postgres;
+
+--
+-- name: rank(tsvector, tsquery); type: function; schema: public; owner: postgres
+--
+
+create function rank(tsvector, tsquery) returns real
+    as '$libdir/tsearch2', 'rank_def'
+    language c immutable strict;
+
+
+alter function public.rank(tsvector, tsquery) owner to postgres;
+
+--
+-- name: rank(tsvector, tsquery, integer); type: function; schema: public; owner: postgres
+--
+
+create function rank(tsvector, tsquery, integer) returns real
+    as '$libdir/tsearch2', 'rank_def'
+    language c immutable strict;
+
+
+alter function public.rank(tsvector, tsquery, integer) owner to postgres;
+
+--
+-- name: rank_cd(integer, tsvector, tsquery); type: function; schema: public; owner: postgres
+--
+
+create function rank_cd(integer, tsvector, tsquery) returns real
+    as '$libdir/tsearch2', 'rank_cd'
+    language c immutable strict;
+
+
+alter function public.rank_cd(integer, tsvector, tsquery) owner to postgres;
+
+--
+-- name: rank_cd(integer, tsvector, tsquery, integer); type: function; schema: public; owner: postgres
+--
+
+create function rank_cd(integer, tsvector, tsquery, integer) returns real
+    as '$libdir/tsearch2', 'rank_cd'
+    language c immutable strict;
+
+
+alter function public.rank_cd(integer, tsvector, tsquery, integer) owner to postgres;
+
+--
+-- name: rank_cd(tsvector, tsquery); type: function; schema: public; owner: postgres
+--
+
+create function rank_cd(tsvector, tsquery) returns real
+    as '$libdir/tsearch2', 'rank_cd_def'
+    language c immutable strict;
+
+
+alter function public.rank_cd(tsvector, tsquery) owner to postgres;
+
+--
+-- name: rank_cd(tsvector, tsquery, integer); type: function; schema: public; owner: postgres
+--
+
+create function rank_cd(tsvector, tsquery, integer) returns real
+    as '$libdir/tsearch2', 'rank_cd_def'
+    language c immutable strict;
+
+
+alter function public.rank_cd(tsvector, tsquery, integer) owner to postgres;
+
+--
+-- name: reset_tsearch(); type: function; schema: public; owner: postgres
+--
+
+create function reset_tsearch() returns void
+    as '$libdir/tsearch2', 'reset_tsearch'
+    language c strict;
+
+
+alter function public.reset_tsearch() owner to postgres;
+
+--
+-- name: rexectsq(tsquery, tsvector); type: function; schema: public; owner: postgres
+--
+
+create function rexectsq(tsquery, tsvector) returns boolean
+    as '$libdir/tsearch2', 'rexectsq'
+    language c immutable strict;
+
+
+alter function public.rexectsq(tsquery, tsvector) owner to postgres;
+
+--
+-- name: function rexectsq(tsquery, tsvector); type: comment; schema: public; owner: postgres
+--
+
+comment on function rexectsq(tsquery, tsvector) is 'boolean operation with text index';
+
+
+--
+-- name: set_curcfg(integer); type: function; schema: public; owner: postgres
+--
+
+create function set_curcfg(integer) returns void
+    as '$libdir/tsearch2', 'set_curcfg'
+    language c strict;
+
+
+alter function public.set_curcfg(integer) owner to postgres;
+
+--
+-- name: set_curcfg(text); type: function; schema: public; owner: postgres
+--
+
+create function set_curcfg(text) returns void
+    as '$libdir/tsearch2', 'set_curcfg_byname'
+    language c strict;
+
+
+alter function public.set_curcfg(text) owner to postgres;
+
+--
+-- name: set_curdict(integer); type: function; schema: public; owner: postgres
+--
+
+create function set_curdict(integer) returns void
+    as '$libdir/tsearch2', 'set_curdict'
+    language c strict;
+
+
+alter function public.set_curdict(integer) owner to postgres;
+
+--
+-- name: set_curdict(text); type: function; schema: public; owner: postgres
+--
+
+create function set_curdict(text) returns void
+    as '$libdir/tsearch2', 'set_curdict_byname'
+    language c strict;
+
+
+alter function public.set_curdict(text) owner to postgres;
+
+--
+-- name: set_curprs(integer); type: function; schema: public; owner: postgres
+--
+
+create function set_curprs(integer) returns void
+    as '$libdir/tsearch2', 'set_curprs'
+    language c strict;
+
+
+alter function public.set_curprs(integer) owner to postgres;
+
+--
+-- name: set_curprs(text); type: function; schema: public; owner: postgres
+--
+
+create function set_curprs(text) returns void
+    as '$libdir/tsearch2', 'set_curprs_byname'
+    language c strict;
+
+
+alter function public.set_curprs(text) owner to postgres;
+
+--
+-- name: setweight(tsvector, "char"); type: function; schema: public; owner: postgres
+--
+
+create function setweight(tsvector, "char") returns tsvector
+    as '$libdir/tsearch2', 'setweight'
+    language c immutable strict;
+
+
+alter function public.setweight(tsvector, "char") owner to postgres;
+
+--
+-- name: show_curcfg(); type: function; schema: public; owner: postgres
+--
+
+create function show_curcfg() returns oid
+    as '$libdir/tsearch2', 'show_curcfg'
+    language c strict;
+
+
+alter function public.show_curcfg() owner to postgres;
+
+--
+-- name: snb_en_init(internal); type: function; schema: public; owner: postgres
+--
+
+create function snb_en_init(internal) returns internal
+    as '$libdir/tsearch2', 'snb_en_init'
+    language c;
+
+
+alter function public.snb_en_init(internal) owner to postgres;
+
+--
+-- name: snb_lexize(internal, internal, integer); type: function; schema: public; owner: postgres
+--
+
+create function snb_lexize(internal, internal, integer) returns internal
+    as '$libdir/tsearch2', 'snb_lexize'
+    language c strict;
+
+
+alter function public.snb_lexize(internal, internal, integer) owner to postgres;
+
+--
+-- name: snb_ru_init(internal); type: function; schema: public; owner: postgres
+--
+
+create function snb_ru_init(internal) returns internal
+    as '$libdir/tsearch2', 'snb_ru_init'
+    language c;
+
+
+alter function public.snb_ru_init(internal) owner to postgres;
+
+--
+-- name: spell_init(internal); type: function; schema: public; owner: postgres
+--
+
+create function spell_init(internal) returns internal
+    as '$libdir/tsearch2', 'spell_init'
+    language c;
+
+
+alter function public.spell_init(internal) owner to postgres;
+
+--
+-- name: spell_lexize(internal, internal, integer); type: function; schema: public; owner: postgres
+--
+
+create function spell_lexize(internal, internal, integer) returns internal
+    as '$libdir/tsearch2', 'spell_lexize'
+    language c strict;
+
+
+alter function public.spell_lexize(internal, internal, integer) owner to postgres;
+
+--
+-- name: stat(text); type: function; schema: public; owner: postgres
+--
+
+create function stat(text) returns setof statinfo
+    as '$libdir/tsearch2', 'ts_stat'
+    language c strict;
+
+
+alter function public.stat(text) owner to postgres;
+
+--
+-- name: stat(text, text); type: function; schema: public; owner: postgres
+--
+
+create function stat(text, text) returns setof statinfo
+    as '$libdir/tsearch2', 'ts_stat'
+    language c strict;
+
+
+alter function public.stat(text, text) owner to postgres;
+
+--
+-- name: strip(tsvector); type: function; schema: public; owner: postgres
+--
+
+create function strip(tsvector) returns tsvector
+    as '$libdir/tsearch2', 'strip'
+    language c immutable strict;
+
+
+alter function public.strip(tsvector) owner to postgres;
+
+--
+-- name: syn_init(internal); type: function; schema: public; owner: postgres
+--
+
+create function syn_init(internal) returns internal
+    as '$libdir/tsearch2', 'syn_init'
+    language c;
+
+
+alter function public.syn_init(internal) owner to postgres;
+
+--
+-- name: syn_lexize(internal, internal, integer); type: function; schema: public; owner: postgres
+--
+
+create function syn_lexize(internal, internal, integer) returns internal
+    as '$libdir/tsearch2', 'syn_lexize'
+    language c strict;
+
+
+alter function public.syn_lexize(internal, internal, integer) owner to postgres;
+
+--
+-- name: to_tsquery(oid, text); type: function; schema: public; owner: postgres
+--
+
+create function to_tsquery(oid, text) returns tsquery
+    as '$libdir/tsearch2', 'to_tsquery'
+    language c immutable strict;
+
+
+alter function public.to_tsquery(oid, text) owner to postgres;
+
+--
+-- name: to_tsquery(text, text); type: function; schema: public; owner: postgres
+--
+
+create function to_tsquery(text, text) returns tsquery
+    as '$libdir/tsearch2', 'to_tsquery_name'
+    language c immutable strict;
+
+
+alter function public.to_tsquery(text, text) owner to postgres;
+
+--
+-- name: to_tsquery(text); type: function; schema: public; owner: postgres
+--
+
+create function to_tsquery(text) returns tsquery
+    as '$libdir/tsearch2', 'to_tsquery_current'
+    language c immutable strict;
+
+
+alter function public.to_tsquery(text) owner to postgres;
+
+--
+-- name: to_tsvector(oid, text); type: function; schema: public; owner: postgres
+--
+
+create function to_tsvector(oid, text) returns tsvector
+    as '$libdir/tsearch2', 'to_tsvector'
+    language c immutable strict;
+
+
+alter function public.to_tsvector(oid, text) owner to postgres;
+
+--
+-- name: to_tsvector(text, text); type: function; schema: public; owner: postgres
+--
+
+create function to_tsvector(text, text) returns tsvector
+    as '$libdir/tsearch2', 'to_tsvector_name'
+    language c immutable strict;
+
+
+alter function public.to_tsvector(text, text) owner to postgres;
+
+--
+-- name: to_tsvector(text); type: function; schema: public; owner: postgres
+--
+
+create function to_tsvector(text) returns tsvector
+    as '$libdir/tsearch2', 'to_tsvector_current'
+    language c immutable strict;
+
+
+alter function public.to_tsvector(text) owner to postgres;
+
+--
+-- name: token_type(integer); type: function; schema: public; owner: postgres
+--
+
+create function token_type(integer) returns setof tokentype
+    as '$libdir/tsearch2', 'token_type'
+    language c strict;
+
+
+alter function public.token_type(integer) owner to postgres;
+
+--
+-- name: token_type(text); type: function; schema: public; owner: postgres
+--
+
+create function token_type(text) returns setof tokentype
+    as '$libdir/tsearch2', 'token_type_byname'
+    language c strict;
+
+
+alter function public.token_type(text) owner to postgres;
+
+--
+-- name: token_type(); type: function; schema: public; owner: postgres
+--
+
+create function token_type() returns setof tokentype
+    as '$libdir/tsearch2', 'token_type_current'
+    language c strict;
+
+
+alter function public.token_type() owner to postgres;
+
+--
+-- name: ts_debug(text); type: function; schema: public; owner: postgres
+--
+
+create function ts_debug(text) returns setof tsdebug
+    as $_$
+
+select 
+
+        m.ts_name,
+
+        t.alias as tok_type,
+
+        t.descr as description,
+
+        p.token,
+
+        m.dict_name,
+
+        strip(to_tsvector(p.token)) as tsvector
+
+from
+
+        parse( _get_parser_from_curcfg(), $1 ) as p,
+
+        token_type() as t,
+
+        pg_ts_cfgmap as m,
+
+        pg_ts_cfg as c
+
+where
+
+        t.tokid=p.tokid and
+
+        t.alias = m.tok_alias and 
+
+        m.ts_name=c.ts_name and 
+
+        c.oid=show_curcfg() 
+
+$_$
+    language sql strict;
+
+
+alter function public.ts_debug(text) owner to postgres;
+
+--
+-- name: tsearch2(); type: function; schema: public; owner: postgres
+--
+
+create function tsearch2() returns "trigger"
+    as '$libdir/tsearch2', 'tsearch2'
+    language c;
+
+
+alter function public.tsearch2() owner to postgres;
+
+--
+-- name: tsvector_cmp(tsvector, tsvector); type: function; schema: public; owner: postgres
+--
+
+create function tsvector_cmp(tsvector, tsvector) returns integer
+    as '$libdir/tsearch2', 'tsvector_cmp'
+    language c immutable strict;
+
+
+alter function public.tsvector_cmp(tsvector, tsvector) owner to postgres;
+
+--
+-- name: tsvector_eq(tsvector, tsvector); type: function; schema: public; owner: postgres
+--
+
+create function tsvector_eq(tsvector, tsvector) returns boolean
+    as '$libdir/tsearch2', 'tsvector_eq'
+    language c immutable strict;
+
+
+alter function public.tsvector_eq(tsvector, tsvector) owner to postgres;
+
+--
+-- name: tsvector_ge(tsvector, tsvector); type: function; schema: public; owner: postgres
+--
+
+create function tsvector_ge(tsvector, tsvector) returns boolean
+    as '$libdir/tsearch2', 'tsvector_ge'
+    language c immutable strict;
+
+
+alter function public.tsvector_ge(tsvector, tsvector) owner to postgres;
+
+--
+-- name: tsvector_gt(tsvector, tsvector); type: function; schema: public; owner: postgres
+--
+
+create function tsvector_gt(tsvector, tsvector) returns boolean
+    as '$libdir/tsearch2', 'tsvector_gt'
+    language c immutable strict;
+
+
+alter function public.tsvector_gt(tsvector, tsvector) owner to postgres;
+
+--
+-- name: tsvector_le(tsvector, tsvector); type: function; schema: public; owner: postgres
+--
+
+create function tsvector_le(tsvector, tsvector) returns boolean
+    as '$libdir/tsearch2', 'tsvector_le'
+    language c immutable strict;
+
+
+alter function public.tsvector_le(tsvector, tsvector) owner to postgres;
+
+--
+-- name: tsvector_lt(tsvector, tsvector); type: function; schema: public; owner: postgres
+--
+
+create function tsvector_lt(tsvector, tsvector) returns boolean
+    as '$libdir/tsearch2', 'tsvector_lt'
+    language c immutable strict;
+
+
+alter function public.tsvector_lt(tsvector, tsvector) owner to postgres;
+
+--
+-- name: tsvector_ne(tsvector, tsvector); type: function; schema: public; owner: postgres
+--
+
+create function tsvector_ne(tsvector, tsvector) returns boolean
+    as '$libdir/tsearch2', 'tsvector_ne'
+    language c immutable strict;
+
+
+alter function public.tsvector_ne(tsvector, tsvector) owner to postgres;
+
+--
+-- name: <; type: operator; schema: public; owner: postgres
+--
+
+create operator < (
+    procedure = tsvector_lt,
+    leftarg = tsvector,
+    rightarg = tsvector,
+    commutator = >,
+    negator = >=,
+    restrict = contsel,
+    join = contjoinsel
+);
+
+
+alter operator public.< (tsvector, tsvector) owner to postgres;
+
+--
+-- name: <=; type: operator; schema: public; owner: postgres
+--
+
+create operator <= (
+    procedure = tsvector_le,
+    leftarg = tsvector,
+    rightarg = tsvector,
+    commutator = >=,
+    negator = >,
+    restrict = contsel,
+    join = contjoinsel
+);
+
+
+alter operator public.<= (tsvector, tsvector) owner to postgres;
+
+--
+-- name: <>; type: operator; schema: public; owner: postgres
+--
+
+create operator <> (
+    procedure = tsvector_ne,
+    leftarg = tsvector,
+    rightarg = tsvector,
+    commutator = <>,
+    negator = =,
+    restrict = neqsel,
+    join = neqjoinsel
+);
+
+
+alter operator public.<> (tsvector, tsvector) owner to postgres;
+
+--
+-- name: =; type: operator; schema: public; owner: postgres
+--
+
+create operator = (
+    procedure = tsvector_eq,
+    leftarg = tsvector,
+    rightarg = tsvector,
+    commutator = =,
+    negator = <>,
+    restrict = eqsel,
+    join = eqjoinsel,
+    sort1 = <,
+    sort2 = <,
+    ltcmp = <,
+    gtcmp = >
+);
+
+
+alter operator public.= (tsvector, tsvector) owner to postgres;
+
+--
+-- name: >; type: operator; schema: public; owner: postgres
+--
+
+create operator > (
+    procedure = tsvector_gt,
+    leftarg = tsvector,
+    rightarg = tsvector,
+    commutator = <,
+    negator = <=,
+    restrict = contsel,
+    join = contjoinsel
+);
+
+
+alter operator public.> (tsvector, tsvector) owner to postgres;
+
+--
+-- name: >=; type: operator; schema: public; owner: postgres
+--
+
+create operator >= (
+    procedure = tsvector_ge,
+    leftarg = tsvector,
+    rightarg = tsvector,
+    commutator = <=,
+    negator = <,
+    restrict = contsel,
+    join = contjoinsel
+);
+
+
+alter operator public.>= (tsvector, tsvector) owner to postgres;
+
+--
+-- name: @@; type: operator; schema: public; owner: postgres
+--
+
+create operator @@ (
+    procedure = exectsq,
+    leftarg = tsvector,
+    rightarg = tsquery,
+    commutator = @@,
+    restrict = contsel,
+    join = contjoinsel
+);
+
+
+alter operator public.@@ (tsvector, tsquery) owner to postgres;
+
+--
+-- name: @@; type: operator; schema: public; owner: postgres
+--
+
+create operator @@ (
+    procedure = rexectsq,
+    leftarg = tsquery,
+    rightarg = tsvector,
+    commutator = @@,
+    restrict = contsel,
+    join = contjoinsel
+);
+
+
+alter operator public.@@ (tsquery, tsvector) owner to postgres;
+
+--
+-- name: ||; type: operator; schema: public; owner: postgres
+--
+
+create operator || (
+    procedure = concat,
+    leftarg = tsvector,
+    rightarg = tsvector
+);
+
+
+alter operator public.|| (tsvector, tsvector) owner to postgres;
+
+--
+-- name: gist_tsvector_ops; type: operator class; schema: public; owner: postgres
+--
+
+create operator class gist_tsvector_ops
+    default for type tsvector using gist as
+    storage gtsvector ,
+    operator 1 @@(tsvector,tsquery) recheck ,
+    function 1 gtsvector_consistent(gtsvector,internal,integer) ,
+    function 2 gtsvector_union(internal,internal) ,
+    function 3 gtsvector_compress(internal) ,
+    function 4 gtsvector_decompress(internal) ,
+    function 5 gtsvector_penalty(internal,internal,internal) ,
+    function 6 gtsvector_picksplit(internal,internal) ,
+    function 7 gtsvector_same(gtsvector,gtsvector,internal);
+
+
+alter operator class public.gist_tsvector_ops using gist owner to postgres;
+
+--
+-- name: tsvector_ops; type: operator class; schema: public; owner: postgres
+--
+
+create operator class tsvector_ops
+    default for type tsvector using btree as
+    operator 1 <(tsvector,tsvector) ,
+    operator 2 <=(tsvector,tsvector) ,
+    operator 3 =(tsvector,tsvector) ,
+    operator 4 >=(tsvector,tsvector) ,
+    operator 5 >(tsvector,tsvector) ,
+    function 1 tsvector_cmp(tsvector,tsvector);
+
+
+alter operator class public.tsvector_ops using btree owner to postgres;
+
+set default_tablespace = '';
+
+set default_with_oids = false;
+
+--
+-- name: art_reference; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table art_reference (
+    id serial not null,
+    code character varying(256),
+    name character varying(200),
+    description text,
+    snapshot text,
+    category character varying(100)
+);
+
+
+alter table public.art_reference owner to postgres;
+
+--
+-- name: asset; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table asset (
+    id serial not null,
+    code character varying(30) not null,
+    name character varying(100) not null,
+    asset_type character varying(30),
+    description text,
+    "timestamp" timestamp without time zone default now(),
+    images text,
+    status text,
+    discussion text,
+    snapshot text,
+    retire_status character varying(30),
+    asset_library character varying(100),
+    pipeline_code character varying(256),
+    s_status character varying(30),
+    perforce_path character varying(200)
+);
+
+
+alter table public.asset owner to postgres;
+
+--
+-- name: asset_library; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table asset_library (
+    id serial not null,
+    code character varying(30) not null,
+    title character varying(100),
+    description text,
+    padding smallint,
+    "type" character varying(30),
+    pipeline text,
+    s_status character varying(30),
+    repo_path character varying(200)
+);
+
+
+alter table public.asset_library owner to postgres;
+
+--
+-- name: asset_type; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table asset_type (
+    id serial not null,
+    code character varying(30) not null,
+    title character varying(100),
+    asset_type character varying(100),
+    description text,
+    padding smallint default 3
+);
+
+
+alter table public.asset_type owner to postgres;
+
+--
+-- name: bin; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table bin (
+    id serial not null,
+    code character varying(256),
+    description text,
+    "type" character varying(100),
+    s_status character varying(30),
+    label character varying(100)
+);
+
+
+alter table public.bin owner to postgres;
+
+--
+-- name: composite; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table composite (
+    id serial not null,
+    name character varying(100),
+    description text,
+    shot_code character varying(100),
+    snapshot text,
+    "timestamp" timestamp without time zone default now(),
+    llll character varying(256),
+    coco text
+);
+
+
+alter table public.composite owner to postgres;
+
+
+--
+-- name: custom_property; type: table; schema: public; owner: postgres; tablespace: 
+
+create table custom_property (
+    id serial not null,
+    search_type varchar(256),
+    name varchar(256),
+    description text,
+    login varchar(256),
+    primary key (id)
+);
+
+--
+-- name: env_source_asset; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table env_source_asset (
+    id serial not null,
+    category character varying(200),
+    name character varying(200),
+    description text,
+    keywords text,
+    snapshot text,
+    repo_path character varying(200)
+);
+
+
+alter table public.env_source_asset owner to postgres;
+
+--
+-- name: instance; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table instance (
+    id serial not null,
+    level_code character varying(30) not null,
+    asset_code character varying(100) not null,
+    name character varying(100) not null,
+    "timestamp" timestamp without time zone default now(),
+    status text,
+    "type" character varying(30),
+    pipeline_code varying(256)
+);
+
+
+alter table public.instance owner to postgres;
+
+--
+-- name: layer; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table layer (
+    id serial not null,
+    name character varying(100),
+    description text,
+    level_code character varying(100),
+    snapshot text,
+    "timestamp" timestamp without time zone default now()
+);
+
+
+alter table public.layer owner to postgres;
+
+--
+-- name: layer_instance; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table layer_instance (
+    id serial not null,
+    asset_code character varying(100) not null,
+    layer_id character varying(100) not null,
+    "type" character varying(30),
+    "timestamp" timestamp without time zone default now(),
+    status text,
+    name character varying(100)
+);
+
+
+alter table public.layer_instance owner to postgres;
+
+--
+-- name: level; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table "level" (
+    id serial not null,
+    code character varying(30) not null,
+    description text,
+    "timestamp" timestamp without time zone default now(),
+    status text,
+    discussion text,
+    images text,
+    tc_frame_start smallint default 1,
+    tc_frame_end smallint default 1,
+    pipeline character varying(30),
+    parent_code character varying(30),
+    s_status character varying(30),
+    sort_order smallint
+);
+
+
+alter table public."level" owner to postgres;
+
+--
+-- name: node_data; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table node_data (
+    id serial not null,
+    code character varying(30) not null,
+    data text
+);
+
+
+alter table public.node_data owner to postgres;
+
+set default_with_oids = true;
+
+--
+-- name: pg_ts_cfg; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pg_ts_cfg (
+    ts_name text not null,
+    prs_name text not null,
+    locale text
+);
+
+
+alter table public.pg_ts_cfg owner to postgres;
+
+--
+-- name: pg_ts_cfgmap; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pg_ts_cfgmap (
+    ts_name text not null,
+    tok_alias text not null,
+    dict_name text[]
+);
+
+
+alter table public.pg_ts_cfgmap owner to postgres;
+
+--
+-- name: pg_ts_dict; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pg_ts_dict (
+    dict_name text not null,
+    dict_init regprocedure,
+    dict_initoption text,
+    dict_lexize regprocedure not null,
+    dict_comment text
+);
+
+
+alter table public.pg_ts_dict owner to postgres;
+
+--
+-- name: pg_ts_parser; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pg_ts_parser (
+    prs_name text not null,
+    prs_start regprocedure not null,
+    prs_nexttoken regprocedure not null,
+    prs_end regprocedure not null,
+    prs_headline regprocedure not null,
+    prs_lextype regprocedure not null,
+    prs_comment text
+);
+
+
+alter table public.pg_ts_parser owner to postgres;
+
+--
+-- name: pga_diagrams; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_diagrams (
+    diagramname character varying(64) not null,
+    diagramtables text,
+    diagramlinks text
+);
+
+
+alter table public.pga_diagrams owner to postgres;
+
+set default_with_oids = false;
+
+--
+-- name: pga_forms; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_forms (
+    formname character varying(64),
+    formsource text
+);
+
+
+alter table public.pga_forms owner to postgres;
+
+set default_with_oids = true;
+
+--
+-- name: pga_graphs; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_graphs (
+    graphname character varying(64) not null,
+    graphsource text,
+    graphcode text
+);
+
+
+alter table public.pga_graphs owner to postgres;
+
+--
+-- name: pga_images; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_images (
+    imagename character varying(64) not null,
+    imagesource text
+);
+
+
+alter table public.pga_images owner to postgres;
+
+set default_with_oids = false;
+
+--
+-- name: pga_layout; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_layout (
+    tablename character varying(64),
+    nrcols smallint,
+    colnames text,
+    colwidth text
+);
+
+
+alter table public.pga_layout owner to postgres;
+
+--
+-- name: pga_queries; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_queries (
+    queryname character varying(64),
+    querytype character(1),
+    querycommand text,
+    querytables text,
+    querylinks text,
+    queryresults text,
+    querycomments text
+);
+
+
+alter table public.pga_queries owner to postgres;
+
+--
+-- name: pga_reports; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_reports (
+    reportname character varying(64),
+    reportsource text,
+    reportbody text,
+    reportprocs text,
+    reportoptions text
+);
+
+
+alter table public.pga_reports owner to postgres;
+
+--
+-- name: pga_scripts; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_scripts (
+    scriptname character varying(64),
+    scriptsource text
+);
+
+
+alter table public.pga_scripts owner to postgres;
+
+--
+-- name: process; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table process (
+    id serial not null,
+    code character varying(30) not null,
+    description text,
+    "timestamp" timestamp without time zone default now()
+);
+
+
+alter table public.process owner to postgres;
+
+--
+-- name: prod_setting; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table prod_setting (
+    id serial not null,
+    "key" character varying(100),
+    value text,
+    description text,
+    "type" character varying(30),
+    search_type character varying(200)
+);
+
+
+alter table public.prod_setting owner to postgres;
+
+--
+-- name: render; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table render (
+    id serial not null,
+    images text,
+    "session" text,
+    "login" character varying(100) not null,
+    "timestamp" timestamp without time zone default now(),
+    snapshot text,
+    search_type character varying(100),
+    search_id integer,
+    snapshot_code character varying(30)
+);
+
+
+alter table public.render owner to postgres;
+
+--
+-- name: render_stage; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table render_stage (
+    id serial not null,
+    search_type character varying(100),
+    search_id integer,
+    context character varying(30),
+    snapshot text,
+    "login" character varying(100) not null,
+    "timestamp" timestamp without time zone default now()
+);
+
+
+alter table public.render_stage owner to postgres;
+
+--
+-- name: sequence; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table "sequence" (
+    id serial not null,
+    code character varying(30) not null,
+    description text,
+    "timestamp" timestamp without time zone default now(),
+    sort_order smallint
+);
+
+
+alter table public."sequence" owner to postgres;
+
+--
+-- name: session_contents; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table session_contents (
+    id serial not null,
+    "login" character varying(100),
+    pid integer,
+    data text,
+    "timestamp" timestamp without time zone
+);
+
+
+alter table public.session_contents owner to postgres;
+
+--
+-- name: source_asset; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table source_asset (
+    id serial not null,
+    category character varying(200),
+    name character varying(200),
+    description text,
+    keywords text,
+    snapshot text,
+    repo_path character varying(200)
+);
+
+
+alter table public.source_asset owner to postgres;
+
+--
+-- name: storyboard; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table storyboard (
+    id serial not null,
+    files text,
+    "timestamp" timestamp without time zone default now(),
+    code character varying(30),
+    level_code character varying(30),
+    description text
+);
+
+
+alter table public.storyboard owner to postgres;
+
+--
+-- name: submission; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table submission (
+    id serial not null,
+    search_type character varying(200),
+    search_id integer,
+    snapshot_code character varying(30),
+    context character varying(100),
+    version integer,
+    description text,
+    artist character varying(30),
+    "login" character varying(30),
+    "timestamp" timestamp without time zone default now(),
+    s_status character varying(30)
+);
+
+
+alter table public.submission owner to postgres;
+
+--
+-- name: submission_in_bin; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table submission_in_bin (
+    id serial not null,
+    submission_id integer not null,
+    bin_id integer not null
+);
+
+
+alter table public.submission_in_bin owner to postgres;
+
+--
+-- name: texture; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table texture (
+    id serial not null,
+    description text,
+    asset_code character varying(50),
+    category character varying(200),
+    "timestamp" timestamp without time zone default now(),
+    snapshot text,
+    s_status character varying(32),
+    code character varying(50),
+    pipeline character varying(30)
+);
+
+
+alter table public.texture owner to postgres;
+
+--
+-- name: texture_source; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table texture_source (
+    id serial not null,
+    description text,
+    asset_code character varying(30) not null,
+    category character varying(200) not null,
+    "timestamp" timestamp without time zone,
+    s_status character varying(32),
+    code character varying(100) not null
+);
+
+
+alter table public.texture_source owner to postgres;
+
+--
+-- name: timecard; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table timecard (
+    id serial not null,
+    search_type character varying(100),
+    search_id integer,
+    week smallint,
+    mon real,
+    tue real,
+    wed real,
+    thu real,
+    fri real,
+    sat real,
+    sun real
+);
+
+
+alter table public.timecard owner to postgres;
+
+
+
+create table naming (
+    id serial not null,
+    search_type character varying(100),
+    dir_naming text,
+    file_naming text
+);
+
+
+
+--
+-- name: art_reference_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only art_reference
+    add constraint art_reference_pkey primary key (id);
+
+
+--
+-- name: asset_code_key; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only asset
+    add constraint asset_code_key unique (code);
+
+
+--
+-- name: asset_library_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only asset_library
+    add constraint asset_library_pkey primary key (code);
+
+
+--
+-- name: asset_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only asset
+    add constraint asset_pkey primary key (code);
+
+
+--
+-- name: asset_type_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only asset_type
+    add constraint asset_type_pkey primary key (code);
+
+
+--
+-- name: composite_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only composite
+    add constraint composite_pkey primary key (id);
+
+
+--
+-- name: env_source_asset_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only env_source_asset
+    add constraint env_source_asset_pkey primary key (id);
+
+
+--
+-- name: instance_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only instance
+    add constraint instance_pkey primary key (id);
+
+
+--
+-- name: instance_shot_code_key; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only instance
+    add constraint instance_shot_code_key unique (level_code, name);
+
+
+--
+-- name: layer_instance_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only layer_instance
+    add constraint layer_instance_pkey primary key (id);
+
+
+--
+-- name: layer_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only layer
+    add constraint layer_pkey primary key (id);
+
+
+--
+-- name: node_data_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only node_data
+    add constraint node_data_pkey primary key (id);
+
+
+--
+-- name: pg_ts_cfg_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only pg_ts_cfg
+    add constraint pg_ts_cfg_pkey primary key (ts_name);
+
+
+--
+-- name: pg_ts_cfgmap_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only pg_ts_cfgmap
+    add constraint pg_ts_cfgmap_pkey primary key (ts_name, tok_alias);
+
+
+--
+-- name: pg_ts_dict_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only pg_ts_dict
+    add constraint pg_ts_dict_pkey primary key (dict_name);
+
+
+--
+-- name: pg_ts_parser_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only pg_ts_parser
+    add constraint pg_ts_parser_pkey primary key (prs_name);
+
+
+--
+-- name: pga_diagrams_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only pga_diagrams
+    add constraint pga_diagrams_pkey primary key (diagramname);
+
+
+--
+-- name: pga_graphs_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only pga_graphs
+    add constraint pga_graphs_pkey primary key (graphname);
+
+
+--
+-- name: pga_images_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only pga_images
+    add constraint pga_images_pkey primary key (imagename);
+
+
+--
+-- name: process_code_key; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only process
+    add constraint process_code_key unique (code);
+
+
+--
+-- name: process_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only process
+    add constraint process_pkey primary key (code);
+
+
+--
+-- name: render_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only render
+    add constraint render_pkey primary key (id);
+
+
+--
+-- name: render_stage_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only render_stage
+    add constraint render_stage_pkey primary key (id);
+
+
+--
+-- name: sequence_code_key; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only "sequence"
+    add constraint sequence_code_key unique (code);
+
+
+--
+-- name: sequence_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only "sequence"
+    add constraint sequence_pkey primary key (code);
+
+
+--
+-- name: session_contents_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only session_contents
+    add constraint session_contents_pkey primary key (id);
+
+
+--
+-- name: shot_code_key; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only "level"
+    add constraint shot_code_key unique (code);
+
+
+--
+-- name: shot_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only "level"
+    add constraint shot_pkey primary key (code);
+
+
+--
+-- name: source_asset_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only source_asset
+    add constraint source_asset_pkey primary key (id);
+
+
+--
+-- name: texture_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only texture
+    add constraint texture_pkey primary key (id);
+
+
+--
+-- name: texture_source_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only texture_source
+    add constraint texture_source_pkey primary key (id);
+
+
+--
+-- name: art_reference_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create index art_reference_idx on art_reference using btree (name);
+
+
+--
+-- name: env_source_asset_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create index env_source_asset_idx on env_source_asset using btree (keywords);
+
+
+--
+-- name: session_contents_pid_index; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create index session_contents_pid_index on session_contents using btree (pid);
+
+
+--
+-- name: source_asset_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create index source_asset_idx on source_asset using btree (keywords);
+
+
+--
+-- name: $1; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only instance
+    add constraint "$1" foreign key (level_code) references "level"(code);
+
+
+--
+-- name: $1; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only layer
+    add constraint "$1" foreign key (level_code) references "level"(code) on update cascade on delete cascade deferrable initially deferred;
+
+
+--
+-- name: $1; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only composite
+    add constraint "$1" foreign key (shot_code) references "level"(code) on update cascade on delete cascade deferrable initially deferred;
+
+
+--
+-- name: $1; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only texture
+    add constraint "$1" foreign key (asset_code) references asset(code) on update cascade on delete cascade deferrable initially deferred;
+
+
+--
+-- name: $1; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only layer_instance
+    add constraint "$1" foreign key (layer_id) references layer(id) on update cascade on delete cascade deferrable initially deferred;
+
+
+--
+-- name: $2; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only instance
+    add constraint "$2" foreign key (asset_code) references asset(code);
+
+
+--
+-- name: $2; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only layer_instance
+    add constraint "$2" foreign key (asset_code) references asset(code) on update cascade on delete cascade deferrable initially deferred;
+
+
+--
+-- name: public; type: acl; schema: -; owner: postgres
+--
+
+revoke all on schema public from public;
+revoke all on schema public from postgres;
+grant all on schema public to postgres;
+grant all on schema public to public;
+
+
+--
+-- name: pga_forms; type: acl; schema: public; owner: postgres
+--
+
+revoke all on table pga_forms from public;
+revoke all on table pga_forms from postgres;
+grant all on table pga_forms to postgres;
+grant all on table pga_forms to public;
+
+
+--
+-- name: pga_layout; type: acl; schema: public; owner: postgres
+--
+
+revoke all on table pga_layout from public;
+revoke all on table pga_layout from postgres;
+grant all on table pga_layout to postgres;
+grant all on table pga_layout to public;
+
+
+--
+-- name: pga_queries; type: acl; schema: public; owner: postgres
+--
+
+revoke all on table pga_queries from public;
+revoke all on table pga_queries from postgres;
+grant all on table pga_queries to postgres;
+grant all on table pga_queries to public;
+
+
+--
+-- name: pga_reports; type: acl; schema: public; owner: postgres
+--
+
+revoke all on table pga_reports from public;
+revoke all on table pga_reports from postgres;
+grant all on table pga_reports to postgres;
+grant all on table pga_reports to public;
+
+
+--
+-- name: pga_scripts; type: acl; schema: public; owner: postgres
+--
+
+revoke all on table pga_scripts from public;
+revoke all on table pga_scripts from postgres;
+grant all on table pga_scripts to postgres;
+grant all on table pga_scripts to public;
+
+
+--
+-- postgresql database dump complete
+--
+
+
+ 

@@ -1,0 +1,57 @@
+﻿/*
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.html or http://ckeditor.com/license
+*/
+
+(function()
+{
+ var spacesRegex = /[\t\r\n ]{2,}|[\t\r\n]/g;
+
+
+
+
+
+
+  CKEDITOR.htmlParser.text = function( value )
+ {
+ 
+
+
+
+
+  this.value = value;
+
+ 
+  this._ =
+  {
+   isBlockLike : false
+  };
+ };
+
+ CKEDITOR.htmlParser.text.prototype =
+ {
+ 
+
+
+
+
+  type : CKEDITOR.NODE_TEXT,
+
+ 
+
+
+
+
+  writeHtml : function( writer, filter )
+  {
+   var text = this.value;
+
+   if ( filter && !( text = filter.onText( text, this ) ) )
+    return;
+
+   writer.text( text );
+  }
+ };
+})();
+
+ 

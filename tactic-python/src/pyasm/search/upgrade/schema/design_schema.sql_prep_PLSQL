@@ -1,0 +1,373 @@
+﻿--
+-- postgresql database dump
+--
+
+set client_encoding = 'utf8';
+set check_function_bodies = false;
+set client_min_messages = warning;
+
+--
+-- name: schema public; type: comment; schema: -; owner: postgres
+--
+
+comment on schema public is 'standard public schema';
+
+
+set search_path = public, pg_catalog;
+
+--
+-- name: plpgsql_call_handler(); type: function; schema: public; owner: postgres
+--
+
+create function plpgsql_call_handler() returns language_handler
+    as '$libdir/plpgsql', 'plpgsql_call_handler'
+    language c;
+
+
+alter function public.plpgsql_call_handler() owner to postgres;
+
+set default_tablespace = '';
+
+set default_with_oids = false;
+
+--
+-- name: design; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table design (
+    id serial not null,
+    product_code character varying(30),
+    code character varying(30) not null,
+    description text,
+    files text,
+    "login" character varying(50),
+    "timestamp" timestamp without time zone default now() not null,
+    retire_status character varying(30),
+    status text,
+    snapshot text
+);
+
+
+alter table public.design owner to postgres;
+
+--
+-- name: design_review; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table design_review (
+    id serial not null,
+    review_time timestamp without time zone,
+    designs text,
+    "timestamp" timestamp without time zone default now() not null,
+    retire_status character varying(30),
+    description text
+);
+
+
+alter table public.design_review owner to postgres;
+
+--
+-- name: pga_forms; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_forms (
+    formname character varying(64),
+    formsource text
+);
+
+
+alter table public.pga_forms owner to postgres;
+
+--
+-- name: pga_layout; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_layout (
+    tablename character varying(64),
+    nrcols smallint,
+    colnames text,
+    colwidth text
+);
+
+
+alter table public.pga_layout owner to postgres;
+
+--
+-- name: pga_queries; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_queries (
+    queryname character varying(64),
+    querytype character(1),
+    querycommand text,
+    querytables text,
+    querylinks text,
+    queryresults text,
+    querycomments text
+);
+
+
+alter table public.pga_queries owner to postgres;
+
+--
+-- name: pga_reports; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_reports (
+    reportname character varying(64),
+    reportsource text,
+    reportbody text,
+    reportprocs text,
+    reportoptions text
+);
+
+
+alter table public.pga_reports owner to postgres;
+
+--
+-- name: pga_schema; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_schema (
+    schemaname character varying(64),
+    schematables text,
+    schemalinks text
+);
+
+
+alter table public.pga_schema owner to postgres;
+
+--
+-- name: pga_scripts; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_scripts (
+    scriptname character varying(64),
+    scriptsource text
+);
+
+
+alter table public.pga_scripts owner to postgres;
+
+--
+-- name: prod_setting; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table prod_setting (
+    id serial not null,
+    "key" character varying(100),
+    value text,
+    description text,
+    "type" character varying(30),
+    search_type character varying(200)
+);
+
+
+alter table public.prod_setting owner to postgres;
+
+--
+-- name: product; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table product (
+    id serial not null,
+    code character varying(30) not null,
+    name character varying(100),
+    description text,
+    "type" character varying(30),
+    images text,
+    "login" character varying(50),
+    "timestamp" timestamp without time zone default now() not null,
+    retire_status character varying(30)
+);
+
+
+alter table public.product owner to postgres;
+
+--
+-- name: product_document; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table product_document (
+    id serial not null,
+    product_code character varying(30),
+    description text,
+    files text,
+    "login" character varying(50),
+    "timestamp" timestamp without time zone default now() not null,
+    retire_status character varying(30),
+    category character varying(100)
+);
+
+
+alter table public.product_document owner to postgres;
+
+--
+-- name: product_type; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table product_type (
+    code character varying(30) not null,
+    description character varying(100)
+);
+
+
+alter table public.product_type owner to postgres;
+
+--
+-- name: session_contents; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table session_contents (
+    id serial not null,
+    "login" character varying(100) not null,
+    pid integer not null,
+    data text,
+    "timestamp" timestamp without time zone default now()
+);
+
+
+
+
+create table naming (
+    id serial not null,
+    search_type character varying(100),
+    dir_naming text,
+    file_naming text
+);
+
+
+alter table public.session_contents owner to postgres;
+
+--
+-- name: design_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only design
+    add constraint design_pkey primary key (code);
+
+
+--
+-- name: design_review_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only design_review
+    add constraint design_review_pkey primary key (id);
+
+
+--
+-- name: product_document_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only product_document
+    add constraint product_document_pkey primary key (id);
+
+
+--
+-- name: product_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only product
+    add constraint product_pkey primary key (code);
+
+
+--
+-- name: product_type_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only product_type
+    add constraint product_type_pkey primary key (code);
+
+
+--
+-- name: session_contents_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only session_contents
+    add constraint session_contents_pkey primary key (id);
+
+
+--
+-- name: $1; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only product
+    add constraint "$1" foreign key ("type") references product_type(code) on update cascade on delete cascade deferrable initially deferred;
+
+
+--
+-- name: public; type: acl; schema: -; owner: postgres
+--
+
+revoke all on schema public from public;
+revoke all on schema public from postgres;
+grant all on schema public to postgres;
+grant all on schema public to public;
+
+
+--
+-- name: pga_forms; type: acl; schema: public; owner: postgres
+--
+
+revoke all on table pga_forms from public;
+revoke all on table pga_forms from postgres;
+grant all on table pga_forms to postgres;
+grant all on table pga_forms to public;
+
+
+--
+-- name: pga_layout; type: acl; schema: public; owner: postgres
+--
+
+revoke all on table pga_layout from public;
+revoke all on table pga_layout from postgres;
+grant all on table pga_layout to postgres;
+grant all on table pga_layout to public;
+
+
+--
+-- name: pga_queries; type: acl; schema: public; owner: postgres
+--
+
+revoke all on table pga_queries from public;
+revoke all on table pga_queries from postgres;
+grant all on table pga_queries to postgres;
+grant all on table pga_queries to public;
+
+
+--
+-- name: pga_reports; type: acl; schema: public; owner: postgres
+--
+
+revoke all on table pga_reports from public;
+revoke all on table pga_reports from postgres;
+grant all on table pga_reports to postgres;
+grant all on table pga_reports to public;
+
+
+--
+-- name: pga_schema; type: acl; schema: public; owner: postgres
+--
+
+revoke all on table pga_schema from public;
+revoke all on table pga_schema from postgres;
+grant all on table pga_schema to postgres;
+grant all on table pga_schema to public;
+
+
+--
+-- name: pga_scripts; type: acl; schema: public; owner: postgres
+--
+
+revoke all on table pga_scripts from public;
+revoke all on table pga_scripts from postgres;
+grant all on table pga_scripts to postgres;
+grant all on table pga_scripts to public;
+
+
+--
+-- postgresql database dump complete
+--
+
+
+ 

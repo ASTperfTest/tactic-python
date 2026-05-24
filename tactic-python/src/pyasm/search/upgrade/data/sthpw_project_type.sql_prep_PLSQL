@@ -1,0 +1,39 @@
+﻿
+
+-- deprecated
+
+--
+-- postgresql database dump
+--
+
+set client_encoding = 'utf8';
+set standard_conforming_strings = off;
+set check_function_bodies = false;
+set client_min_messages = warning;
+set escape_string_warning = off;
+
+set search_path = public, pg_catalog;
+
+--
+-- name: project_type_id_seq; type: sequence set; schema: public; owner: postgres
+--
+
+select pg_catalog.setval('project_type_id_seq', 12, true);
+
+
+--
+-- data for name: project_type; type: table data; schema: public; owner: postgres
+--
+
+insert into project_type (id, code, dir_naming_cls, file_naming_cls, code_naming_cls, node_naming_cls, sobject_mapping_cls, s_status, "type", repo_handler_cls) values (12, 'simple', null, null, null, null, null, null, 'simple', null);
+insert into project_type (id, code, dir_naming_cls, file_naming_cls, code_naming_cls, node_naming_cls, sobject_mapping_cls, s_status, "type", repo_handler_cls) values (7, 'game', 'pyasm.prod.biz.proddirnaming', 'pyasm.prod.biz.prodfilenaming', null, null, ' pyasm.game.biz.gamemapping', null, 'game', null);
+insert into project_type (id, code, dir_naming_cls, file_naming_cls, code_naming_cls, node_naming_cls, sobject_mapping_cls, s_status, "type", repo_handler_cls) values (1, 'prod', 'pyasm.prod.biz.proddirnaming', 'pyasm.prod.biz.prodfilenaming', '', '', '', null, 'prod', null);
+insert into project_type (id, code, dir_naming_cls, file_naming_cls, code_naming_cls, node_naming_cls, sobject_mapping_cls, s_status, "type", repo_handler_cls) values (11, 'unittest', null, null, null, null, null, null, 'unittest', null);
+
+
+--
+-- postgresql database dump complete
+--
+
+
+ 

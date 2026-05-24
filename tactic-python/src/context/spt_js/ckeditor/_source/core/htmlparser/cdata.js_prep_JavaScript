@@ -1,0 +1,45 @@
+﻿/*
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.html or http://ckeditor.com/license
+*/
+
+(function()
+{
+
+
+
+
+
+
+ CKEDITOR.htmlParser.cdata = function( value )
+ {
+ 
+
+
+
+
+  this.value = value;
+ };
+
+ CKEDITOR.htmlParser.cdata.prototype =
+ {
+ 
+
+
+
+
+
+  type : CKEDITOR.NODE_TEXT,
+
+ 
+
+
+
+  writeHtml : function( writer )
+  {
+   writer.write( this.value );
+  }
+ };
+})();
+
+ 

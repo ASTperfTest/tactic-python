@@ -1,0 +1,165 @@
+﻿set sql_mode='ansi_quotes';
+--
+--
+
+
+-- these are the miminum set of tables required for the plugin installer
+-- to function.  the tables are:
+
+-- search_object
+-- project
+-- login
+-- trigger
+-- schema
+-- notification
+
+
+create table search_object (
+    id serial primary key,
+    code character varying(256),
+    search_type character varying(100) not null,
+    namespace character varying(200) not null,
+    description text,
+    "database" character varying(100) not null,
+    table_name character varying(100) not null,
+    class_name character varying(100) not null,
+    title character varying(100),
+    "schema" character varying(100),
+    color character varying(256),
+    constraint "search_object_code_idx" unique (code),
+    constraint "search_object_search_type_idx" unique (search_type)
+);
+
+
+
+create table project (
+    id serial primary key,
+    code character varying(30) not null,
+    title character varying(100),
+    sobject_mapping_cls character varying(100),
+    dir_naming_cls character varying(200),
+    code_naming_cls character varying(200),
+    pipeline character varying(30),
+    snapshot text,
+    "type" character varying(30),
+    last_db_update timestamp null,
+    description text,
+    initials character varying(30),
+    file_naming_cls character varying(200),
+    reg_hours numeric,
+    node_naming_cls character varying(200),
+    s_status character varying(30),
+    status character varying(256),
+    last_version_update character varying(256),
+    palette character varying(256),
+    category character varying(256),
+    is_template boolean,
+    db_resource text,
+    constraint "project_code_idx" unique (code)
+);
+
+
+
+
+create table "login" (
+    id serial primary key,
+    code character varying(512),
+    "login" character varying(100) not null,
+    "password" character varying(255),
+    login_groups text,
+    first_name character varying(100),
+    last_name character varying(100),
+    display_name character varying(256),
+    email character varying(200),
+    phone_number character varying(32),
+    department character varying(256),
+    namespace character varying(255),
+    snapshot text,
+    s_status character varying(30),
+    project_code text,
+    license_type character varying(256),
+    hourly_wage float,
+    constraint "login_code_idx" unique (code)
+);
+
+
+
+create table "schema" (
+    id serial primary key,
+    code character varying(256),
+    description text,
+    "schema" text,
+    "timestamp" timestamp default current_timestamp,
+    "login" character varying(256),
+    s_status character varying(30),
+    constraint "schema_code_idx" unique (code)
+);
+
+
+
+
+create table "trigger" (
+    id serial primary key,
+    code character varying(256),
+    class_name character varying(256),
+    script_path character varying(256),
+    description text,
+    event character varying(256),
+    mode character varying(256),
+    project_code character varying(256),
+    s_status character varying(256),
+    process varchar(256),
+    constraint "trigger_code_idx" unique (code)
+);
+
+
+
+create table notification (
+    id serial primary key,
+    code character varying(30),
+    event character varying(256),
+    listen_event character varying(256),
+    data text,
+    description text,
+    process varchar(256),
+    "type" character varying(30) not null,
+    search_type character varying(100),
+    project_code character varying(30),
+    rules text,
+    subject text,
+    message text,
+    email_handler_cls character varying(200),
+    mail_to text,
+    mail_cc text,
+    mail_bcc text,
+    s_status character varying(30),
+    title varchar(256),
+    constraint "notification_code_idx" unique (code)
+);
+
+
+
+
+-- minimal data required
+
+
+insert into project (code, title, type) values ('admin', 'tactic','sthpw');
+insert into project (code, title) values ('sthpw', 'tactic admin');
+
+-- project
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/project', 'sthpw/project', 'sthpw', 'projects', 'sthpw', 'project', 'pyasm.biz.project', 'projects', null);
+-- schema
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/schema', 'sthpw/schema', 'sthpw', 'schema', 'sthpw', 'schema', 'pyasm.biz.schema', 'schema', 'public');
+-- login
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/login', 'sthpw/login', 'sthpw', 'list of users', 'sthpw', 'login', 'pyasm.security.login', 'users', 'public');
+-- search types
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/search_object', 'sthpw/search_object', 'sthpw', 'search types', 'sthpw', 'search_object', 'pyasm.search.searchtype', 'search objects', 'public');
+-- trigger
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/trigger', 'sthpw/trigger', 'sthpw', 'triggers', 'sthpw', 'trigger', 'pyasm.biz.triggersobj', 'triggers', 'public');
+-- notification
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/notification', 'sthpw/notification', 'sthpw', 'different types of notification', 'sthpw', 'notification', 'pyasm.biz.notification', 'notification', 'public');
+
+
+
+
+ 

@@ -1,0 +1,143 @@
+﻿/*
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.html or http://ckeditor.com/license
+*/
+
+
+
+
+
+
+// Remove the CKEDITOR.loadFullCore reference defined on ckeditor_basic.
+delete CKEDITOR.loadFullCore;
+
+
+
+
+
+
+
+
+
+CKEDITOR.instances = {};
+
+
+
+
+
+
+
+CKEDITOR.document = new CKEDITOR.dom.document( document );
+
+
+
+
+
+
+
+CKEDITOR.add = function( editor )
+{
+ CKEDITOR.instances[ editor.name ] = editor;
+
+ editor.on( 'focus', function()
+  {
+   if ( CKEDITOR.currentInstance != editor )
+   {
+    CKEDITOR.currentInstance = editor;
+    CKEDITOR.fire( 'currentInstance' );
+   }
+  });
+
+ editor.on( 'blur', function()
+  {
+   if ( CKEDITOR.currentInstance == editor )
+   {
+    CKEDITOR.currentInstance = null;
+    CKEDITOR.fire( 'currentInstance' );
+   }
+  });
+};
+
+
+
+
+
+
+
+
+CKEDITOR.remove = function( editor )
+{
+ delete CKEDITOR.instances[ editor.name ];
+};
+
+
+
+
+
+CKEDITOR.on( 'instanceDestroyed', function ()
+ {
+  if ( CKEDITOR.tools.isEmpty( this.instances ) )
+   CKEDITOR.fire( 'reset' );
+ });
+
+// Load the bootstrap script.
+CKEDITOR.loader.load( 'core/_bootstrap' );  // @Packager.RemoveLine
+
+// Tri-state constants.
+
+
+
+
+
+
+CKEDITOR.TRISTATE_ON = 1;
+
+
+
+
+
+
+CKEDITOR.TRISTATE_OFF = 2;
+
+
+
+
+
+
+CKEDITOR.TRISTATE_DISABLED = 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

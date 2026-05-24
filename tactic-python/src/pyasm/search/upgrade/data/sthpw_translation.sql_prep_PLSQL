@@ -1,0 +1,111 @@
+﻿
+-- deprecated
+
+--
+-- postgresql database dump
+--
+
+set client_encoding = 'utf8';
+set standard_conforming_strings = off;
+set check_function_bodies = false;
+set client_min_messages = warning;
+set escape_string_warning = off;
+
+set search_path = public, pg_catalog;
+
+--
+-- name: translation_id_seq; type: sequence set; schema: public; owner: postgres
+--
+
+select pg_catalog.setval('translation_id_seq', 42, true);
+
+
+--
+-- data for name: translation; type: table data; schema: public; owner: postgres
+--
+
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (59, 'ja', 'sobject n/a for snapshot code[%s]', null, 'c:/program files/southpaw/tactic/src/pyasmwidgetile_wdg.py:215', null, '2007-06-16 13:56:08.703');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (60, 'ja', 'this is a dynamic string ''%s''', 'cowcowcow "%s"', 'c:/program files/southpaw/tactic/src/pyasmwebapp_server.py:307', null, '2007-06-16 13:58:17.906');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (83, 'fr', 'editorial', null, 'c:/program files/southpaw/tactic/src/pyasmprodsiteeditorial_tab_wdg.py:24', null, '2007-06-16 16:57:36.343');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (84, 'fr', 'dailies', null, 'c:/program files/southpaw/tactic/src/pyasmprodsiteeditorial_tab_wdg.py:26', null, '2007-06-16 16:57:36.343');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (61, 'fr', 'projects', null, 'c:/program files/southpaw/tactic/src/pyasmadminsitemain_tab_wdg.py:40', null, '2007-06-16 15:47:46.875');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (62, 'fr', 'project types', null, 'c:/program files/southpaw/tactic/src/pyasmadminsitemain_tab_wdg.py:41', null, '2007-06-16 15:47:46.875');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (63, 'fr', 'users', null, 'c:/program files/southpaw/tactic/src/pyasmadminsitemain_tab_wdg.py:42', null, '2007-06-16 15:47:46.875');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (64, 'fr', 'pipelines', null, 'c:/program files/southpaw/tactic/src/pyasmadminsitemain_tab_wdg.py:43', null, '2007-06-16 15:47:46.875');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (65, 'fr', 'triggers', null, 'c:/program files/southpaw/tactic/src/pyasmadminsitemain_tab_wdg.py:44', null, '2007-06-16 15:47:46.875');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (66, 'fr', 'notifications', null, 'c:/program files/southpaw/tactic/src/pyasmadminsitemain_tab_wdg.py:45', null, '2007-06-16 15:47:46.875');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (67, 'fr', 'exception log', null, 'c:/program files/southpaw/tactic/src/pyasmadminsitemain_tab_wdg.py:48', null, '2007-06-16 15:47:46.875');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (68, 'fr', 'remote repo', null, 'c:/program files/southpaw/tactic/src/pyasmadminsitemain_tab_wdg.py:49', null, '2007-06-16 15:47:46.875');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (69, 'fr', 'translations', null, 'c:/program files/southpaw/tactic/src/pyasmadminsitemain_tab_wdg.py:50', null, '2007-06-16 15:47:46.875');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (70, 'fr', 'preferences', null, 'c:/program files/southpaw/tactic/src/pyasmadminsitemain_tab_wdg.py:51', null, '2007-06-16 15:47:46.875');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (71, 'fr', 'undo browser', null, 'c:/program files/southpaw/tactic/src/pyasmadminsitemain_tab_wdg.py:52', null, '2007-06-16 15:47:46.875');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (85, 'fr', 'asset list', null, 'c:/program files/southpaw/tactic/src/pyasmprodsiteasset_tab_wdg.py:36', null, '2007-06-16 16:59:59.171');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (86, 'fr', 'summary', null, 'c:/program files/southpaw/tactic/src/pyasmprodsiteasset_tab_wdg.py:37', null, '2007-06-16 16:59:59.171');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (87, 'fr', 'tasks', null, 'c:/program files/southpaw/tactic/src/pyasmprodsiteasset_tab_wdg.py:38', null, '2007-06-16 16:59:59.171');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (88, 'fr', 'artist (3d assets)', null, 'c:/program files/southpaw/tactic/src/pyasmprodsiteasset_tab_wdg.py:39', null, '2007-06-16 16:59:59.171');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (89, 'fr', 'supe (3d assets)', null, 'c:/program files/southpaw/tactic/src/pyasmprodsiteasset_tab_wdg.py:40', null, '2007-06-16 16:59:59.171');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (90, 'fr', '2d assets', null, 'c:/program files/southpaw/tactic/src/pyasmprodsiteasset_tab_wdg.py:41', null, '2007-06-16 16:59:59.171');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (91, 'fr', 'render log', null, 'c:/program files/southpaw/tactic/src/pyasmprodsiteasset_tab_wdg.py:42', null, '2007-06-16 16:59:59.171');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (92, 'fr', 'asset libraries', null, 'c:/program files/southpaw/tactic/src/pyasmprodsiteasset_tab_wdg.py:43', null, '2007-06-16 16:59:59.171');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (93, 'fr', 'history', null, 'c:/program files/southpaw/tactic/src/pyasmprodsiteasset_tab_wdg.py:44', null, '2007-06-16 16:59:59.171');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (94, 'fr', 'notes', null, 'c:/program files/southpaw/tactic/src/pyasmprodsiteasset_tab_wdg.py:45', null, '2007-06-16 16:59:59.171');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (72, 'fr', 'my tactic', null, 'c:/program files/southpaw/tactic/src/pyasmprodsitemain_tab_wdg.py:46', null, '2007-06-16 15:47:46.875');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (73, 'fr', 'preproduction', null, 'c:/program files/southpaw/tactic/src/pyasmprodsitemain_tab_wdg.py:47', null, '2007-06-16 15:47:46.875');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (74, 'fr', 'asset pipeline', null, 'c:/program files/southpaw/tactic/src/pyasmprodsitemain_tab_wdg.py:48', null, '2007-06-16 15:47:46.875');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (75, 'fr', 'shot pipeline', null, 'c:/program files/southpaw/tactic/src/pyasmprodsitemain_tab_wdg.py:49', null, '2007-06-16 15:47:46.875');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (76, 'fr', 'overview', null, 'c:/program files/southpaw/tactic/src/pyasmprodsitemain_tab_wdg.py:51', null, '2007-06-16 15:47:46.875');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (77, 'fr', 'client', null, 'c:/program files/southpaw/tactic/src/pyasmprodsitemain_tab_wdg.py:52', null, '2007-06-16 15:47:46.875');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (78, 'fr', 'undo', null, 'c:/program files/southpaw/tactic/src/pyasmwidgetweb_wdg.py:1285', null, '2007-06-16 15:47:46.875');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (79, 'fr', 'admin', null, 'c:/program files/southpaw/tactic/src/pyasmprodsitemain_tab_wdg.py:54', null, '2007-06-16 15:47:46.875');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (82, 'fr', 'refresh', null, 'c:/program files/southpaw/tactic/src/pyasmwidgeticon_wdg.py:235', null, '2007-06-16 16:05:33.14');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (80, 'fr', 'redo', null, 'c:/program files/southpaw/tactic/src/pyasmwidgetweb_wdg.py:1312', null, '2007-06-16 15:47:46.875');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (48, 'ja', 'projects', '&#12503;&#12525;&#12472;&#12455;&#12463;&#12488;', 'c:/program files/southpaw/tactic/src/pyasmadminsitemain_tab_wdg.py:40', null, '2007-06-16 12:29:42.484');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (49, 'ja', 'project types', '&#12503;&#12525;&#12472;&#12455;&#12463;&#12488;&#12398;&#31278;&#39006;', 'c:/program files/southpaw/tactic/src/pyasmadminsitemain_tab_wdg.py:41', null, '2007-06-16 12:29:42.484');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (50, 'ja', 'users', '&#12518;&#12540;&#12470;&#12540;', 'c:/program files/southpaw/tactic/src/pyasmadminsitemain_tab_wdg.py:42', null, '2007-06-16 12:29:42.484');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (51, 'ja', 'pipelines', '&#12497;&#12452;&#12503;&#12521;&#12452;&#12531;', 'c:/program files/southpaw/tactic/src/pyasmadminsitemain_tab_wdg.py:43', null, '2007-06-16 12:29:42.484');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (52, 'ja', 'triggers', '&#12488;&#12522;&#12460;&#12540;', 'c:/program files/southpaw/tactic/src/pyasmadminsitemain_tab_wdg.py:44', null, '2007-06-16 12:29:42.484');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (53, 'ja', 'notifications', '&#35686;&#21578;', 'c:/program files/southpaw/tactic/src/pyasmprodsitemy_tactic_tab_wdg.py:39', null, '2007-06-16 12:29:42.484');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (56, 'ja', 'translations', null, 'c:/program files/southpaw/tactic/src/pyasmadminsitemain_tab_wdg.py:50', null, '2007-06-16 12:29:42.484');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (54, 'ja', 'exception log', '&#12456;&#12463;&#12475;&#12503;&#12471;&#12519;&#12531;&#12539;&#12525;&#12464;', 'c:/program files/southpaw/tactic/src/pyasmadminsitemain_tab_wdg.py:48', null, '2007-06-16 12:29:42.484');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (55, 'ja', 'remote repo', '&#12522;&#12514;&#12540;&#12488;&#12539;&#12524;&#12509;', 'c:/program files/southpaw/tactic/src/pyasmadminsitemain_tab_wdg.py:49', null, '2007-06-16 12:29:42.484');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (57, 'ja', 'preferences', '&#12503;&#12522;&#12501;&#12449;&#12524;&#12531;&#12473;', 'c:/program files/southpaw/tactic/src/pyasmprodsitemy_tactic_tab_wdg.py:42', null, '2007-06-16 12:29:42.484');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (58, 'ja', 'undo browser', null, 'c:/program files/southpaw/tactic/src/pyasmadminsitemain_tab_wdg.py:52', null, '2007-06-16 12:29:42.484');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (105, 'ja', 'language', null, 'c:/program files/southpaw/tactic/src/pyasmadminsitemain_tab_wdg.py:74', null, '2007-06-20 13:59:58.25');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (112, 'ja', 'show only untranslated', null, 'c:/program files/southpaw/tactic/src/pyasmadminsitemain_tab_wdg.py:85', null, '2007-06-20 14:37:45.156');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (107, 'ja', '%s upload is required', null, 'c:/program files/southpaw/tactic/src/pyasmcommandedit_wdg_action.py:352', null, '2007-06-20 13:59:58.25');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (95, 'ja', 'asset list', '&#12450;&#12475;&#12483;&#12488;&#12539;&#12522;&#12473;&#12488;', 'c:/program files/southpaw/tactic/src/pyasmprodsiteasset_tab_wdg.py:36', null, '2007-06-16 17:00:42.406');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (96, 'ja', 'summary', '&#12469;&#12510;&#12522;', 'c:/program files/southpaw/tactic/src/pyasmprodsitemy_tactic_tab_wdg.py:37', null, '2007-06-16 17:00:42.406');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (97, 'ja', 'tasks', null, 'c:/program files/southpaw/tactic/src/pyasmprodsiteasset_tab_wdg.py:38', null, '2007-06-16 17:00:42.406');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (98, 'ja', 'artist (3d assets)', null, 'c:/program files/southpaw/tactic/src/pyasmprodsiteasset_tab_wdg.py:39', null, '2007-06-16 17:00:42.406');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (99, 'ja', 'supe (3d assets)', '&#12473;&#12540;&#12497;&#12540;&#12496;&#12452;&#12470;&#12540;(3d&#12450;&#12475;&#12483;&#12488;)', 'c:/program files/southpaw/tactic/src/pyasmprodsiteasset_tab_wdg.py:40', null, '2007-06-16 17:00:42.406');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (100, 'ja', '2d assets', null, 'c:/program files/southpaw/tactic/src/pyasmprodsiteasset_tab_wdg.py:41', null, '2007-06-16 17:00:42.406');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (101, 'ja', 'render log', '&#12524;&#12531;&#12480;&#12540;&#12539;&#12525;&#12464;', 'c:/program files/southpaw/tactic/src/pyasmprodsiteasset_tab_wdg.py:42', null, '2007-06-16 17:00:42.406');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (102, 'ja', 'asset libraries', '&#12450;&#12475;&#12483;&#12488;&#12539;&#12521;&#12452;&#12502;&#12521;&#12522;', 'c:/program files/southpaw/tactic/src/pyasmprodsiteasset_tab_wdg.py:43', null, '2007-06-16 17:00:42.406');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (103, 'ja', 'history', '&#12498;&#12473;&#12488;&#12522;&#12540;', 'c:/program files/southpaw/tactic/src/pyasmprodsiteasset_tab_wdg.py:44', null, '2007-06-16 17:00:42.406');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (104, 'ja', 'notes', '&#12494;&#12540;&#12488;', 'c:/program files/southpaw/tactic/src/pyasmprodsiteasset_tab_wdg.py:45', null, '2007-06-16 17:00:42.406');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (39, 'ja', 'my tactic', null, 'c:/program files/southpaw/tactic/src/pyasmprodsitemain_tab_wdg.py:46', null, '2007-06-16 12:16:42.484');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (40, 'ja', 'preproduction', '&#12503;&#12522;&#12503;&#12525;&#12480;&#12463;&#12471;&#12519;&#12531;', 'c:/program files/southpaw/tactic/src/pyasmprodsitemain_tab_wdg.py:47', null, '2007-06-16 12:16:42.484');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (41, 'ja', 'asset pipeline', '&#12450;&#12475;&#12483;&#12488;&#12539;&#12497;&#12452;&#12503;&#12521;&#12452;&#12531;', 'c:/program files/southpaw/tactic/src/pyasmprodsitemain_tab_wdg.py:48', null, '2007-06-16 12:16:42.484');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (42, 'ja', 'shot pipeline', '&#12471;&#12519;&#12483;&#12488;&#12539;&#12497;&#12452;&#12503;&#12521;&#12452;&#12531;', 'c:/program files/southpaw/tactic/src/pyasmprodsitemain_tab_wdg.py:49', null, '2007-06-16 12:16:42.484');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (43, 'ja', 'overview', '&#12458;&#12540;&#12496;&#12540;&#12499;&#12517;&#12540;', 'c:/program files/southpaw/tactic/src/pyasmprodsitemain_tab_wdg.py:51', null, '2007-06-16 12:16:42.484');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (44, 'ja', 'client', '&#12463;&#12521;&#12452;&#12450;&#12531;&#12488;', 'c:/program files/southpaw/tactic/src/pyasmprodsitemain_tab_wdg.py:52', null, '2007-06-16 12:16:42.484');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (45, 'ja', 'undo', '&#20803;&#12395;&#25147;&#12377;', 'c:/program files/southpaw/tactic/src/pyasmwidgetweb_wdg.py:1293', null, '2007-06-16 12:16:42.484');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (46, 'ja', 'admin', '&#12450;&#12489;&#12511;&#12531;', 'c:/program files/southpaw/tactic/src/pyasmprodsitemain_tab_wdg.py:54', null, '2007-06-16 12:16:42.484');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (113, 'ja', 'watch lists', null, 'c:/program files/southpaw/tactic/src/pyasmprodsitemy_tactic_tab_wdg.py:38', null, '2007-06-20 14:37:45.156');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (114, 'ja', 'work hours', null, 'c:/program files/southpaw/tactic/src/pyasmprodsitemy_tactic_tab_wdg.py:40', null, '2007-06-20 14:37:45.156');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (115, 'ja', 'clipboards', null, 'c:/program files/southpaw/tactic/src/pyasmprodsitemy_tactic_tab_wdg.py:41', null, '2007-06-20 14:37:45.156');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (81, 'ja', 'refresh', '&#20877;&#35501;&#12415;&#36796;&#12415;', 'c:/program files/southpaw/tactic/src/pyasmwidgeticon_wdg.py:239', null, '2007-06-16 16:05:23.015');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (108, 'ja', 'cancel', null, 'c:/program files/southpaw/tactic/src/pyasmwidgetlayout_wdg.py:784', null, '2007-06-20 13:59:58.25');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (110, 'ja', 'change password', null, 'c:/program files/southpaw/tactic/src/pyasmwidgetweb_wdg.py:1272', null, '2007-06-20 13:59:58.25');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (111, 'ja', 'change-password', null, 'c:/program files/southpaw/tactic/src/pyasmwidgetweb_wdg.py:1285', null, '2007-06-20 13:59:58.25');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (47, 'ja', 'redo', '&#12420;&#12426;&#30452;&#12375;', 'c:/program files/southpaw/tactic/src/pyasmwidgetweb_wdg.py:1320', null, '2007-06-16 12:16:42.484');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (109, 'ja', 'sign-out', '&#131;t&#131;c&#131;&#147;&#131;a&#131;e&#131;g', 'c:/program files/southpaw/tactic/src/pyasmwidgetweb_wdg.py:1256', null, '2007-06-20 13:59:58.25');
+insert into translation (id, "language", msgid, msgstr, line, "login", "timestamp") values (106, 'ja', 'user', '&#131;&#134;&#129;[&#131;u&#129;[', 'c:/program files/southpaw/tactic/src/pyasmadminsitemain_tab_wdg.py:133', null, '2007-06-20 13:59:58.25');
+
+
+--
+-- postgresql database dump complete
+--
+
+
+ 

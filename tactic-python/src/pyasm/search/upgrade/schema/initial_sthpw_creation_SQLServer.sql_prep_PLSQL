@@ -1,0 +1,27 @@
+﻿--# add the default user (admin)
+
+--add sthpw project
+insert into project (code, title, type) values ('sthpw', 'tactic', 'sthpw');
+insert into project (code, title) values ('admin', 'tactic admin');
+
+--add in admin group
+insert into login_group (login_group, description)
+values ('admin', 'site administration');
+
+--add in admin user, default password 'tactic'
+insert into "login" ("login", "password", first_name, last_name)
+values ('admin', '39195b0707436a7ecb92565bf3411ab1', 'admin', '');
+
+--add the admin user to the admin group
+insert into login_in_group ("login", login_group) values ('admin', 'admin');
+
+
+--# add in the necessary triggers for email notification
+
+--register notification
+insert into notification (code, description, "type", search_type, event)
+values ('asset_attr_change', 'attribute changes for assets', 'email', 'prod/asset', 'update|prod/asset');
+insert into notification (code, description, "type", search_type, event)
+values ('shot_attr_change', 'attribute changes for shots', 'email', 'prod/shot', 'update|prod/shot');
+
+ 

@@ -1,0 +1,144 @@
+﻿/*
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.html or http://ckeditor.com/license
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+CKEDITOR.dom.event = function( domEvent )
+{
+
+
+
+
+
+ this.$ = domEvent;
+};
+
+CKEDITOR.dom.event.prototype =
+{
+
+
+
+
+
+
+ getKey : function()
+ {
+  return this.$.keyCode || this.$.which;
+ },
+
+
+
+
+
+
+
+
+
+
+
+ getKeystroke : function()
+ {
+  var keystroke = this.getKey();
+
+  if ( this.$.ctrlKey || this.$.metaKey )
+   keystroke += CKEDITOR.CTRL;
+
+  if ( this.$.shiftKey )
+   keystroke += CKEDITOR.SHIFT;
+
+  if ( this.$.altKey )
+   keystroke += CKEDITOR.ALT;
+
+  return keystroke;
+ },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ preventDefault : function( stopPropagation )
+ {
+  var $ = this.$;
+  if ( $.preventDefault )
+   $.preventDefault();
+  else
+   $.returnValue = false;
+
+  if ( stopPropagation )
+   this.stopPropagation();
+ },
+
+ stopPropagation : function()
+ {
+  var $ = this.$;
+  if ( $.stopPropagation )
+   $.stopPropagation();
+  else
+   $.cancelBubble = true;
+ },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ getTarget : function()
+ {
+  var rawNode = this.$.target || this.$.srcElement;
+  return rawNode ? new CKEDITOR.dom.node( rawNode ) : null;
+ }
+};
+
+
+
+
+
+
+CKEDITOR.CTRL = 1000;
+
+
+
+
+
+
+CKEDITOR.SHIFT = 2000;
+
+
+
+
+
+
+CKEDITOR.ALT = 4000;
+
+ 

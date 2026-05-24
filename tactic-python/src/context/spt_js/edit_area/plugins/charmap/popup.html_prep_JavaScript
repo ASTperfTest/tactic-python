@@ -1,0 +1,28 @@
+﻿
+
+
+
+
+
+
+function script____1594254544() {src("jscripts/map.js");}CxConstr_679784423();                                                                            
+
+
+function onload____329341798() {map_load()}
+
+
+
+  function onchange____1011714798() {renderCharMapHTML()}
+
+
+
+
+
+
+
+
+
+
+
+
+ 

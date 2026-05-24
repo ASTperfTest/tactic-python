@@ -1,0 +1,188 @@
+﻿/*
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.html or http://ckeditor.com/license
+*/
+
+if ( !CKEDITOR.editor )
+{
+
+
+
+
+
+ CKEDITOR.ELEMENT_MODE_NONE = 0;
+
+
+
+
+
+
+ CKEDITOR.ELEMENT_MODE_REPLACE = 1;
+
+
+
+
+
+
+ CKEDITOR.ELEMENT_MODE_APPENDTO = 2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ CKEDITOR.editor = function( instanceConfig, element, mode, data )
+ {
+  this._ =
+  {
+   // Save the config to be processed later by the full core code.
+   instanceConfig : instanceConfig,
+   element : element,
+   data : data
+  };
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  this.elementMode = mode || CKEDITOR.ELEMENT_MODE_NONE;
+
+  // Call the CKEDITOR.event constructor to initialize this instance.
+  CKEDITOR.event.call( this );
+
+  this._init();
+ };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ CKEDITOR.editor.replace = function( elementOrIdOrName, config )
+ {
+  var element = elementOrIdOrName;
+
+  if ( typeof element != 'object' )
+  {
+   // Look for the element by id. We accept any kind of element here.
+   element = document.getElementById( elementOrIdOrName );
+
+   // Elements that should go into head are unacceptable (#6791).
+   if ( element && element.tagName.toLowerCase() in {style:1,script:1,base:1,link:1,meta:1,title:1} )
+    element = null;
+
+   // If not found, look for elements by name. In this case we accept only
+   // textareas.
+   if ( !element )
+   {
+    var i = 0,
+     textareasByName = document.getElementsByName( elementOrIdOrName );
+
+    while ( ( element = textareasByName[ i++ ] ) && element.tagName.toLowerCase() != 'textarea' )
+    { }
+   }
+
+   if ( !element )
+    throw '[CKEDITOR.editor.replace] The element with id or name "' + elementOrIdOrName + '" was not found.';
+  }
+
+  // Do not replace the textarea right now, just hide it. The effective
+  // replacement will be done by the _init function.
+  element.style.visibility = 'hidden';
+
+  // Create the editor instance.
+  return new CKEDITOR.editor( config, element, CKEDITOR.ELEMENT_MODE_REPLACE );
+ };
+
+
+
+
+
+
+
+
+
+
+
+
+ CKEDITOR.editor.appendTo = function( elementOrId, config, data )
+ {
+  var element = elementOrId;
+  if ( typeof element != 'object' )
+  {
+   element = document.getElementById( elementOrId );
+
+   if ( !element )
+    throw '[CKEDITOR.editor.appendTo] The element with id "' + elementOrId + '" was not found.';
+  }
+
+  // Create the editor instance.
+  return new CKEDITOR.editor( config, element, CKEDITOR.ELEMENT_MODE_APPENDTO, data );
+ };
+
+ CKEDITOR.editor.prototype =
+ {
+ 
+
+
+
+
+  _init : function()
+  {
+   var pending = CKEDITOR.editor._pending || ( CKEDITOR.editor._pending = [] );
+   pending.push( this );
+  },
+
+  // Both fire and fireOnce will always pass this editor instance as the
+  // "editor" param in CKEDITOR.event.fire. So, we override it to do that
+  // automaticaly.
+
+ 
+  fire : function( eventName, data )
+  {
+   return CKEDITOR.event.prototype.fire.call( this, eventName, data, this );
+  },
+
+ 
+  fireOnce : function( eventName, data )
+  {
+   return CKEDITOR.event.prototype.fireOnce.call( this, eventName, data, this );
+  }
+ };
+
+ // "Inherit" (copy actually) from CKEDITOR.event.
+ CKEDITOR.event.implementOn( CKEDITOR.editor.prototype, true );
+}
+
+ 

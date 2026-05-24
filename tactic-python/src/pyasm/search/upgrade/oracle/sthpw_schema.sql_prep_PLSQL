@@ -1,0 +1,749 @@
+﻿--
+--
+
+create table db_resource (
+    id int identity primary key,
+    code character varying(256),
+    host varchar(max),
+    port integer,
+    vendor character varying(256),
+    login character varying(256),
+    password varchar(max),
+    constraint "db_resource_code_idx" unique (code)
+);
+
+create table access_log (
+    id int identity primary key,
+    code character varying(256),
+    url character varying(256),
+    data character varying(256),
+    "start_time" timestamp ,
+    "end_time" timestamp ,
+    duration double precision,
+    constraint "access_log_code_idx" unique (code)
+);
+
+
+create table command_log (
+    id int identity primary key,
+    code character varying(256),
+    class_name character varying(100) not null,
+    paramaters character varying(256),
+    login character varying(100) not null,
+    "timestamp" timestamp  default now() not null,
+    constraint "command_log_code_idx" unique (code)
+);
+
+
+create table connection (
+    id int identity primary key,
+    code character varying(256),
+    context character varying(60),
+    project_code character varying(30),
+    src_search_type character varying(200),
+    src_search_id integer,
+    dst_search_type character varying(200),
+    dst_search_id integer,
+    login character varying(30),
+    "timestamp" timestamp  default now()
+);
+
+
+create table file_access (
+    id int identity primary key,
+    code character varying(256),
+    file_code integer not null,
+    login character varying(100),
+    "timestamp" timestamp  default now() not null
+);
+
+
+
+create table queue (
+    id int identity primary key,
+    code character varying(256),
+    queue character varying(30) not null,
+    priority character varying(10) not null,
+    description character varying(256),
+    state character varying(30) not null default 'pending',
+    login character varying(30) not null,
+    "timestamp" timestamp  default now() not null,
+    command character varying(200) not null,
+    int identityized character varying(256) not null,
+    s_status character varying(30),
+    project_code character varying(100),
+    search_id integer,
+    search_type character varying(100),
+    dispatcher_id integer,
+    policy_code character varying(30),
+    host character varying(256)
+);
+
+
+create table repo (
+    id int identity primary key,
+    code character varying(256) not null,
+    description character varying(256) not null,
+    handler character varying(100) not null,
+    web_dir character varying(256) not null,
+    lib_dir character varying(256) not null
+);
+
+
+create table snapshot_type (
+    id int identity primary key,
+    code character varying(256),
+    pipeline_code character varying(256),
+    "timestamp" timestamp  default now(),
+    login character varying(256),
+    s_status character varying(256),
+    relpath character varying(256),
+    project_code character varying(256),
+    subcontext character varying(256),
+    snapshot_flavor character varying(256),
+    relfile character varying(256),
+    constraint "snapshot_type_code_unique" unique (code)
+);
+
+
+create table special_day (
+    id int identity primary key,
+    code character varying(256),
+    week integer,
+    mon float, 
+    tue float, 
+    wed float, 
+    thu float, 
+    fri float, 
+    sat float, 
+    sun float, 
+    year integer, 
+    login character varying(256),
+    description character varying(256),
+    "type" character varying(256),
+    project_code character varying(256)
+);
+
+
+create table custom_property (
+    id int identity primary key,
+    code character varying(256),
+    search_type character varying(256),
+    name character varying(256),
+    description character varying(256),
+    login character varying(256)
+);
+
+
+create table pref_list (
+    id int identity primary key,
+    code character varying(256),
+    "key" character varying(256),
+    description character varying(256),
+    options character varying(256),
+    "type" character varying(256),
+    category character varying(256),
+    "timestamp" timestamp  default now(),
+    title character varying(256),
+    constraint "pref_list_key_idx" unique ("key")
+);
+
+
+
+create table retire_log (
+    id int identity primary key,
+    code character varying(256),
+    search_type character varying(100),
+    search_id character varying(100),
+    login character varying(100) not null,
+    "timestamp" timestamp  default now(),
+    constraint "retire_log_code_idx" unique (code)
+);
+
+
+create table translation (
+    id int identity primary key,
+    code character varying(256),
+    language character varying(256),
+    msgid character varying(256),
+    msgstr character varying(256),
+    line character varying(256),
+    login character varying(256),
+    "timestamp" timestamp  default now()
+);
+
+
+create table project_type (
+    id int identity primary key,
+    code character varying(30),
+    dir_naming_cls character varying(200),
+    file_naming_cls character varying(200),
+    code_naming_cls character varying(200),
+    node_naming_cls character varying(200),
+    sobject_mapping_cls character varying(200),
+    s_status character varying(32),
+    "type" character varying(100) not null,
+    repo_handler_cls character varying(200),
+    constraint "project_type_code_idx" unique (code)
+);
+
+
+
+create table login_group (
+    id int identity primary key,
+    code character varying(256),
+    login_group character varying(100) not null,
+    sub_groups varchar(max),
+    access_rules varchar(max),
+    redirect_url varchar(max),
+    namespace character varying(255),
+    description varchar(max),
+    project_code varchar(max),
+    s_status character varying(256),
+    start_link varchar(max),
+    access_level varchar(32),
+    constraint "login_group_code_idx" unique (code)
+);
+
+
+
+create table login_in_group (
+    id int identity primary key,
+    code character varying(256),
+    "login" character varying(100) not null,
+    login_group character varying(100) not null
+);
+
+
+
+create table ticket (
+    id int identity primary key,
+    code character varying(256),
+    ticket character varying(100) not null,
+    "login" character varying(100),
+    "timestamp" timestamp  default now(),
+    expiry timestamp ,
+    category character varying(256),
+    constraint "ticket_code_idx" unique (code),
+    constraint "ticket_ticket_idx" unique (ticket)
+);
+
+
+
+
+create table pipeline (
+    id int identity primary key,
+    code character varying(256),
+    pipeline varchar(max),
+    "timestamp" timestamp  default now() not null,
+    search_type character varying(100),
+    project_code character varying(30),
+    description varchar(max),
+    color varchar(256),
+    s_status character varying(30),
+    autocreate_tasks boolean,
+    constraint "pipeline_code_idx" unique (code)
+);
+
+
+
+-- fixme: is this needed anymore?
+-- fixme: notification_id will be deprecated in 4.0
+create table group_notification (
+    id int identity primary key,
+    login_group character varying(100) not null,
+    notification_id integer not null
+);
+create table notification_login (
+    id int identity primary key,
+    notification_log_id integer,
+    "login" character varying(256),
+    "type" character varying(256),
+    project_code character varying(256),
+    "timestamp" timestamp  default now()
+);
+
+
+
+create table notification_log (
+    id int identity primary key,
+    project_code character varying(256),
+    "login" character varying(256),
+    command_cls character varying(256),
+    subject varchar(max),
+    message varchar(max),
+    "timestamp" timestamp  default now()
+);
+
+
+create table snapshot (
+    id int identity primary key,
+    search_type character varying(100) not null,
+    search_id integer not null,
+    column_name character varying(100) not null,
+    snapshot varchar(max) not null,
+    description varchar(max),
+    process varchar(256),
+    "login" character varying(100) not null,
+    "lock_login" character varying(100),
+    "timestamp" timestamp  default now() not null,
+    lock_date timestamp,
+    context character varying(256),
+    version integer,
+    s_status character varying(30),
+    snapshot_type character varying(30),
+    code character varying(30),
+    repo character varying(30),
+    is_current boolean,
+    label character varying(100),
+    revision smallint,
+    level_type character varying(256),
+    level_id integer,
+    metadata varchar(max),
+    is_latest boolean,
+    status character varying(256),
+    project_code character varying(256),
+    search_code character varying(256),
+    is_synced boolean,
+    constraint "snapshot_code_idx" unique (code)
+);
+
+create table file (
+    id int identity primary key,
+    file_name character varying(512) not null,
+    search_type character varying(100) not null,
+    search_id integer not null,
+    "timestamp" timestamp  default now() not null,
+    st_size bigint,
+    file_range varchar(max),
+    code character varying(30),
+    snapshot_code character varying(30),
+    project_code character varying(100),
+    md5 character varying(32),
+    checkin_dir varchar(max),
+    source_path varchar(max),
+    relative_dir varchar(max),
+    "type" character varying(256),
+    base_type character varying(256),
+    metadata varchar(max),
+    metadata_search varchar(max), 
+    repo_type varchar(256), 
+    "base_dir_alias" character varying(256),
+    
+    constraint "file_code_idx" unique (code)
+);
+
+
+
+-- note: is this really needed anymore?  check-in is dependent on it!
+create table remote_repo (
+    id int identity primary key,
+    code character varying(30),
+    ip_address character varying(30),
+    ip_mask character varying(30),
+    repo_base_dir character varying(200),
+    sandbox_base_dir character varying(200),
+    "login" character varying(100),
+    constraint "remote_repo_code_idx" unique (code)
+);
+
+
+
+
+create table milestone (
+    id int identity primary key,
+    code character varying(256),
+    project_code character varying(256),
+    description varchar(max),
+    due_date timestamp ,
+    constraint "milestone_code_idx" unique (code)
+);
+
+
+
+
+-- note: file name is deleted
+create table task (
+    id int identity primary key,
+    -- file_name character varying(512) not null,
+    assigned character varying(100),
+    description varchar(max),
+    status varchar(max),
+    discussion varchar(max),
+    bid_start_date timestamp ,
+    bid_end_date timestamp ,
+    bid_duration double precision,
+    actual_start_date timestamp ,
+    actual_end_date timestamp ,
+    search_type character varying(100),
+    search_id integer,
+    "timestamp" timestamp  default now(),
+    s_status character varying(30),
+    priority smallint,
+    process character varying(256),
+    context character varying(256),
+    milestone_code character varying(200),
+    pipeline_code character varying(256),
+    parent_id integer,
+    sort_order smallint,
+    depend_id integer,
+    project_code character varying(100),
+    supervisor character varying(100),
+    code character varying(256),
+    login character varying(256),
+    completion float,
+    constraint "task_code_idx" unique (code)
+);
+
+
+create table note (
+    id int identity primary key,
+    code character varying(256),
+    project_code character varying(30),
+    search_type character varying(200),
+    search_id integer,
+    "login" character varying(30),
+    context character varying(60),
+    "timestamp" timestamp  default now(),
+    note varchar(max),
+    title character varying(1024),
+    parent_id bigint,
+    status character varying(256),
+    label character varying(256),
+    process character varying(60),
+    "sort_order" integer,
+    "access" character varying(256),
+    constraint "note_code_idx" unique (code)
+);
+
+
+
+
+create table pref_setting (
+    id int identity primary key,
+    project_code character varying(256),
+    "login" character varying(256),
+    "key" character varying(256),
+    value varchar(max),
+    "timestamp" timestamp  default now()
+);
+
+
+create table wdg_settings (
+    id int identity primary key,
+    "key" character varying(255) not null,
+    "login" character varying(100) not null,
+    data varchar(max),
+    "timestamp" timestamp  default now() not null,
+    project_code character varying(30)
+);
+
+
+
+create table clipboard (
+    id int identity primary key,
+    project_code character varying(256),
+    "login" character varying(256),
+    search_type character varying(256),
+    search_id integer,
+    "timestamp" timestamp  default now(),
+    category character varying(256)
+);
+
+
+
+
+
+
+create table exception_log (
+    id int identity primary key,
+    "class" character varying(100),
+    message varchar(max),
+    stack_trace varchar(max),
+    "login" character varying(100) not null,
+    "timestamp" timestamp  default now() not null
+);
+
+
+
+
+create table transaction_log (
+    id int identity primary key,
+    "code" character varying(256),
+    "transaction" varchar(max),
+    "login" character varying(100) not null,
+    "timestamp" timestamp  default now() not null,
+    description varchar(max),
+    command character varying(100),
+    title varchar(max),
+    "type" character varying(30),
+    namespace character varying(100),
+    constraint "transaction_log_code_idx" unique (code)
+);
+
+create index "transaction_log_timestamp_idx" on transaction_log ("timestamp");
+create index "transaction_log_idx" on transaction_log (login, namespace, "type");
+
+
+
+
+
+-- fixme: is this really needed???
+create table transaction_state (
+    id int identity primary key,
+    ticket character varying(100),
+    "timestamp" timestamp  default now(),
+    data varchar(max),
+    constraint "transaction_state_ticket_idx" unique (ticket)
+);
+
+
+
+
+create table sobject_log (
+    id int identity primary key,
+    code varchar(256),
+    search_type character varying(100) not null,
+    search_id integer not null,
+    data varchar(max),
+    "login" character varying(100) not null,
+    "timestamp" timestamp  default now() not null,
+    transaction_log_id integer
+);
+
+
+create table status_log (
+    id int identity primary key,
+    search_type character varying(256) not null,
+    search_id integer not null,
+    status varchar(max),
+    "login" character varying(256) not null,
+    "timestamp" timestamp  default now() not null,
+    to_status character varying(256),
+    from_status character varying(256),
+    project_code character varying(256)
+);
+
+create table debug_log (
+    id int identity primary key,
+    code varchar(256),
+    category character varying(256),
+    "level" character varying(256),
+    message varchar(max),
+    "timestamp" timestamp  default now(),
+    "login" character varying(256),
+    s_status character varying(30)
+);
+
+
+
+create table work_hour (
+    id int identity primary key,
+    code character varying(256),
+    project_code character varying(256),
+    description varchar(max),
+    category character varying(256),
+    process character varying(256),
+    "login" character varying(256),
+    "day" timestamp ,
+    start_time timestamp ,
+    end_time timestamp ,
+    straight_time double precision,
+    over_time double precision,
+    search_type character varying(256),
+    search_id integer,
+    status character varying(256),
+    task_code character varying(256),
+    constraint "work_hour_code_idx" unique (code)
+);
+
+
+
+
+
+
+-- in upgrade
+create table cache (
+    id int identity primary key,
+    "key" varchar(256),
+    mtime timestamp
+);
+
+
+create table sobject_list (
+    id int identity primary key,
+    code varchar(256),
+    search_type varchar(256),
+    search_id integer,
+    keywords varchar(max),
+    "timestamp" timestamp default now(),
+    project_code varchar(256),
+    constraint "sobject_list_code_idx" unique (code)
+);
+
+
+-- sync
+create table change_timestamp (
+    id int identity primary key,
+    code varchar(256),
+    search_type varchar(256),
+    search_code varchar(256),
+    changed_on varchar(max),
+    changed_by varchar(max),
+    project_code varchar(256),
+    transaction_code varchar(256)
+);
+
+
+
+
+
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/db_resource', 'sthpw/db_resource', 'sthpw', 'database resource', 'sthpw', 'db_resource', 'pyasm.search.sobject', 'database resource', 'public');
+
+
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('config/custom_property', 'config/custom_property', 'sthpw', 'custom property', '{project}', 'custom_property', 'pyasm.biz.customproperty', 'custom property', 'public');
+
+
+
+
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/annotation', 'sthpw/annotation', 'sthpw', 'image annotations', 'sthpw', 'annotation', 'pyasm.search.search.sobject', 'image annotations', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/retire_log', 'sthpw/retire_log', 'sthpw', 'retire sobject log', 'sthpw', 'retire_log', 'pyasm.search.retirelog', 'retire sobject log', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/login_in_group', 'sthpw/login_in_group', 'sthpw', 'users in groups', 'sthpw', 'login_in_group', 'pyasm.security.loginingroup', 'users in groups', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/exception_log', 'sthpw/exception_log', 'sthpw', 'exception log', 'sthpw', 'exception_log', 'pyasm.search.sobject', 'exception log', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/file_access', 'sthpw/file_access', 'sthpw', 'file access log', 'sthpw', 'file_access', 'pyasm.biz.fileaccess', 'file access log', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/repo', 'sthpw/repo', 'sthpw', 'repository list', 'sthpw', 'repo', 'pyasm.search.sobject', 'repository list', null);
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/queue', 'sthpw/queue', 'sthpw', 'tactic dispatcher', 'sthpw', 'queue', 'pyasm.search.sobject', 'tactic dispatcher', null);
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/task', 'sthpw/task', 'sthpw', 'user tasks', 'sthpw', 'task', 'pyasm.biz.task', 'user tasks', null);
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/sobject_config', 'sthpw/sobject_config', 'sthpw', 'sobject config data', 'sthpw', 'sobject_config', 'pyasm.search.sobjectdbconfig', 'sobject config data', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/transaction_state', 'sthpw/transaction_state', 'sthpw', 'xmlrpc state', 'sthpw', 'transaction_state', 'pyasm.search.transactionstate', 'transaction_state', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/command', 'sthpw/command', 'sthpw', 'commands in tactic', 'sthpw', 'command', 'pyasm.biz.commandsobj', 'commands in tactic', 'public');
+
+
+
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/command_log', 'sthpw/command_log', 'sthpw', 'historical log of all of the commands executed', 'sthpw', 'command_log', 'pyasm.command.commandlog', 'command log', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/file', 'sthpw/file', 'sthpw', 'a record of all files that are tracked', 'sthpw', 'file', 'pyasm.biz.file.file', 'file', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/login_group', 'sthpw/login_group', 'sthpw', 'list of groups that user belong to', 'sthpw', 'login_group', 'pyasm.security.logingroup', 'groups', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/note', 'sthpw/note', 'sthpw', 'notes', 'sthpw', 'note', 'pyasm.biz.note', 'notes', null);
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/pipeline', 'sthpw/pipeline', 'sthpw', 'list of piplines available for sobjects', 'sthpw', 'pipeline', 'pyasm.biz.pipeline', 'pipelines', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/status_log', 'sthpw/status_log', 'sthpw', 'log of status changes', 'sthpw', 'status_log', 'pyasm.search.sobject', 'status log', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/group_notification', 'sthpw/group_notification', 'sthpw', 'associate one of more kinds of notification with groups', 'sthpw', 'group_notification', 'pyasm.biz.groupnotification', 'group notification', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/snapshot', 'sthpw/snapshot', 'sthpw', 'all versions of snapshots of assets', 'sthpw', 'snapshot', 'pyasm.biz.snapshot', 'snapshot', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/ticket', 'sthpw/ticket', 'sthpw', 'valid login tickets to enter the system', 'sthpw', 'ticket', 'pyasm.security.ticket', 'ticket', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/wdg_settings', 'sthpw/wdg_settings', 'sthpw', 'persistent store for widgets to remember user settings', 'sthpw', 'wdg_settings', 'pyasm.web.widgetsettings', 'widget settings', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/transaction_log', 'sthpw/transaction_log', 'sthpw', null, 'sthpw', 'transaction_log', 'pyasm.search.transactionlog', 'transaction log', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/sobject_log', 'sthpw/sobject_log', 'sthpw', 'log of actions on an sobject', 'sthpw', 'sobject_log', 'pyasm.search.sobject', 'sobject log', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/project_type', 'sthpw/project_type', 'sthpw', 'project type', 'sthpw', 'project_type', 'pyasm.biz.projecttype', 'project type', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/pref_setting', 'sthpw/pref_setting', 'sthpw', 'preference setting', 'sthpw', '{public}.pref_setting', 'pyasm.biz.prefsetting', 'pref setting', 'public');
+
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/clipboard', 'sthpw/clipboard', 'sthpw', 'clipboard', 'sthpw', '{public}.clipboard', 'pyasm.biz.clipboard', '', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/pref_list', 'sthpw/pref_list', 'sthpw', 'preferences list', 'sthpw', '{public}.pref_list', 'pyasm.biz.preflist', '', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/translation', 'sthpw/translation', 'sthpw', 'locale translations', 'sthpw', '{public}.translation', 'pyasm.search.sobject', '', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/notification_log', 'sthpw/notification_log', 'sthpw', 'notification log', 'sthpw', '{public}.notification_log', 'pyasm.search.sobject', 'notification log', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/notification_login', 'sthpw/notification_login', 'sthpw', 'notification login', 'sthpw', '{public}.notification_login', 'pyasm.search.sobject', '', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/connection', 'sthpw/connection', 'sthpw', 'connections', 'sthpw', 'connection', 'pyasm.biz.sobjectconnection', 'connections', null);
+
+
+
+
+
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/remote_repo', 'sthpw/remote_repo', 'sthpw', 'remote repositories', 'sthpw', 'remote_repo', 'pyasm.biz.remoterepo', 'remote repositories', null);
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/widget_extend', 'sthpw/widget_extend', 'sthpw', 'extend widget', 'sthpw', 'widget_extend', 'pyasm.search.sobject', 'widget_extend', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/snapshot_type', 'sthpw/snapshot_type', 'sthpw', 'snapshot type', 'sthpw', 'snapshot_type', 'pyasm.biz.snapshottype', 'snapshot type', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/widget_config', 'sthpw/widget_config', 'sthpw', 'widget config data', 'sthpw', 'widget_config', 'pyasm.search.widgetdbconfig', 'widget config data', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/debug_log', 'sthpw/debug_log', 'sthpw', 'debug log', 'sthpw', 'debug_log', 'pyasm.biz.debuglog', 'debug log', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('unittest/person', 'unittest/person', 'unittest', 'unittest person', 'unittest', 'person', 'pyasm.search.sobject', 'unittest person', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('unittest/city', 'unittest/city', 'unittest', 'unittest city', 'unittest', 'city', 'pyasm.search.sobject', 'unittest city', 'public');
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('unittest/country', 'unittest/country', 'unittest', 'unittest country', 'unittest', 'country', 'pyasm.search.sobject', 'unittest country', 'public');
+
+
+
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('config/widget_config', 'config/widget_config', 'config', 'widget config', '{project}', 'widget_config', 'pyasm.search.widgetdbconfig', 'widget config', 'public');
+
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('config/custom_script', 'config/custom_script', 'config', 'custom script', '{project}', 'custom_script', 'pyasm.search.sobject', 'custom script', 'public');
+
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('config/naming', 'config/naming', 'config', 'naming', '{project}', '{public}.naming', 'pyasm.biz.naming', '', 'public');
+
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('sthpw/cache', 'sthpw/cache', 'sthpw', 'cache', 'sthpw', '{public}.cache', 'pyasm.search.sobject', '', 'public');
+
+insert into search_object (code, search_type, namespace, description, "database", table_name, class_name, title, "schema") values ('config/prod_setting', 'config/prod_setting', 'config', 'production settings', '{project}', 'prod_setting', 'pyasm.prod.biz.prodsetting', 'production settings', 'public');
+
+insert into search_object (code, search_type, "namespace", "description", "database", "table_name", "class_name", "title", "schema") values ('config/client_trigger', 'config/client_trigger', 'config', 'client trigger', '{project}', 'spt_client_trigger', 'pyasm.search.sobject', 'client trigger', 'public'); 
+
+insert into search_object (code, search_type, "namespace", "description", "database", "table_name", "class_name", "title", "schema") values ('config/url', 'config/url', 'config', 'custom url', '{project}', 'spt_url', 'pyasm.search.sobject', 'custom url', 'public'); 
+
+
+insert into search_object (code, search_type, "namespace", "description", "database", "table_name", "class_name", "title", "schema") values ('config/trigger', 'config/trigger', 'config', 'triggers', '{project}', 'spt_trigger', 'pyasm.biz.triggersobj', 'triggers', 'public');
+
+insert into search_object (code, search_type, "namespace", "description", "database", "table_name", "class_name", "title", "schema") values ('config/process', 'config/process', 'config', 'processes', '{project}', 'spt_process', 'pyasm.search.sobject', 'processes', 'public');
+
+insert into search_object (code, search_type, "namespace", "description", "database", "table_name", "class_name", "title", "schema") values ('sthpw/work_hour', 'sthpw/work_hour', 'sthpw', 'work hours', 'sthpw', 'work_hour', 'pyasm.biz.workhour', 'work hours', 'public');
+
+insert into search_object (code, search_type, "namespace", "description", "database", "table_name", "class_name", "title", "schema") values ('sthpw/sobject_list', 'sthpw/sobject_list', 'sthpw', 'sobject list', 'sthpw', 'sobject_list', 'pyasm.search.sobject', 'sobjectlist', 'public');
+
+insert into search_object (code, search_type, "namespace", "description", "database", "table_name", "class_name", "title", "schema") values('sthpw/milestone','sthpw/milestone','sthpw','project milestones','sthpw','milestone','pyasm.biz.milestone','project milestones','public');
+
+insert into search_object (code, search_type, "namespace", "description", "database", "table_name", "class_name", "title", "schema") values ('config/plugin', 'config/plugin', 'config', 'plugin', '{project}', 'spt_plugin', 'pyasm.search.sobject', 'plugin', 'public'); 
+
+-- this is still needed for vfx template.
+
+insert into search_object (code, search_type, "namespace", "description", "database", "table_name", "class_name", "title", "schema") values ('prod/session_contents', 'prod/session_contents', 'prod', 'introspection contents of a users session', '{project}', 'session_contents', 'pyasm.prod.biz.sessioncontents', 'session contents', 'public');
+
+
+-- pref_list
+
+insert into pref_list ("key", description, options, "type", category, title) values ('skin', 'these skins determine the look and feel of  tactic.', 'classic|dark|light|lightdark', 'sequence', 'general', 'tactic skins');
+
+insert into pref_list ("key", description, options, "type", category, title) values ('thumb_multiplier', 'determines the size multiplier of all thumbnail images', '1|2|0.5', 'sequence', 'general', 'thumb size');
+
+insert into pref_list ("key", description, options, "type", category, title) values ('js_logging_level','determines logging level used by web client output console pop-up','critical|error|warning|info|debug','sequence','general','web client logging level');
+insert into pref_list ("key", description, options, "type", category, title) values ('quick_text','quick varchar(max) for note sheet','','string','general','quick text');
+
+-- sample pipelines
+
+insert into pipeline (code, pipeline, "timestamp", search_type, project_code, description, s_status) values ('model', '<?xml version="1.0" encoding="utf-8"?>  
+<pipeline type="serial">  
+  <process name="model"/>  
+  <process name="texture"/>  
+  <process name="shader"/>  
+  <process name="rig"/>  
+  <connect to="texture" from="model" context="model"/>  
+  <connect to="shader" from="texture" context="texture"/>  
+  <connect to="shot/layout" from="rig" context="rig"/> 
+  <connect to="rig" from="texture" context="texture"/>  
+  <connect to="shot/lighting" from="shader"/>  
+</pipeline>', '2007-06-27 19:16:02.733281', 'prod/asset', null, null, null);
+insert into pipeline (code, pipeline, "timestamp", search_type, project_code, description, s_status) values ('shot', '<?xml version="1.0" encoding="utf-8"?> 
+<pipeline type="parallel"> 
+  <process name="layout"/> 
+  <process name="anim"/> 
+  <process name="char_final"/> 
+  <process name="effects"/> 
+  <process name="lighting"/> 
+  <process name="compositing"/> 
+  <connect to="layout" from="model/model" context="model"/>
+  <connect to="layout" from="model/rig" context="rig"/> 
+  <connect to="anim" from="layout"/> 
+  <connect to="char_final" from="anim"/> 
+  <connect to="char_final" from="model/texture" context="texture"/> 
+  <connect to="effects" from="char_final"/> 
+  <connect to="lighting" from="effects"/> 
+  <connect to="lighting" from="char_final"/> 
+  <connect to="compositing" from="lighting"/> 
+</pipeline>', '2007-06-27 19:16:02.735433', 'prod/shot', null, null, null);
+
+
+-- create extra indices
+
+create index "note_search_type_search_id_idx" on note (search_type, search_id);
+create index "snapshot_search_type_search_id_idx" on snapshot (search_type, search_id);
+create index "sobject_list_search_type_search_id_idx" on sobject_list (search_type, search_id);
+create index "status_log_search_type_search_id_idx" on status_log (search_type, search_id);
+create index "task_search_type_search_id_idx" on task (search_type, search_id);
+create index "connection_dst_search_type_dst_search_id_context_idx" on connection (dst_search_type, dst_search_id, context);
+create index "connection_src_search_type_src_search_id_idx" on connection (src_search_type, src_search_id);
+
+
+
+
+
+ 

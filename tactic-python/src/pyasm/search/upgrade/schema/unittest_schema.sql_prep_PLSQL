@@ -1,0 +1,577 @@
+﻿--
+-- postgresql database dump
+--
+
+set client_encoding = 'utf8';
+set standard_conforming_strings = off;
+set check_function_bodies = false;
+set client_min_messages = warning;
+set escape_string_warning = off;
+
+--
+-- name: schema public; type: comment; schema: -; owner: postgres
+--
+
+comment on schema public is 'standard public schema';
+
+
+--
+-- name: plpgsql; type: procedural language; schema: -; owner: postgres
+--
+
+create procedural language plpgsql;
+
+
+set search_path = public, pg_catalog;
+
+set default_tablespace = '';
+
+set default_with_oids = false;
+
+--
+-- name: city; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table city (
+    id integer not null,
+    code character varying(256),
+    name character varying(256),
+    country_code character varying(256)
+);
+
+
+alter table public.city owner to postgres;
+
+--
+-- name: city_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence city_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.city_id_seq owner to postgres;
+
+--
+-- name: city_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence city_id_seq owned by city.id;
+
+
+--
+-- name: country; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table country (
+    id integer not null,
+    code character varying(256),
+    name character varying(256),
+    s_status character varying(32)
+);
+
+
+alter table public.country owner to postgres;
+
+--
+-- name: country_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence country_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.country_id_seq owner to postgres;
+
+--
+-- name: country_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence country_id_seq owned by country.id;
+
+
+--
+-- name: custom_property; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table custom_property (
+    id integer not null,
+    search_type character varying(256),
+    name character varying(256),
+    description text,
+    "login" character varying(256)
+);
+
+
+alter table public.custom_property owner to postgres;
+
+--
+-- name: custom_property_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence custom_property_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.custom_property_id_seq owner to postgres;
+
+--
+-- name: custom_property_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence custom_property_id_seq owned by custom_property.id;
+
+
+--
+-- name: naming; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table naming (
+    id integer not null,
+    search_type character varying(100),
+    dir_naming text,
+    file_naming text,
+    code character varying(256),
+    sandbox_dir_naming text
+);
+
+
+alter table public.naming owner to postgres;
+
+--
+-- name: naming_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence naming_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.naming_id_seq owner to postgres;
+
+--
+-- name: naming_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence naming_id_seq owned by naming.id;
+
+
+--
+-- name: person; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table person (
+    id integer not null,
+    code character varying(256),
+    name_first character varying(100),
+    name_last character varying(100),
+    nationality character varying(100),
+    description text,
+    picture text,
+    discussion text,
+    approval text,
+    city_code character varying(256),
+    metadata text,
+    age integer,
+    timestamp timestamp default now(),
+    birth_date timestamp,
+    pipeline_code character varying(256)
+);
+
+
+alter table public.person owner to postgres;
+
+--
+-- name: person_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence person_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.person_id_seq owner to postgres;
+
+--
+-- name: person_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence person_id_seq owned by person.id;
+
+
+--
+-- name: prod_setting; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table prod_setting (
+    id integer not null,
+    "key" character varying(100),
+    value text,
+    description text,
+    "type" character varying(30),
+    search_type character varying(200)
+);
+
+
+alter table public.prod_setting owner to postgres;
+
+--
+-- name: prod_setting_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence prod_setting_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.prod_setting_id_seq owner to postgres;
+
+--
+-- name: prod_setting_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence prod_setting_id_seq owned by prod_setting.id;
+
+
+--
+-- name: session_contents; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table session_contents (
+    id integer not null,
+    "login" character varying(100) not null,
+    pid integer not null,
+    data text,
+    "session" text,
+    "timestamp" timestamp without time zone default now()
+);
+
+
+alter table public.session_contents owner to postgres;
+
+--
+-- name: session_contents_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence session_contents_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.session_contents_id_seq owner to postgres;
+
+--
+-- name: session_contents_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence session_contents_id_seq owned by session_contents.id;
+
+
+--
+-- name: snapshot_type; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table snapshot_type (
+    id integer not null,
+    code character varying(256),
+    pipeline_code text,
+    "timestamp" timestamp without time zone default now(),
+    "login" character varying(256),
+    s_status character varying(30),
+    relpath text,
+    project_code character varying(256),
+    subcontext text,
+    snapshot_flavor text
+);
+
+
+alter table public.snapshot_type owner to postgres;
+
+--
+-- name: snapshot_type_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence snapshot_type_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.snapshot_type_id_seq owner to postgres;
+
+--
+-- name: snapshot_type_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence snapshot_type_id_seq owned by snapshot_type.id;
+
+
+--
+-- name: status; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table status (
+    id integer not null,
+    status text,
+    "timestamp" timestamp without time zone default now(),
+    name character varying(128)
+);
+
+
+alter table public.status owner to postgres;
+
+--
+-- name: status_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence status_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.status_id_seq owner to postgres;
+
+--
+-- name: status_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence status_id_seq owned by status.id;
+
+
+--
+-- name: widget_config; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table widget_config (
+    id integer not null,
+    code character varying(256),
+    "view" character varying(256),
+    category character varying(256),
+    search_type character varying(256),
+    "login" character varying(256),
+    config text,
+    "timestamp" timestamp without time zone default now(),
+    s_status character varying(32)
+);
+
+
+alter table public.widget_config owner to postgres;
+
+--
+-- name: widget_config_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence widget_config_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.widget_config_id_seq owner to postgres;
+
+--
+-- name: widget_config_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence widget_config_id_seq owned by widget_config.id;
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table city alter column id set default nextval('city_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table country alter column id set default nextval('country_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table custom_property alter column id set default nextval('custom_property_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table naming alter column id set default nextval('naming_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table person alter column id set default nextval('person_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table prod_setting alter column id set default nextval('prod_setting_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table session_contents alter column id set default nextval('session_contents_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table snapshot_type alter column id set default nextval('snapshot_type_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table status alter column id set default nextval('status_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table widget_config alter column id set default nextval('widget_config_id_seq'::regclass);
+
+
+--
+-- name: city_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only city
+    add constraint city_pkey primary key (id);
+
+
+--
+-- name: code_unique; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only person
+    add constraint code_unique unique (code);
+
+
+--
+-- name: country_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only country
+    add constraint country_pkey primary key (id);
+
+
+--
+-- name: custom_property_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only custom_property
+    add constraint custom_property_pkey primary key (id);
+
+
+--
+-- name: naming_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only naming
+    add constraint naming_pkey primary key (id);
+
+
+--
+-- name: person_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only person
+    add constraint person_pkey primary key (id);
+
+
+--
+-- name: prod_setting_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only prod_setting
+    add constraint prod_setting_pkey primary key (id);
+
+
+--
+-- name: snapshot_type_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only snapshot_type
+    add constraint snapshot_type_pkey primary key (id);
+
+
+--
+-- name: status_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only status
+    add constraint status_pkey primary key (id);
+
+
+--
+-- name: widget_config_code_key; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only widget_config
+    add constraint widget_config_code_key unique (code);
+
+
+--
+-- name: widget_config_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only widget_config
+    add constraint widget_config_pkey primary key (id);
+
+
+--
+-- name: public; type: acl; schema: -; owner: postgres
+--
+
+revoke all on schema public from public;
+revoke all on schema public from postgres;
+grant all on schema public to postgres;
+grant all on schema public to public;
+
+
+--
+-- postgresql database dump complete
+--
+
+
+ 

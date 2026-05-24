@@ -1,0 +1,49 @@
+﻿
+
+
+
+
+
+
+
+
+function script___1338190454() {src("../../ckeditor.js");}CxConstr_578837127();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //         
+
+   // Replace the <textarea id="editor"> with an CKEditor
+   // instance, using default configurations.
+   CKEDITOR.replace( 'editor1' );
+
+  //   
+  
+
+
+
+
+                                                 function onclick____1701479075() {window.runtime.flash.net.navigateToURL(new window.runtime.flash.net.URLRequest('http://ckeditor.com/'));return false;}
+
+
+                                   function onclick____1154087971() {window.runtime.flash.net.navigateToURL(new window.runtime.flash.net.URLRequest('http://cksource.com/'));return false;}
+
+
+
+
+
+
+
+
+ 

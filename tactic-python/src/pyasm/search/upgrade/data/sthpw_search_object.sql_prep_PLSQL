@@ -1,0 +1,127 @@
+﻿
+-- deprecated
+
+--
+-- postgresql database dump
+--
+
+set client_encoding = 'utf8';
+set standard_conforming_strings = off;
+set check_function_bodies = false;
+set client_min_messages = warning;
+set escape_string_warning = off;
+
+set search_path = public, pg_catalog;
+
+--
+-- name: search_object_id_seq; type: sequence set; schema: public; owner: postgres
+--
+
+select pg_catalog.setval('search_object_id_seq', 128, true);
+
+
+--
+-- data for name: search_object; type: table data; schema: public; owner: postgres
+--
+
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (2, 'sthpw/annotation', 'sthpw', 'image annotations', 'sthpw', 'annotation', 'pyasm.search.search.sobject', 'image annotations', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (3, 'sthpw/retire_log', 'sthpw', 'retire sobject log', 'sthpw', 'retire_log', 'pyasm.search.retirelog', 'retire sobject log', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (7, 'sthpw/login_in_group', 'sthpw', 'users in groups', 'sthpw', 'login_in_group', 'pyasm.security.loginingroup', 'users in groups', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (8, 'sthpw/exception_log', 'sthpw', 'exception log', 'sthpw', 'exception_log', 'pyasm.search.sobject', 'exception log', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (105, 'prod/sequence_instance', 'prod', 'sequence instance', '{project}', 'sequence_instance', 'pyasm.prod.biz.sequenceinstance', 'sequence instance', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (10, 'sthpw/file_access', 'sthpw', 'file access log', 'sthpw', 'file_access', 'pyasm.biz.fileaccess', 'file access log', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (20, 'sthpw/repo', 'sthpw', 'repository list', 'sthpw', 'repo', 'pyasm.search.sobject', 'repository list', null);
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (21, 'sthpw/queue', 'sthpw', 'tactic dispatcher', 'sthpw', 'queue', 'pyasm.search.sobject', 'tactic dispatcher', null);
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (23, 'sthpw/template', 'sthpw', 'sobject templates', 'sthpw', 'template', 'pyasm.biz.template', 'sobject templates', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (24, 'sthpw/project', 'sthpw', 'projects', 'sthpw', 'project', 'pyasm.biz.project', 'projects', null);
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (25, 'sthpw/task', 'sthpw', 'user tasks', 'sthpw', 'task', 'pyasm.biz.task', 'user tasks', null);
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (26, 'sthpw/sobject_config', 'sthpw', 'sobject config data', 'sthpw', 'sobject_config', 'pyasm.search.sobjectdbconfig', 'sobject config data', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (107, 'sthpw/transaction_state', 'sthpw', 'xmlrpc state', 'sthpw', 'transaction_state', 'pyasm.search.transactionstate', 'transaction_state', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (30, 'sthpw/command', 'sthpw', 'commands in tactic', 'sthpw', 'command', 'pyasm.biz.commandsobj', 'commands in tactic', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (31, 'sthpw/milestone', 'sthpw', 'project milestones', 'sthpw', 'milestone', 'pyasm.search.sobject', 'project milestones', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (35, 'prod/layer', 'prod', 'layers', '{project}', '{public}.layer', 'pyasm.prod.biz.layer', 'layers', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (116, 'sthpw/schema', 'sthpw', 'schema', 'sthpw', 'schema', 'pyasm.biz.schema', 'schema', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (38, 'prod/shot_texture', 'prod', 'shot texture maps', '{project}', '{public}.shot_texture', 'pyasm.prod.biz.shottexture', 'shot texture maps', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (39, 'prod/storyboard', 'prod', 'storyboard', '{project}', '{public}.storyboard', 'pyasm.search.sobject', 'storyboard', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (42, 'prod/episode', 'prod', 'episode', '{project}', '{public}.episode', 'pyasm.prod.biz.episode', 'episode', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (43, 'prod/script', 'prod', 'script', '{project}', '{public}.script', 'pyasm.search.sobject', 'script', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (44, 'prod/instance', 'prod', 'an instance of an asset in a shot', '{project}', '{public}.instance', 'pyasm.prod.biz.instance', 'an instance of an asset in a shot', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (45, 'prod/asset_type', 'prod', 'asset type', '{project}', '{public}.asset_type', 'pyasm.search.sobject', 'asset type', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (49, 'prod/asset_library', 'prod', 'asset library types', '{project}', '{public}.asset_library', 'pyasm.search.sobject', 'asset library types', null);
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (51, 'prod/node_data', 'prod', 'maya node data', '{project}', 'node_data', 'pyasm.search.sobject', 'maya node data', null);
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (52, 'prod/texture_source', 'prod', 'texture source', '{project}', 'texture_source', 'pyasm.prod.biz.texturesource', 'texture source', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (53, 'prod/leica', 'prod', 'leica', '{project}', 'leica', 'pyasm.search.sobject', 'leica', null);
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (54, 'prod/render', 'prod', 'renders', '{project}', 'render', 'pyasm.prod.biz.render', 'renders', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (62, 'prod/art_reference', 'prod', 'reference images', '{project}', 'art_reference', 'pyasm.search.sobject', 'reference images', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (64, 'prod/layer_instance', 'prod', 'an instance of an layer in a shot', '{project}', '{public}.layer_instance', 'pyasm.prod.biz.layerinstance', 'an instance of an layer in a shot', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (66, 'prod/bin', 'prod', 'bin for submissions', '{project}', 'bin', 'pyasm.prod.biz.bin', 'bin for submissions', null);
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (67, 'prod/submission_in_bin', 'prod', 'submissions in bins', '{project}', 'submission_in_bin', 'pyasm.prod.biz.submissioninbin', 'submissions in bins', null);
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (68, 'prod/prod_setting', 'prod', 'production settings', '{project}', 'prod_setting', 'pyasm.prod.biz.prodsetting', 'production settings', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (69, 'prod/camera', 'prod', 'camera information', '{project}', 'camera', 'pyasm.search.sobject', 'camera information', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (73, 'effects/plate', 'effects', 'production plates', '{project}', 'plate', 'pyasm.effects.biz.plate', 'production plates', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (74, 'game/texture', 'game', 'game texture', '{project}', 'texture', 'pyasm.game.biz.gametexture', 'game texture', null);
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (75, 'game/asset', 'game', 'game asset', '{project}', 'asset', 'pyasm.game.biz.gameasset', 'game asset', null);
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (76, 'game/level', 'game', 'game level', '{project}', 'level', 'pyasm.game.biz.gamelevel', 'game level', null);
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (77, 'game/level_instance', 'game', 'game level instance', '{project}', 'instance', 'pyasm.game.biz.gamelevelinstance', 'game level instance', null);
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (78, 'game/art_reference', 'game', 'reference images', '{project}', 'art_reference', 'pyasm.game.biz.gameartreference', 'reference images', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (50, 'prod/asset', 'prod', 'the base atomic entity that can exist shot', '{project}', '{public}.asset', 'pyasm.prod.biz.asset', '3d asset', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (41, 'prod/sequence', 'prod', 'a list of shots that are grouped together', '{project}', '{public}.sequence', 'pyasm.prod.biz.sequence', 'sequence', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (40, 'prod/session_contents', 'prod', 'introspection contents of a users session', '{project}', 'session_contents', 'pyasm.prod.biz.sessioncontents', 'session contents', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (48, 'prod/shot', 'prod', 'a camera cut', '{project}', '{public}.shot', 'pyasm.prod.biz.shot', 'shot', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (63, 'prod/shot_instance', 'prod', 'an instance of an asset in a shot', '{project}', '{public}.instance', 'pyasm.prod.biz.shotinstance', 'shot instance', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (65, 'prod/submission', 'prod', 'submission of quicktime, media files for an asset', '{project}', 'submission', 'pyasm.prod.biz.submission', 'submission', null);
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (46, 'prod/template', 'unittest', 'test of a template sobject', '{project}', 'asset', 'pyasm.prod.biz.asset', 'template', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (47, 'prod/render_stage', 'prod', 'stages for specfic assets', '{project}', '{public}.render_stage', 'pyasm.search.sobject', 'render stage', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (4, 'sthpw/command_log', 'sthpw', 'historical log of all of the commands executed', 'sthpw', 'command_log', 'pyasm.command.commandlog', 'command log', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (1, 'sthpw/file', 'sthpw', 'a record of all files that are tracked', 'sthpw', 'file', 'pyasm.biz.file.file', 'file', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (11, 'sthpw/login_group', 'sthpw', 'list of groups that user belong to', 'sthpw', 'login_group', 'pyasm.security.logingroup', 'groups', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (33, 'sthpw/note', 'sthpw', 'notes', 'sthpw', 'note', 'pyasm.biz.note', 'notes', null);
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (12, 'sthpw/pipeline', 'sthpw', 'list of piplines available for sobjects', 'sthpw', 'pipeline', 'pyasm.biz.pipeline', 'pipelines', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (16, 'sthpw/status_log', 'sthpw', 'log of status changes', 'sthpw', 'status_log', 'pyasm.search.sobject', 'status log', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (6, 'sthpw/notification', 'sthpw', 'different types of notification', 'sthpw', 'notification', 'pyasm.biz.notification', 'notification', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (5, 'sthpw/group_notification', 'sthpw', 'associate one of more kinds of notification with groups', 'sthpw', 'group_notification', 'pyasm.biz.groupnotification', 'group notification', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (13, 'sthpw/snapshot', 'sthpw', 'all versions of snapshots of assets', 'sthpw', 'snapshot', 'pyasm.biz.snapshot', 'snapshot', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (17, 'sthpw/ticket', 'sthpw', 'valid login tickets to enter the system', 'sthpw', 'ticket', 'pyasm.security.ticket', 'ticket', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (14, 'sthpw/search_object', 'sthpw', 'list of all the search objects', 'sthpw', 'search_object', 'pyasm.search.searchtype', 'search objects', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (19, 'sthpw/wdg_settings', 'sthpw', 'persistent store for widgets to remember user settings', 'sthpw', 'wdg_settings', 'pyasm.web.widgetsettings', 'widget settings', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (18, 'sthpw/transaction_log', 'sthpw', null, 'sthpw', 'transaction_log', 'pyasm.search.transactionlog', 'transaction log', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (28, 'sthpw/trigger_in_command', 'sthpw', 'triggers contained in command', 'sthpw', 'trigger_in_command', 'pyasm.biz.triggerincommand', 'command triggers', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (15, 'sthpw/sobject_log', 'sthpw', 'log of actions on an sobject', 'sthpw', 'sobject_log', 'pyasm.search.sobject', 'sobject log', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (79, 'sthpw/project_type', 'sthpw', 'project type', 'sthpw', 'project_type', 'pyasm.biz.projecttype', 'project type', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (80, 'sthpw/pref_setting', 'sthpw', 'preference setting', 'sthpw', '{public}.pref_setting', 'pyasm.biz.prefsetting', '', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (81, 'sthpw/access_rule', 'sthpw', 'access rules', 'sthpw', '{public}.access_rule', 'pyasm.security.accessrule', '', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (82, 'sthpw/access_rule_in_group', 'sthpw', 'access rules in group', 'sthpw', '{public}.access_rule_in_group', 'pyasm.security.accessruleingroup', '', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (83, 'sthpw/clipboard', 'sthpw', 'clipboard', 'sthpw', '{public}.clipboard', 'pyasm.biz.clipboard', '', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (84, 'sthpw/pref_list', 'sthpw', 'preferences list', 'sthpw', '{public}.pref_list', 'pyasm.biz.preflist', '', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (85, 'sthpw/translation', 'sthpw', 'locale translations', 'sthpw', '{public}.translation', 'pyasm.search.sobject', '', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (89, 'sthpw/notification_log', 'sthpw', 'notification log', 'sthpw', '{public}.notification_log', 'pyasm.search.sobject', '', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (90, 'sthpw/notification_login', 'sthpw', 'notification login', 'sthpw', '{public}.notification_login', 'pyasm.search.sobject', '', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (22, 'sthpw/timecard', 'sthpw', 'timecard registration', 'sthpw', 'timecard', 'pyasm.search.sobject', 'timecard', null);
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (34, 'sthpw/connection', 'sthpw', 'connections', 'sthpw', 'connection', 'pyasm.biz.sobjectconnection', 'connections', null);
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (102, 'prod/cut_sequence', 'prod', 'cut sequences', '{project}', 'cut_sequence', 'pyasm.prod.biz.cutsequence', 'cut sequences', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (103, 'prod/naming', 'prod', 'naming', '{project}', '{public}.naming', 'pyasm.biz.naming', '', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (32, 'sthpw/remote_repo', 'sthpw', 'remote repositories', 'sthpw', 'remote_repo', 'pyasm.biz.remoterepo', 'remote repositories', null);
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (104, 'sthpw/widget_extend', 'sthpw', 'extend widget', 'sthpw', 'widget_extend', 'pyasm.search.sobject', 'widget_extend', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (127, 'prod/plate', 'prod', 'production plates', '{project}', 'plate', 'pyasm.effects.biz.plate', 'production plates', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (128, 'sthpw/search_type', 'sthpw', 'list of all the search objects', 'sthpw', 'search_object', 'pyasm.search.searchtype', 'search objects', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (117, 'sthpw/snapshot_type', 'sthpw', 'snapshot type', 'sthpw', 'snapshot_type', 'pyasm.biz.snapshottype', 'snapshot type', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (118, 'game/beat', 'game', 'beat', '{project}', 'beat', 'pyasm.search.sobject', 'beat', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (119, 'game/take', 'game', 'take', '{project}', 'take', 'pyasm.search.sobject', 'take', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (27, 'sthpw/widget_config', 'sthpw', 'widget config data', 'sthpw', 'widget_config', 'pyasm.search.widgetdbconfig', 'widget config data', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (121, 'sthpw/debug_log', 'sthpw', 'debug log', 'sthpw', 'debug_log', 'pyasm.biz.debuglog', 'debug log', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (120, 'prod/custom_property', 'sthpw', 'custom property', '{project}', 'custom_property', 'pyasm.biz.customproperty', 'custom property', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (123, 'unittest/person', 'unittest', 'unittest person', 'unittest', 'person', 'pyasm.search.sobject', 'unittest person', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (125, 'unittest/city', 'unittest', 'unittest city', 'unittest', 'city', 'pyasm.search.sobject', 'unittest city', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (126, 'unittest/country', 'unittest', 'unittest country', 'unittest', 'country', 'pyasm.search.sobject', 'unittest country', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (36, 'prod/composite', 'prod', 'composites', '{project}', '{public}.composite', 'pyasm.prod.biz.composite', 'composites', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (37, 'prod/texture', 'prod', 'textures', '{project}', '{public}.texture', 'pyasm.prod.biz.texture', 'textures', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (9, 'sthpw/login', 'sthpw', 'list of users', 'sthpw', 'login', 'pyasm.security.login', 'users', 'public');
+insert into search_object (id, search_type, namespace, description, "database", table_name, class_name, title, "schema") values (29, 'sthpw/trigger', 'sthpw', 'triggers', 'sthpw', 'trigger', 'pyasm.biz.trigger', 'triggers', 'public');
+
+
+--
+-- postgresql database dump complete
+--
+
+
+ 

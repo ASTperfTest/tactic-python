@@ -1,0 +1,53 @@
+﻿
+
+
+
+
+
+
+
+
+
+
+function gup( name )
+{
+ name = name.replace( /[\[]/, '\\\[' ).replace( /[\]]/, '\\\]' ) ;
+ var regexS = '[\\?&]' + name + '=([^&#]*)' ;
+ var regex = new RegExp( regexS ) ;
+ var results = regex.exec( window.location.href ) ;
+
+ if ( results )
+  return results[ 1 ] ;
+ else
+  return '' ;
+}
+
+var interval;
+
+function sendData2Master()
+{
+ var destination = window.parent.parent ;
+ try
+ {
+  if ( destination.XDTMaster )
+  {
+   var t = destination.XDTMaster.read( [ gup( 'cmd' ), gup( 'data' ) ] ) ;
+   window.clearInterval( interval ) ;
+  }
+ }
+ catch (e) {}
+}
+
+function onLoad()
+{
+ interval = window.setInterval( sendData2Master, 100 );
+}
+
+
+
+function onload___1621464444() {onLoad()}
+
+
+
+
+ 

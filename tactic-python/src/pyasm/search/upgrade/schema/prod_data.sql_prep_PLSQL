@@ -1,0 +1,103 @@
+﻿--
+-- postgresql database dump
+--
+
+set client_encoding = 'utf8';
+set standard_conforming_strings = off;
+set check_function_bodies = false;
+set client_min_messages = warning;
+set escape_string_warning = off;
+
+set search_path = public, pg_catalog;
+
+--
+-- name: asset_type_id_seq; type: sequence set; schema: public; owner: postgres
+--
+
+select pg_catalog.setval('asset_type_id_seq', 5, true);
+
+
+--
+-- data for name: asset_type; type: table data; schema: public; owner: postgres
+--
+
+insert into asset_type (id, code, description) values (1, 'asset', 'asset');
+insert into asset_type (id, code, description) values (2, 'section', 'section');
+insert into asset_type (id, code, description) values (3, 'set', 'set');
+insert into asset_type (id, code, description) values (4, 'camera', 'camera');
+insert into asset_type (id, code, description) values (5, 'set_item', 'set item');
+
+
+--
+-- postgresql database dump complete
+--
+
+--
+-- postgresql database dump
+--
+
+set client_encoding = 'utf8';
+set standard_conforming_strings = off;
+set check_function_bodies = false;
+set client_min_messages = warning;
+set escape_string_warning = off;
+
+set search_path = public, pg_catalog;
+
+--
+-- name: prod_setting_id_seq; type: sequence set; schema: public; owner: postgres
+--
+
+select pg_catalog.setval('prod_setting_id_seq', 38, true);
+
+
+--
+-- data for name: prod_setting; type: table data; schema: public; owner: postgres
+--
+
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (1, 'task_2d_options', 'plate enhance|matchmove / track|plate stabalize|rig removal|2d effects|roto masking|paint touch up|color and light|green screen|matte painting|bioluminescence', null, null, null, 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (2, 'task_3d_options', 'fx animation|environmental effects|volumetrics|debris|3d matchmove|modeling|texture paint|shadow develop|color lighting', null, null, null, 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (3, 'task_anim_options', 'facial animation|blocking|primary animation|facial animation|secondary animation|secondary facial', null, null, null, 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (4, 'sub_context', 'previs|anim|render|jojo', 'checkin contexts options for assets', 'sequence', 'prod/asset', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (5, 'notes_director_context', '2d|fx|anim|misc', 'different contexts for director''s notes', 'sequence', 'prod/note', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (6, 'texture_category', 'concept|texture|mattepainting|misc', 'the different categories for 2d assets', 'sequence', 'prod/texture', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (7, 'notes_preprod_context', 'client kick off|internal kick off', 'preproduction notes categories', 'sequence', 'prod/note', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (8, 'bin_type', 'dailies|client', 'the different type of bins', 'sequence', 'prod/bin', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (9, 'texture/category', 'texture|mattepainting|concept', 'various types of 2d assets', 'sequence', 'prod/texture', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (10, 'prod_notes', 'client', 'production notes categories', 'sequence', 'prod/shot', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (11, 'notes_prod_context', 'client|internal', 'types of production contexts for notes', 'sequence', 'prod/asset', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (12, 'note_status', 'new:n|read:r|old:o|:-', 'note statuses', 'map', 'sthpw/note', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (13, 'bin_label', 'anim|tech|review|final', 'bin labels', 'sequence', 'prod/bin', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (14, 'art_reference_category', 'concept|reference|inspiration', 'categories for reference material', 'sequence', 'prod/art_reference', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (15, 'notes_client_context', 'client|client edited', 'notes context for clients', 'sequence', 'sthpw/note', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (16, 'timecard_item', 'lunch|dinner|workout|coffee|meeting', 'timecard items', 'sequence', 'sthpw/timecard', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (17, 'show_instances_in_shot_tab', 'true', 'show instances in shot tab', null, null, 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (18, 'client_note_status', '|sent to client|feedback received', 'client note status', 'sequence', 'prod/submission', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (19, 'skin', 'lightdark', 'tactic skin', 'string', null, 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (20, 'notes_shot_context', 'setup|animation|lighting|compsiting', 'notes options for the various processes', 'sequence', 'prod/bin', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (21, 'skin_options', 'classic|light|dark|lightdark', 'skin options', 'sequence', null, 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (22, 'invisible_tabs/main_tab', null, 'invisible tabs for main_tab', 'sequence', null, 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (23, 'invisible_tabs/asset_pipeline_tab', null, 'invisible tabs for asset_pipeline_tab', 'sequence', null, 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (24, 'project_docs_url', 'http://yahoo.com', 'project specific docs - documentation written for this specific production', 'string', null, 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (25, 'script_stage', 'final record draft|final draft|second draft|first draft|outline|pitch', 'script stages', 'sequence', 'bell/human_resources/people', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (26, 'invisible_tabs/maya_tab', 'layer loader|layer checkin', 'invisible tabs for maya_tab', 'sequence', null, 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (27, 'dailies_note_status', 'waiting|waiting feedback|comment made', 'dailies notes status', 'sequence', 'prod/submission', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (29, 'shot_scan_status', 'turned over|scan received|scan processed', 'shot scan status', 'sequence', 'prod/shot', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (30, 'shot_type', '2d|full cg|2d and 3d', 'shot types', 'sequence', 'prod/shot', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (31, 'invisible_elements', 'complexity|sort_order|custom', 'invisible elements for shots', 'sequence', 'prod/shot', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (32, 'invisible_elements', 'placeholder', 'invisible elements for assets', 'sequence', 'prod/asset', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (33, 'invisible_elements', 'milestone_code|priority', 'invisible elements for tasks', 'sequence', 'sthpw/task', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (28, 'shot_status', 'new|omit|hold|wip|pending client|pending final|final', 'statuses of a shot', 'sequence', 'prod/shot', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (34, 'invisible_tabs', 'sets', 'invisible tabs for true', 'sequence', null, 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (35, 'reg_hours', '10', 'regular work hours', 'sequence', 'sthpw/project', 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (36, 'use_name_as_asset_code', 'false', 'use name as the asset code', 'sequence', null, 'general');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (37, 'use_name_as_asset_code', 'false', 'use name as the asset code', 'sequence', null, 'naming');
+insert into prod_setting (id, "key", value, description, "type", search_type, category) values (38, 'handle_texture_dependency', 'true', 'handle texture dependency', 'sequence', null, null);
+
+
+--
+-- postgresql database dump complete
+--
+
+
+ 

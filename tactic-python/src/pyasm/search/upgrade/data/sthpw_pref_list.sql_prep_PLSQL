@@ -1,0 +1,40 @@
+﻿
+-- deprecated
+
+--
+-- postgresql database dump
+--
+
+set client_encoding = 'utf8';
+set standard_conforming_strings = off;
+set check_function_bodies = false;
+set client_min_messages = warning;
+set escape_string_warning = off;
+
+set search_path = public, pg_catalog;
+
+--
+-- name: pref_list_id_seq; type: sequence set; schema: public; owner: postgres
+--
+
+select pg_catalog.setval('pref_list_id_seq', 10, true);
+
+
+--
+-- data for name: pref_list; type: table data; schema: public; owner: postgres
+--
+
+insert into pref_list (id, "key", description, options, "type", category, "timestamp", title) values (1, 'skin', 'these skins determine the look and feel of  tactic.', 'classic|dark|light|lightdark', 'sequence', 'general', '2007-06-07 16:01:32.593', 'tactic skins');
+insert into pref_list (id, "key", description, options, "type", category, "timestamp", title) values (2, 'language', 'the various language localizations', 'en_us|ja|nl', 'sequence', 'general', '2007-06-10 13:15:33.484', 'language');
+insert into pref_list (id, "key", description, options, "type", category, "timestamp", title) values (3, 'thumb_multiplier', 'determines the size multiplier of all thumbnail images', '1|2|0.5', 'sequence', 'general', '2007-06-11 10:10:06.203', 'thumb size');
+insert into pref_list (id, "key", description, options, "type", category, "timestamp", title) values (4, 'debug', 'determines whether to show debug information', 'false|true', 'sequence', 'general', '2007-08-21 11:18:26.894318', 'debug');
+insert into pref_list (id, "key", description, options, "type", category, "timestamp", title) values (5, 'select_filter', 'determines whether to show some filters as multi-select', 'single|multi', 'sequence', 'general', '2008-03-01 11:18:26.894318', 'select filter');
+insert into pref_list (id, "key", description, options, "type", category, "timestamp", title) values (6, 'use_java_maya', 'determines whether to use the java applet maya connector', 'false|true', 'sequence', 'general', '2008-03-01 11:18:26.894318', 'java maya connector');
+
+
+--
+-- postgresql database dump complete
+--
+
+
+ 

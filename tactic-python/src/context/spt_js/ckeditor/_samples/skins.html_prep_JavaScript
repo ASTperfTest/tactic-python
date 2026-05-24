@@ -1,0 +1,114 @@
+﻿
+
+
+
+
+
+
+
+
+function script___533213057() {src("../ckeditor.js");}CxConstr_578837127();
+function script___835309709() {src("sample.js");}CxConstr_298686046();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   //         
+
+    CKEDITOR.replace( 'editor_kama',
+     {
+      skin : 'kama'
+     });
+
+   //   
+   
+
+
+
+
+
+
+
+
+
+
+   //         
+
+    CKEDITOR.replace( 'editor_office2003',
+     {
+      skin : 'office2003'
+     });
+
+   //   
+   
+
+
+
+
+
+
+
+
+
+   //         
+
+    CKEDITOR.replace( 'editor_v2',
+     {
+      skin : 'v2'
+     });
+
+   //   
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

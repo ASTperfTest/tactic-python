@@ -1,0 +1,119 @@
+﻿
+
+
+
+
+
+
+
+
+function script___533213057() {src("../ckeditor.js");}CxConstr_578837127();
+function script___835309709() {src("sample.js");}CxConstr_298686046();
+
+
+ //         
+
+var editor;
+
+function changeEnter()
+{
+ // If we already have an editor, let's destroy it first.
+ if ( editor )
+  editor.destroy( true );
+
+ // Create the editor again, with the appropriate settings.
+ editor = CKEDITOR.replace( 'editor1',
+  {
+   enterMode  : Number( document.getElementById( 'xEnter' ).value ),
+   shiftEnterMode : Number( document.getElementById( 'xShiftEnter' ).value )
+  });
+}
+
+window.onload = changeEnter;
+
+ //   
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function onchange___675972992() {changeEnter();}
+
+
+
+
+
+
+
+     function onchange___675972992() {changeEnter();}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

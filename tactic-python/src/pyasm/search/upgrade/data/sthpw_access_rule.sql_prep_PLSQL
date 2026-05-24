@@ -1,0 +1,118 @@
+﻿
+-- deprecated
+
+--
+-- postgresql database dump
+--
+
+set client_encoding = 'utf8';
+set standard_conforming_strings = off;
+set check_function_bodies = false;
+set client_min_messages = warning;
+set escape_string_warning = off;
+
+set search_path = public, pg_catalog;
+
+--
+-- name: access_rule_id_seq; type: sequence set; schema: public; owner: postgres
+--
+
+select pg_catalog.setval('access_rule_id_seq', 14, true);
+
+
+--
+-- data for name: access_rule; type: table data; schema: public; owner: postgres
+--
+
+insert into access_rule (id, project_code, code, description, "rule", "timestamp") values (5, null, 'standard_user', 'basic access for internal users', '<rules>
+<rule group=''tab'' key=''my tactic'' access=''allow''/>
+<rule group=''tab'' key=''my tactic/tasks'' access=''allow''/>
+<rule group=''tab'' key=''my tactic/notes'' access=''allow''/>
+<rule group=''tab'' key=''my tactic/notifications'' access=''allow''/>
+<rule group=''tab'' key=''my tactic/work hours'' access=''allow''/>
+<rule group=''tab'' key=''my tactic/clipboards'' access=''allow''/>
+<rule group=''tab'' key=''my tactic/preferences'' access=''allow''/>
+<rule group=''tab'' key=''undo'' access=''allow''/>
+</rules>
+', '2008-01-21 17:41:44.301118');
+insert into access_rule (id, project_code, code, description, "rule", "timestamp") values (7, null, 'producer_tabs', 'tabs for producers', '<rules>
+<rule group="tab" default=''deny''/>  
+<rule group="tab" key="shot pipeline" access=''view''/>  
+<rule group="tab" key="shot pipeline/shot list" access=''view''/>
+<rule group="tab" key="shot pipeline/shot planner" access=''view''/>
+<rule group="tab" key="asset pipeline" access=''view''/>  
+<rule group="tab" key="asset pipeline/summary" access=''view''/>  
+<rule group="tab" key="overview" access=''view''/>  
+<rule group="tab" key="overview/tasks (assets)" access=''view''/>  
+<rule group="tab" key="overview/tasks (shots)" access=''view''/>  
+<rule group="tab" key="overview/layout summary" access=''view''/>  
+<rule group="tab" key="overview/asset summary" access=''view''/>  
+<rule group="tab" key="editorial" access=''view''/> 
+<rule group="tab" key="editorial/dailies" access=''view''/> 
+<rule group="tab" key="client" access=''view''/> 
+<rule group="tab" key="client/review" access=''view''/> 
+</rules> 
+', '2008-01-22 16:31:31.259716');
+insert into access_rule (id, project_code, code, description, "rule", "timestamp") values (10, null, 'model_supervisor_tabs', 'model supervisor tabs', '<rules>
+<rule group=''tab'' key=''asset pipeline/supe (3d assets)'' access=''allow''/>
+</rules>', '2008-01-24 05:36:35.692611');
+insert into access_rule (id, project_code, code, description, "rule", "timestamp") values (4, null, 'hide_user_filter', 'hide the user filter', '<rules>
+<rule access=''deny'' key=''userfilterwdg'' category=''public_wdg''/>
+</rules>', '2007-09-29 11:48:48.718');
+insert into access_rule (id, project_code, code, description, "rule", "timestamp") values (9, null, 'modeller_tabs', 'modeller''s tabs', '<rules>  
+<rule group="tab" default=''deny''/>  
+<rule group="tab" key="asset pipeline" access=''view''/>  
+<rule group="tab" key="asset pipeline/artist (3d assets)" access=''view''/>  
+<rule group="tab" key="asset pipeline/2d assets" access=''view''/>  
+<rule group="tab" key="3d asset" access=''view''/>  
+<rule group="tab" key="checkin" access=''view''/>  
+<rule group="tab" key="log" access=''view''/>  
+</rules> 
+', '2008-01-23 05:58:04.494858');
+insert into access_rule (id, project_code, code, description, "rule", "timestamp") values (11, null, 'hide_task_status', 'hide the complete or approved status from the task status dropdown', '<rules>
+        <rule access=''deny'' key=''complete'' category=''process_select''/>
+        <rule access=''deny'' key=''approved'' category=''process_select''/>
+        </rules>', '2007-10-25 18:32:37.609');
+insert into access_rule (id, project_code, code, description, "rule", "timestamp") values (14, null, 'previz_tabs', 'previz tabs', '<rules>  
+<rule group="tab" default=''deny''/>  
+<rule group="tab" key="preproduction" access=''view''/>  
+<rule group="tab" key="preproduction/reference" access=''view''/> 
+<rule group="tab" key="preproduction/scripts" access=''view''/> 
+<rule group="tab" key="preproduction/storyboards" access=''view''/> 
+<rule group="tab" key="preproduction/camera data" access=''view''/> 
+<rule group="tab" key="preproduction/notes" access=''view''/> 
+<rule group="tab" key="my tactic" access=''view''/>  
+</rules> ', '2008-04-08 16:23:18.567469');
+insert into access_rule (id, project_code, code, description, "rule", "timestamp") values (8, null, 'animator_tabs', 'animator''s tabs', '<rules>  
+<rule group="tab" default=''deny''/>  
+<rule group="tab" key="shot pipeline" access=''view''/>  
+<rule group="tab" key="shot pipeline/artist (shots)" access=''view''/>  
+<rule group="tab" key="shot pipeline/layers" access=''view''/>  
+<rule group="tab" key="shot pipeline/composites" access=''view''/>  
+</rules> 
+', '2008-01-22 16:33:37.171238');
+insert into access_rule (id, project_code, code, description, "rule", "timestamp") values (3, null, 'show_user_filter', 'right to see the user filter', '<rules>
+<rule access=''view'' key=''userfilterwdg'' category=''secure_wdg''/>
+<rule category=''prod/shot'' key=''s_status'' value=''retired'' access=''allow''/>
+</rules>', '2007-05-31 12:13:03.015');
+insert into access_rule (id, project_code, code, description, "rule", "timestamp") values (2, null, 'show_user_assign_wdg', 'right to see user assign widget in supe tabs for asset/shot pipeline', '<rules>
+<rule access=''view'' key=''userassignwdg'' category=''secure_wdg''/>
+</rules>', '2007-10-02 18:47:06.39');
+insert into access_rule (id, project_code, code, description, "rule", "timestamp") values (1, null, 'client', 'deny all tabs but the client tab. allow to see the project named [sample3d]', '<rules>  
+<rule group=''project'' default=''deny''/>  
+<rule group=''project'' key=''sample3d'' access=''view''/>  
+<rule group=''project'' key=''default'' access=''view''/>  
+  
+<rule group="tab" default=''deny''/>  
+<rule group="tab" key="client" access=''view''/>  
+<rule group="tab" key="client/review" access=''view''/>  
+</rules> 
+', '2007-05-29 22:50:16.937');
+
+
+--
+-- postgresql database dump complete
+--
+
+
+ 

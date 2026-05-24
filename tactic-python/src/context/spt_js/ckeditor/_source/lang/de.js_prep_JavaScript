@@ -1,0 +1,812 @@
+﻿/*
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.html or http://ckeditor.com/license
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CKEDITOR.lang['de'] =
+{
+
+
+
+
+
+
+ dir : 'ltr',
+
+
+
+
+
+ editorTitle : 'WYSIWYG-Editor, %1, drucken Sie ALT 0 fur Hilfe.',
+
+ // ARIA descriptions.
+ toolbars : 'Editor toolbars', // MISSING
+ editor  : 'WYSIWYG-Editor',
+
+ // Toolbar buttons without dialogs.
+ source   : 'Quellcode',
+ newPage   : 'Neue Seite',
+ save   : 'Speichern',
+ preview   : 'Vorschau',
+ cut    : 'Ausschneiden',
+ copy   : 'Kopieren',
+ paste   : 'Einfugen',
+ print   : 'Drucken',
+ underline  : 'Unterstrichen',
+ bold   : 'Fett',
+ italic   : 'Kursiv',
+ selectAll  : 'Alles auswahlen',
+ removeFormat : 'Formatierungen entfernen',
+ strike   : 'Durchgestrichen',
+ subscript  : 'Tiefgestellt',
+ superscript  : 'Hochgestellt',
+ horizontalrule : 'Horizontale Linie einfugen',
+ pagebreak  : 'Seitenumbruch einfugen',
+ pagebreakAlt  : 'Seitenumbruch einfugen',
+ unlink   : 'Link entfernen',
+ undo   : 'Ruckgangig',
+ redo   : 'Wiederherstellen',
+
+ // Common messages and labels.
+ common :
+ {
+  browseServer : 'Server durchsuchen',
+  url    : 'URL',
+  protocol  : 'Protokoll',
+  upload   : 'Hochladen',
+  uploadSubmit : 'Zum Server senden',
+  image   : 'Bild',
+  flash   : 'Flash',
+  form   : 'Formular',
+  checkbox  : 'Checkbox',
+  radio   : 'Radiobutton',
+  textField  : 'Textfeld einzeilig',
+  textarea  : 'Textfeld mehrzeilig',
+  hiddenField  : 'Verstecktes Feld',
+  button   : 'Klickbutton',
+  select   : 'Auswahlfeld',
+  imageButton  : 'Bildbutton',
+  notSet   : '<nichts>',
+  id    : 'ID',
+  name   : 'Name',
+  langDir   : 'Schreibrichtung',
+  langDirLtr  : 'Links nach Rechts (LTR)',
+  langDirRtl  : 'Rechts nach Links (RTL)',
+  langCode  : 'Sprachenkurzel',
+  longDescr  : 'Langform URL',
+  cssClass  : 'Stylesheet Klasse',
+  advisoryTitle : 'Titel Beschreibung',
+  cssStyle  : 'Style',
+  ok    : 'OK',
+  cancel   : 'Abbrechen',
+  close   : 'Schliesen',
+  preview   : 'Vorschau',
+  generalTab  : 'Allgemein',
+  advancedTab  : 'Erweitert',
+  validateNumberFailed : 'Dieser Wert ist keine Nummer.',
+  confirmNewPage : 'Alle nicht gespeicherten Anderungen gehen verlohren. Sind Sie sicher die neue Seite zu laden?',
+  confirmCancel : 'Einige Optionen wurden geandert. Wollen Sie den Dialog dennoch schliesen?',
+  options   : 'Optionen',
+  target   : 'Zielseite',
+  targetNew  : 'Neues Fenster (_blank)',
+  targetTop  : 'Oberstes Fenster (_top)',
+  targetSelf  : 'Gleiches Fenster (_self)',
+  targetParent : 'Oberes Fenster (_parent)',
+  langDirLTR  : 'Links nach Rechts (LNR)',
+  langDirRTL  : 'Rechts nach Links (RNL)',
+  styles   : 'Style',
+  cssClasses  : 'Stylesheet Klasse',
+  width   : 'Breite',
+  height   : 'Hohe',
+  align   : 'Ausrichtung',
+  alignLeft  : 'Links',
+  alignRight  : 'Rechts',
+  alignCenter  : 'Zentriert',
+  alignTop  : 'Oben',
+  alignMiddle  : 'Mitte',
+  alignBottom  : 'Unten',
+  invalidHeight : 'Hohe muss eine Zahl sein.',
+  invalidWidth : 'Breite muss eine Zahl sein.',
+
+  // Put the voice-only part of the label in the span.
+  unavailable  : '%1<span class="cke_accessibility">, nicht verfugbar</span>'
+ },
+
+ contextmenu :
+ {
+  options : 'Kontextmenu Optionen'
+ },
+
+ // Special char dialog.
+ specialChar  :
+ {
+  toolbar  : 'Sonderzeichen einfugen/editieren',
+  title  : 'Sonderzeichen auswahlen',
+  options : 'Sonderzeichen Optionen'
+ },
+
+ // Link dialog.
+ link :
+ {
+  toolbar  : 'Link einfugen/editieren',
+  other   : '<andere>',
+  menu  : 'Link editieren',
+  title  : 'Link',
+  info  : 'Link-Info',
+  target  : 'Zielseite',
+  upload  : 'Hochladen',
+  advanced : 'Erweitert',
+  type  : 'Link-Typ',
+  toUrl  : 'URL',
+  toAnchor : 'Anker in dieser Seite',
+  toEmail  : 'E-Mail',
+  targetFrame  : '<Frame>',
+  targetPopup  : '<Pop-up Fenster>',
+  targetFrameName : 'Ziel-Fenster-Name',
+  targetPopupName : 'Pop-up Fenster-Name',
+  popupFeatures : 'Pop-up Fenster-Eigenschaften',
+  popupResizable : 'Grose anderbar',
+  popupStatusBar : 'Statusleiste',
+  popupLocationBar: 'Adress-Leiste',
+  popupToolbar : 'Werkzeugleiste',
+  popupMenuBar : 'Menu-Leiste',
+  popupFullScreen : 'Vollbild (IE)',
+  popupScrollBars : 'Rollbalken',
+  popupDependent : 'Abhangig (Netscape)',
+  popupLeft  : 'Linke Position',
+  popupTop  : 'Obere Position',
+  id    : 'Id',
+  langDir   : 'Schreibrichtung',
+  langDirLTR  : 'Links nach Rechts (LTR)',
+  langDirRTL  : 'Rechts nach Links (RTL)',
+  acccessKey  : 'Zugriffstaste',
+  name   : 'Name',
+  langCode   : 'Sprachenkurzel',
+  tabIndex   : 'Tab-Index',
+  advisoryTitle  : 'Titel Beschreibung',
+  advisoryContentType : 'Inhaltstyp',
+  cssClasses  : 'Stylesheet Klasse',
+  charset   : 'Ziel-Zeichensatz',
+  styles   : 'Style',
+  rel   : 'Beziehung',
+  selectAnchor  : 'Anker auswahlen',
+  anchorName  : 'nach Anker Name',
+  anchorId   : 'nach Element Id',
+  emailAddress  : 'E-Mail Addresse',
+  emailSubject  : 'Betreffzeile',
+  emailBody  : 'Nachrichtentext',
+  noAnchors  : '(keine Anker im Dokument vorhanden)',
+  noUrl   : 'Bitte geben Sie die Link-URL an',
+  noEmail   : 'Bitte geben Sie e-Mail Adresse an'
+ },
+
+ // Anchor dialog
+ anchor :
+ {
+  toolbar  : 'Anker einfugen/editieren',
+  menu  : 'Anker-Eigenschaften',
+  title  : 'Anker-Eigenschaften',
+  name  : 'Anker Name',
+  errorName : 'Bitte geben Sie den Namen des Ankers ein'
+ },
+
+ // List style dialog
+ list:
+ {
+  numberedTitle  : 'Nummerierte Listen-Eigenschaften',
+  bulletedTitle  : 'Listen-Eigenschaften',
+  type    : 'Typ',
+  start    : 'Start',
+  validateStartNumber    :'List Startnummer muss eine ganze Zahl sein.',
+  circle    : 'Ring',
+  disc    : 'Kreis',
+  square    : 'Quadrat',
+  none    : 'Keine',
+  notset    : '<nicht gesetzt>',
+  armenian   : 'Armenisch Nummerierung',
+  georgian   : 'Georgisch Nummerierung (an, ban, gan, etc.)',
+  lowerRoman   : 'Klein romisch (i, ii, iii, iv, v, etc.)',
+  upperRoman   : 'Gros romisch (I, II, III, IV, V, etc.)',
+  lowerAlpha   : 'Klein alpha (a, b, c, d, e, etc.)',
+  upperAlpha   : 'Gros alpha (A, B, C, D, E, etc.)',
+  lowerGreek   : 'Klein griechisch (alpha, beta, gamma, etc.)',
+  decimal    : 'Dezimal (1, 2, 3, etc.)',
+  decimalLeadingZero : 'Dezimal mit fuhrende  Null (01, 02, 03, etc.)'
+ },
+
+ // Find And Replace Dialog
+ findAndReplace :
+ {
+  title    : 'Suchen und Ersetzen',
+  find    : 'Suchen',
+  replace    : 'Ersetzen',
+  findWhat   : 'Suche nach:',
+  replaceWith   : 'Ersetze mit:',
+  notFoundMsg   : 'Der gesuchte Text wurde nicht gefunden.',
+  matchCase   : 'Gros-Kleinschreibung beachten',
+  matchWord   : 'Nur ganze Worte suchen',
+  matchCyclic   : 'Zyklische Suche',
+  replaceAll   : 'Alle ersetzen',
+  replaceSuccessMsg : '%1 vorkommen ersetzt.'
+ },
+
+ // Table Dialog
+ table :
+ {
+  toolbar  : 'Tabelle',
+  title  : 'Tabellen-Eigenschaften',
+  menu  : 'Tabellen-Eigenschaften',
+  deleteTable : 'Tabelle loschen',
+  rows  : 'Zeile',
+  columns  : 'Spalte',
+  border  : 'Rahmen',
+  widthPx  : 'Pixel',
+  widthPc  : '%',
+  widthUnit : 'Breite Einheit',
+  cellSpace : 'Zellenabstand ausen',
+  cellPad  : 'Zellenabstand innen',
+  caption  : 'Uberschrift',
+  summary  : 'Inhaltsubersicht',
+  headers  : 'Kopfzeile',
+  headersNone  : 'Keine',
+  headersColumn : 'Erste Spalte',
+  headersRow  : 'Erste Zeile',
+  headersBoth  : 'Beide',
+  invalidRows  : 'Die Anzahl der Zeilen mus groser als 0 sein.',
+  invalidCols  : 'Die Anzahl der Spalten mus groser als 0 sein..',
+  invalidBorder : 'Die Rahmenbreite mus eine Zahl sein.',
+  invalidWidth : 'Die Tabellenbreite muss eine Zahl sein.',
+  invalidHeight : 'Die Tabellenbreite mus eine Zahl sein.',
+  invalidCellSpacing : 'Der Zellenabstand ausen mus eine Zahl sein.',
+  invalidCellPadding : 'Der Zellenabstand innen mus eine Zahl sein.',
+
+  cell :
+  {
+   menu   : 'Zelle',
+   insertBefore : 'Zelle davor einfugen',
+   insertAfter  : 'Zelle danach einfugen',
+   deleteCell  : 'Zelle loschen',
+   merge   : 'Zellen verbinden',
+   mergeRight  : 'Nach rechts verbinden',
+   mergeDown  : 'Nach unten verbinden',
+   splitHorizontal : 'Zelle horizontal teilen',
+   splitVertical : 'Zelle vertikal teilen',
+   title   : 'Zellen Eigenschaften',
+   cellType  : 'Zellart',
+   rowSpan   : 'Anzahl Zeilen verbinden',
+   colSpan   : 'Anzahl Spalten verbinden',
+   wordWrap  : 'Zeilenumbruch',
+   hAlign   : 'Horizontale Ausrichtung',
+   vAlign   : 'Vertikale Ausrichtung',
+   alignBaseline : 'Grundlinie',
+   bgColor   : 'Hintergrundfarbe',
+   borderColor  : 'Rahmenfarbe',
+   data   : 'Daten',
+   header   : 'Uberschrift',
+   yes    : 'Ja',
+   no    : 'Nein',
+   invalidWidth : 'Zellenbreite mus eine Zahl sein.',
+   invalidHeight : 'Zellenhohe mus eine Zahl sein.',
+   invalidRowSpan : '"Anzahl Zeilen verbinden" muss eine Ganzzahl sein.',
+   invalidColSpan : '"Anzahl Spalten verbinden" muss eine Ganzzahl sein.',
+   chooseColor  : 'Wahlen'
+  },
+
+  row :
+  {
+   menu   : 'Zeile',
+   insertBefore : 'Zeile oberhalb einfugen',
+   insertAfter  : 'Zeile unterhalb einfugen',
+   deleteRow  : 'Zeile entfernen'
+  },
+
+  column :
+  {
+   menu   : 'Spalte',
+   insertBefore : 'Spalte links davor einfugen',
+   insertAfter  : 'Spalte rechts danach einfugen',
+   deleteColumn : 'Spalte loschen'
+  }
+ },
+
+ // Button Dialog.
+ button :
+ {
+  title  : 'Button-Eigenschaften',
+  text  : 'Text (Wert)',
+  type  : 'Typ',
+  typeBtn  : 'Button',
+  typeSbm  : 'Absenden',
+  typeRst  : 'Zurucksetzen'
+ },
+
+ // Checkbox and Radio Button Dialogs.
+ checkboxAndRadio :
+ {
+  checkboxTitle : 'Checkbox-Eigenschaften',
+  radioTitle : 'Optionsfeld-Eigenschaften',
+  value  : 'Wert',
+  selected : 'ausgewahlt'
+ },
+
+ // Form Dialog.
+ form :
+ {
+  title  : 'Formular-Eigenschaften',
+  menu  : 'Formular-Eigenschaften',
+  action  : 'Action',
+  method  : 'Method',
+  encoding : 'Zeichenkodierung'
+ },
+
+ // Select Field Dialog.
+ select :
+ {
+  title  : 'Auswahlfeld-Eigenschaften',
+  selectInfo : 'Info',
+  opAvail  : 'Mogliche Optionen',
+  value  : 'Wert',
+  size  : 'Grose',
+  lines  : 'Linien',
+  chkMulti : 'Erlaube Mehrfachauswahl',
+  opText  : 'Text',
+  opValue  : 'Wert',
+  btnAdd  : 'Hinzufugen',
+  btnModify : 'Andern',
+  btnUp  : 'Hoch',
+  btnDown  : 'Runter',
+  btnSetValue : 'Setze als Standardwert',
+  btnDelete : 'Entfernen'
+ },
+
+ // Textarea Dialog.
+ textarea :
+ {
+  title  : 'Textfeld (mehrzeilig) Eigenschaften',
+  cols  : 'Spalten',
+  rows  : 'Reihen'
+ },
+
+ // Text Field Dialog.
+ textfield :
+ {
+  title  : 'Textfeld (einzeilig) Eigenschaften',
+  name  : 'Name',
+  value  : 'Wert',
+  charWidth : 'Zeichenbreite',
+  maxChars : 'Max. Zeichen',
+  type  : 'Typ',
+  typeText : 'Text',
+  typePass : 'Passwort'
+ },
+
+ // Hidden Field Dialog.
+ hidden :
+ {
+  title : 'Verstecktes Feld-Eigenschaften',
+  name : 'Name',
+  value : 'Wert'
+ },
+
+ // Image Dialog.
+ image :
+ {
+  title  : 'Bild-Eigenschaften',
+  titleButton : 'Bildbutton-Eigenschaften',
+  menu  : 'Bild-Eigenschaften',
+  infoTab  : 'Bild-Info',
+  btnUpload : 'Zum Server senden',
+  upload  : 'Hochladen',
+  alt   : 'Alternativer Text',
+  lockRatio : 'Grosenverhaltnis beibehalten',
+  unlockRatio : 'Ratio freischalten',
+  resetSize : 'Grose zurucksetzen',
+  border  : 'Rahmen',
+  hSpace  : 'Horizontal-Abstand',
+  vSpace  : 'Vertikal-Abstand',
+  alertUrl : 'Bitte geben Sie die Bild-URL an',
+  linkTab  : 'Link',
+  button2Img : 'Mochten Sie den gewahlten Bild-Button in ein einfaches Bild umwandeln?',
+  img2Button : 'Mochten Sie das gewahlten Bild in einen Bild-Button umwandeln?',
+  urlMissing : 'Imagequelle URL fehlt.',
+  validateBorder : 'Rahmen mus eine ganze Zahl sein.',
+  validateHSpace : 'Horizontal-Abstand mus eine ganze Zahl sein.',
+  validateVSpace : 'Vertikal-Abstand mus eine ganze Zahl sein.'
+ },
+
+ // Flash Dialog
+ flash :
+ {
+  properties  : 'Flash-Eigenschaften',
+  propertiesTab : 'Eigenschaften',
+  title   : 'Flash-Eigenschaften',
+  chkPlay   : 'Automatisch Abspielen',
+  chkLoop   : 'Endlosschleife',
+  chkMenu   : 'Flash-Menu aktivieren',
+  chkFull   : 'Vollbildmodus erlauben',
+   scale   : 'Skalierung',
+  scaleAll  : 'Alles anzeigen',
+  scaleNoBorder : 'Ohne Rand',
+  scaleFit  : 'Passgenau',
+  access   : 'Skript Zugang',
+  accessAlways : 'Immer',
+  accessSameDomain: 'Gleiche Domain',
+  accessNever  : 'Nie',
+  alignAbsBottom : 'Abs Unten',
+  alignAbsMiddle : 'Abs Mitte',
+  alignBaseline : 'Baseline',
+  alignTextTop : 'Text Oben',
+  quality   : 'Qualitat',
+  qualityBest  : 'Beste',
+  qualityHigh  : 'Hoch',
+  qualityAutoHigh : 'Auto Hoch',
+  qualityMedium : 'Medium',
+  qualityAutoLow : 'Auto Niedrig',
+  qualityLow  : 'Niedrig',
+  windowModeWindow: 'Fenster',
+  windowModeOpaque: 'Deckend',
+  windowModeTransparent : 'Transparent',
+  windowMode  : 'Fenster Modus',
+  flashvars  : 'Variablen fur Flash',
+  bgcolor   : 'Hintergrundfarbe',
+  hSpace   : 'Horizontal-Abstand',
+  vSpace   : 'Vertikal-Abstand',
+  validateSrc  : 'Bitte geben Sie die Link-URL an',
+  validateHSpace : 'HSpace muss eine Zahl sein.',
+  validateVSpace : 'VSpace muss eine Zahl sein.'
+ },
+
+ // Speller Pages Dialog
+ spellCheck :
+ {
+  toolbar   : 'Rechtschreibprufung',
+  title   : 'Rechtschreibprufung',
+  notAvailable : 'Entschuldigung, aber dieser Dienst steht im Moment nicht zur Verfugung.',
+  errorLoading : 'Fehler beim laden des Dienstanbieters: %s.',
+  notInDic  : 'Nicht im Worterbuch',
+  changeTo  : 'Andern in',
+  btnIgnore  : 'Ignorieren',
+  btnIgnoreAll : 'Alle Ignorieren',
+  btnReplace  : 'Ersetzen',
+  btnReplaceAll : 'Alle Ersetzen',
+  btnUndo   : 'Ruckgangig',
+  noSuggestions : ' - keine Vorschlage - ',
+  progress  : 'Rechtschreibprufung lauft...',
+  noMispell  : 'Rechtschreibprufung abgeschlossen - keine Fehler gefunden',
+  noChanges  : 'Rechtschreibprufung abgeschlossen - keine Worte geandert',
+  oneChange  : 'Rechtschreibprufung abgeschlossen - ein Wort geandert',
+  manyChanges  : 'Rechtschreibprufung abgeschlossen - %1 Worter geandert',
+  ieSpellDownload : 'Rechtschreibprufung nicht installiert. Mochten Sie sie jetzt herunterladen?'
+ },
+
+ smiley :
+ {
+  toolbar : 'Smiley',
+  title : 'Smiley auswahlen',
+  options : 'Smiley Optionen'
+ },
+
+ elementsPath :
+ {
+  eleLabel : 'Elements Pfad',
+  eleTitle : '%1 Element'
+ },
+
+ numberedlist : 'Nummerierte Liste',
+ bulletedlist : 'Liste',
+ indent   : 'Einzug erhohen',
+ outdent   : 'Einzug verringern',
+
+ justify :
+ {
+  left : 'Linksbundig',
+  center : 'Zentriert',
+  right : 'Rechtsbundig',
+  block : 'Blocksatz'
+ },
+
+ blockquote : 'Zitatblock',
+
+ clipboard :
+ {
+  title  : 'Einfugen',
+  cutError : 'Die Sicherheitseinstellungen Ihres Browsers lassen es nicht zu, den Text automatisch auszuschneiden. Bitte benutzen Sie die System-Zwischenablage uber STRG-X (ausschneiden) und STRG-V (einfugen).',
+  copyError : 'Die Sicherheitseinstellungen Ihres Browsers lassen es nicht zu, den Text automatisch kopieren. Bitte benutzen Sie die System-Zwischenablage uber STRG-C (kopieren).',
+  pasteMsg : 'Bitte fugen Sie den Text in der folgenden Box uber die Tastatur (mit <STRONG>Strg+V</STRONG>) ein und bestatigen Sie mit <STRONG>OK</STRONG>.',
+  securityMsg : 'Aufgrund von Sicherheitsbeschrankungen Ihres Browsers kann der Editor nicht direkt auf die Zwischenablage zugreifen. Bitte fugen Sie den Inhalt erneut in diesem Fenster ein.',
+  pasteArea : 'Einfugebereich'
+ },
+
+ pastefromword :
+ {
+  confirmCleanup : 'Der Text, den Sie einfugen mochten, scheint aus MS-Word kopiert zu sein. Mochten Sie ihn zuvor bereinigen lassen?',
+  toolbar   : 'Aus MS-Word einfugen',
+  title   : 'Aus MS-Word einfugen',
+  error   : 'Aufgrund eines internen Fehlers war es nicht moglich die eingefugten Daten zu bereinigen'
+ },
+
+ pasteText :
+ {
+  button : 'Als Text einfugen',
+  title : 'Als Text einfugen'
+ },
+
+ templates :
+ {
+  button   : 'Vorlagen',
+  title   : 'Vorlagen',
+  options : 'Vorlagen Optionen',
+  insertOption : 'Aktuellen Inhalt ersetzen',
+  selectPromptMsg : 'Klicken Sie auf eine Vorlage, um sie im Editor zu offnen (der aktuelle Inhalt wird dabei geloscht!):',
+  emptyListMsg : '(keine Vorlagen definiert)'
+ },
+
+ showBlocks : 'Blocke anzeigen',
+
+ stylesCombo :
+ {
+  label  : 'Stil',
+  panelTitle : 'Formatierungenstil',
+  panelTitle1 : 'Block Stilart',
+  panelTitle2 : 'Inline Stilart',
+  panelTitle3 : 'Objekt Stilart'
+ },
+
+ format :
+ {
+  label  : 'Format',
+  panelTitle : 'Format',
+
+  tag_p  : 'Normal',
+  tag_pre  : 'Formatiert',
+  tag_address : 'Addresse',
+  tag_h1  : 'Uberschrift 1',
+  tag_h2  : 'Uberschrift 2',
+  tag_h3  : 'Uberschrift 3',
+  tag_h4  : 'Uberschrift 4',
+  tag_h5  : 'Uberschrift 5',
+  tag_h6  : 'Uberschrift 6',
+  tag_div  : 'Normal (DIV)'
+ },
+
+ div :
+ {
+  title    : 'Div Container erzeugen',
+  toolbar    : 'Div Container erzeugen',
+  cssClassInputLabel : 'Stylesheet Klasse',
+  styleSelectLabel : 'Style',
+  IdInputLabel  : 'Id',
+  languageCodeInputLabel : 'Sprachenkurzel',
+  inlineStyleInputLabel : 'Inline Stil',
+  advisoryTitleInputLabel : 'Tooltip',
+  langDirLabel  : 'Sprache Richtung',
+  langDirLTRLabel  : 'Links nach Rechs (LTR)',
+  langDirRTLLabel  : 'Rechs nach Links (RTL)',
+  edit    : 'Div bearbeiten',
+  remove    : 'Div entfernen'
+   },
+
+ iframe :
+ {
+  title  : 'IFrame-Eigenschaften',
+  toolbar  : 'IFrame',
+  noUrl  : 'Bitte geben Sie die IFrame-URL an',
+  scrolling : 'Rollbalken anzeigen',
+  border  : 'Rahmen anzeigen'
+ },
+
+ font :
+ {
+  label  : 'Schriftart',
+  voiceLabel : 'Schriftart',
+  panelTitle : 'Schriftart'
+ },
+
+ fontSize :
+ {
+  label  : 'Grose',
+  voiceLabel : 'Schrifgrose',
+  panelTitle : 'Grose'
+ },
+
+ colorButton :
+ {
+  textColorTitle : 'Textfarbe',
+  bgColorTitle : 'Hintergrundfarbe',
+  panelTitle  : 'Farben',
+  auto   : 'Automatisch',
+  more   : 'Weitere Farben...'
+ },
+
+ colors :
+ {
+  '000' : 'Schwarz',
+  '800000' : 'Kastanienbraun',
+  '8B4513' : 'Braun',
+  '2F4F4F' : 'Dunkles Schiefergrau',
+  '008080' : 'Blaugrun',
+  '000080' : 'Navy',
+  '4B0082' : 'Indigo',
+  '696969' : 'Dunkelgrau',
+  'B22222' : 'Ziegelrot',
+  'A52A2A' : 'Braun',
+  'DAA520' : 'Goldgelb',
+  '006400' : 'Dunkelgrun',
+  '40E0D0' : 'Turkis',
+  '0000CD' : 'Medium Blau',
+  '800080' : 'Lila',
+  '808080' : 'Grau',
+  'F00' : 'Rot',
+  'FF8C00' : 'Dunkelorange',
+  'FFD700' : 'Gold',
+  '008000' : 'Grun',
+  '0FF' : 'Cyan',
+  '00F' : 'Blau',
+  'EE82EE' : 'Hellviolett',
+  'A9A9A9' : 'Dunkelgrau',
+  'FFA07A' : 'Helles Lachsrosa',
+  'FFA500' : 'Orange',
+  'FFFF00' : 'Gelb',
+  '00FF00' : 'Lime',
+  'AFEEEE' : 'Blas-Turkis',
+  'ADD8E6' : 'Hellblau',
+  'DDA0DD' : 'Pflaumenblau',
+  'D3D3D3' : 'Hellgrau',
+  'FFF0F5' : 'Lavendel',
+  'FAEBD7' : 'Antik Weis',
+  'FFFFE0' : 'Hellgelb',
+  'F0FFF0' : 'Honigtau',
+  'F0FFFF' : 'Azurblau',
+  'F0F8FF' : 'Alice Blau',
+  'E6E6FA' : 'Lavendel',
+  'FFF' : 'Weis'
+ },
+
+ scayt :
+ {
+  title   : 'Rechtschreibprufung wahrend der Texteingabe (SCAYT)',
+  opera_title  : 'Nicht von Opera unterstutzt',
+  enable   : 'SCAYT einschalten',
+  disable   : 'SCAYT ausschalten',
+  about   : 'Uber SCAYT',
+  toggle   : 'SCAYT umschalten',
+  options   : 'Optionen',
+  langs   : 'Sprachen',
+  moreSuggestions : 'Mehr Vorschlage',
+  ignore   : 'Ignorieren',
+  ignoreAll  : 'Alle ignorieren',
+  addWord   : 'Wort hinzufugen',
+  emptyDic  : 'Worterbuchname sollte leer sein.',
+
+  optionsTab  : 'Optionen',
+  allCaps   : 'Gros geschriebenen Worter ignorieren',
+  ignoreDomainNames : 'Domain-Namen ignorieren',
+  mixedCase  : 'Worter mit gemischte Setzkasten ignorieren',
+  mixedWithDigits : 'Worter mit Zahlen ignorieren',
+
+  languagesTab : 'Sprachen',
+
+  dictionariesTab : 'Worterbucher',
+  dic_field_name : 'Worterbuchname',
+  dic_create  : 'Erzeugen',
+  dic_restore  : 'Wiederherstellen',
+  dic_delete  : 'Loschen',
+  dic_rename  : 'Umbenennen',
+  dic_info  : 'Anfangs wird das Benutzerworterbuch in einem Cookie gespeichert. Allerdings sind Cookies in der Grose begrenzt. Wenn das Benutzerworterbuch bis zu einem Punkt wachst, wo es nicht mehr in einem Cookie gespeichert werden kann, wird das Benutzerworterbuch auf dem Server gespeichert. Um Ihr personliches Worterbuch auf dem Server zu speichern, mussen Sie einen Namen fur das Worterbuch angeben. Falls  Sie schon ein gespeicherte Worterbuch haben, geben Sie bitte dessen Namen ein und klicken Sie auf die Schaltflache Wiederherstellen.',
+
+  aboutTab  : 'Uber'
+ },
+
+ about :
+ {
+  title  : 'Uber CKEditor',
+  dlgTitle : 'Uber CKEditor',
+  help : 'Check $1 for help.', // MISSING
+  userGuide : 'CKEditor User\'s Guide', // MISSING
+  moreInfo : 'Fur Informationen uber unsere Lizenzbestimmungen besuchen sie bitte unsere Webseite:',
+  copy  : 'Copyright &copy; $1. Alle Rechte vorbehalten.'
+ },
+
+ maximize : 'Maximieren',
+ minimize : 'Minimieren',
+
+ fakeobjects :
+ {
+  anchor  : 'Anker',
+  flash  : 'Flash Animation',
+  iframe  : 'IFrame',
+  hiddenfield : 'Verstecktes Feld',
+  unknown  : 'Unbekanntes Objekt'
+ },
+
+ resize : 'Zum Vergrosern ziehen',
+
+ colordialog :
+ {
+  title  : 'Farbe wahlen',
+  options : 'Farbeoptionen',
+  highlight : 'Hervorheben',
+  selected : 'Ausgewahlte Farbe',
+  clear  : 'Entfernen'
+ },
+
+ toolbarCollapse : 'Symbolleiste einklappen',
+ toolbarExpand : 'Symbolleiste ausklappen',
+
+ toolbarGroups :
+ {
+  document : 'Document', // MISSING
+  clipboard : 'Clipboard/Undo', // MISSING
+  editing : 'Editing', // MISSING
+  forms : 'Forms', // MISSING
+  basicstyles : 'Basic Styles', // MISSING
+  paragraph : 'Paragraph', // MISSING
+  links : 'Links', // MISSING
+  insert : 'Insert', // MISSING
+  styles : 'Styles', // MISSING
+  colors : 'Colors', // MISSING
+  tools : 'Tools' // MISSING
+ },
+
+ bidi :
+ {
+  ltr : 'Leserichtung von Links nach Rechts',
+  rtl : 'Leserichtung von Rechts nach Links'
+ },
+
+ docprops :
+ {
+  label : 'Document Properties', // MISSING
+  title : 'Document Properties', // MISSING
+  design : 'Design', // MISSING
+  meta : 'Meta Tags', // MISSING
+  chooseColor : 'Choose', // MISSING
+  other : 'Other...', // MISSING
+  docTitle : 'Page Title', // MISSING
+  charset :  'Character Set Encoding', // MISSING
+  charsetOther : 'Other Character Set Encoding', // MISSING
+  charsetASCII : 'ASCII', // MISSING
+  charsetCE : 'Central European', // MISSING
+  charsetCT : 'Chinese Traditional (Big5)', // MISSING
+  charsetCR : 'Cyrillic', // MISSING
+  charsetGR : 'Greek', // MISSING
+  charsetJP : 'Japanese', // MISSING
+  charsetKR : 'Korean', // MISSING
+  charsetTR : 'Turkish', // MISSING
+  charsetUN : 'Unicode (UTF-8)', // MISSING
+  charsetWE : 'Western European', // MISSING
+  docType : 'Document Type Heading', // MISSING
+  docTypeOther : 'Other Document Type Heading', // MISSING
+  xhtmlDec : 'Include XHTML Declarations', // MISSING
+  bgColor : 'Background Color', // MISSING
+  bgImage : 'Background Image URL', // MISSING
+  bgFixed : 'Non-scrolling (Fixed) Background', // MISSING
+  txtColor : 'Text Color', // MISSING
+  margin : 'Page Margins', // MISSING
+  marginTop : 'Top', // MISSING
+  marginLeft : 'Left', // MISSING
+  marginRight : 'Right', // MISSING
+  marginBottom : 'Bottom', // MISSING
+  metaKeywords : 'Document Indexing Keywords (comma separated)', // MISSING
+  metaDescription : 'Document Description', // MISSING
+  metaAuthor : 'Author', // MISSING
+  metaCopyright : 'Copyright', // MISSING
+  previewHtml : '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>' // MISSING
+ }
+};
+
+ 

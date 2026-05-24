@@ -1,0 +1,3588 @@
+﻿--
+-- postgresql database dump
+--
+
+set client_encoding = 'utf8';
+set standard_conforming_strings = off;
+set check_function_bodies = false;
+set client_min_messages = warning;
+set escape_string_warning = off;
+
+--
+-- name: schema public; type: comment; schema: -; owner: postgres
+--
+
+comment on schema public is 'standard public schema';
+
+
+--
+-- name: plpgsql; type: procedural language; schema: -; owner: postgres
+--
+
+create procedural language plpgsql;
+
+
+set search_path = public, pg_catalog;
+
+--
+-- name: statinfo; type: type; schema: public; owner: postgres
+--
+
+create type statinfo as (
+ word text,
+ ndoc integer,
+ nentry integer
+);
+
+
+alter type public.statinfo owner to postgres;
+
+--
+-- name: tokenout; type: type; schema: public; owner: postgres
+--
+
+create type tokenout as (
+ tokid integer,
+ token text
+);
+
+
+alter type public.tokenout owner to postgres;
+
+--
+-- name: tokentype; type: type; schema: public; owner: postgres
+--
+
+create type tokentype as (
+ tokid integer,
+ alias text,
+ descr text
+);
+
+
+alter type public.tokentype owner to postgres;
+
+--
+-- name: _get_parser_from_curcfg(); type: function; schema: public; owner: postgres
+--
+
+create function _get_parser_from_curcfg() returns text
+    as $$ select prs_name from pg_ts_cfg where oid = show_curcfg() $$
+    language sql immutable strict;
+
+
+alter function public._get_parser_from_curcfg() owner to postgres;
+
+--
+-- name: pg_file_length(text); type: function; schema: public; owner: postgres
+--
+
+create function pg_file_length(text) returns bigint
+    as $_$select len from pg_file_stat($1) as s(len int8, c timestamp, a timestamp, m timestamp, i bool)$_$
+    language sql strict;
+
+
+alter function public.pg_file_length(text) owner to postgres;
+
+--
+-- name: pg_file_rename(text, text); type: function; schema: public; owner: postgres
+--
+
+create function pg_file_rename(text, text) returns boolean
+    as $_$select pg_file_rename($1, $2, null); $_$
+    language sql strict;
+
+
+alter function public.pg_file_rename(text, text) owner to postgres;
+
+--
+-- name: plpgsql_call_handler(); type: function; schema: public; owner: postgres
+--
+
+create function plpgsql_call_handler() returns language_handler
+    as '$libdir/plpgsql', 'plpgsql_call_handler'
+    language c;
+
+
+alter function public.plpgsql_call_handler() owner to postgres;
+
+--
+-- name: plpgsql_validator(oid); type: function; schema: public; owner: postgres
+--
+
+create function plpgsql_validator(oid) returns void
+    as '$libdir/plpgsql', 'plpgsql_validator'
+    language c;
+
+
+alter function public.plpgsql_validator(oid) owner to postgres;
+
+set default_tablespace = '';
+
+set default_with_oids = false;
+
+--
+-- name: access_rule; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table access_rule (
+    id integer not null,
+    project_code character varying(256),
+    code character varying(256),
+    description text,
+    "rule" text,
+    "timestamp" timestamp without time zone default now()
+);
+
+
+alter table public.access_rule owner to postgres;
+
+--
+-- name: access_rule_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence access_rule_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.access_rule_id_seq owner to postgres;
+
+--
+-- name: access_rule_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence access_rule_id_seq owned by access_rule.id;
+
+
+--
+-- name: access_rule_in_group; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table access_rule_in_group (
+    id integer not null,
+    login_group character varying(256),
+    access_rule_code character varying(256),
+    "timestamp" timestamp without time zone default now()
+);
+
+
+alter table public.access_rule_in_group owner to postgres;
+
+--
+-- name: access_rule_in_group_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence access_rule_in_group_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.access_rule_in_group_id_seq owner to postgres;
+
+--
+-- name: access_rule_in_group_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence access_rule_in_group_id_seq owned by access_rule_in_group.id;
+
+
+--
+-- name: annotation; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table annotation (
+    id integer not null,
+    xpos integer not null,
+    ypos integer not null,
+    message text,
+    "login" character varying(100) not null,
+    "timestamp" timestamp without time zone default now() not null,
+    file_code character varying(30)
+);
+
+
+alter table public.annotation owner to postgres;
+
+--
+-- name: annotation_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence annotation_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.annotation_id_seq owner to postgres;
+
+--
+-- name: annotation_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence annotation_id_seq owned by annotation.id;
+
+
+--
+-- name: clipboard; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table clipboard (
+    id integer not null,
+    project_code character varying(256),
+    "login" character varying(256),
+    search_type character varying(256),
+    search_id integer,
+    "timestamp" timestamp without time zone default now(),
+    category character varying(256)
+);
+
+
+alter table public.clipboard owner to postgres;
+
+--
+-- name: clipboard_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence clipboard_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.clipboard_id_seq owner to postgres;
+
+--
+-- name: clipboard_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence clipboard_id_seq owned by clipboard.id;
+
+
+--
+-- name: command; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table command (
+    id integer not null,
+    class_name character varying(100) not null,
+    description text,
+    notification_code character varying(30) not null,
+    s_status character varying(256)
+);
+
+
+alter table public.command owner to postgres;
+
+--
+-- name: command_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence command_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.command_id_seq owner to postgres;
+
+--
+-- name: command_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence command_id_seq owned by command.id;
+
+
+--
+-- name: command_log; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table command_log (
+    id integer not null,
+    class_name character varying(100) not null,
+    parameters text,
+    "login" character varying(100) not null,
+    "timestamp" timestamp without time zone default now() not null
+);
+
+
+alter table public.command_log owner to postgres;
+
+--
+-- name: command_log_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence command_log_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.command_log_id_seq owner to postgres;
+
+--
+-- name: command_log_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence command_log_id_seq owned by command_log.id;
+
+
+--
+-- name: connection; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table "connection" (
+    id integer not null,
+    context character varying(60),
+    project_code character varying(30),
+    src_search_type character varying(200),
+    src_search_id integer,
+    dst_search_type character varying(200),
+    dst_search_id integer,
+    "login" character varying(30),
+    "timestamp" timestamp without time zone default now()
+);
+
+
+alter table public."connection" owner to postgres;
+
+--
+-- name: connection_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence connection_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.connection_id_seq owner to postgres;
+
+--
+-- name: connection_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence connection_id_seq owned by "connection".id;
+
+
+--
+-- name: debug_log; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table debug_log (
+    id integer not null,
+    category character varying(256),
+    "level" character varying(256),
+    message text,
+    "timestamp" timestamp without time zone default now(),
+    "login" character varying(256),
+    s_status character varying(30)
+);
+
+
+alter table public.debug_log owner to postgres;
+
+--
+-- name: debug_log_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence debug_log_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.debug_log_id_seq owner to postgres;
+
+--
+-- name: debug_log_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence debug_log_id_seq owned by debug_log.id;
+
+
+--
+-- name: exception_log; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table exception_log (
+    id integer not null,
+    "class" character varying(100),
+    message text,
+    stack_trace text,
+    "login" character varying(100) not null,
+    "timestamp" timestamp without time zone default now() not null
+);
+
+
+alter table public.exception_log owner to postgres;
+
+--
+-- name: exception_log_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence exception_log_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.exception_log_id_seq owner to postgres;
+
+--
+-- name: exception_log_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence exception_log_id_seq owned by exception_log.id;
+
+
+--
+-- name: file; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table file (
+    id integer not null,
+    file_name character varying(512),
+    search_type character varying(100) not null,
+    search_id integer not null,
+    "timestamp" timestamp without time zone default now() not null,
+    st_size bigint,
+    file_range text,
+    code character varying(30),
+    snapshot_code character varying(30),
+    project_code character varying(100),
+    md5 character varying(32),
+    checkin_dir text,
+    source_path text,
+    relative_dir text,
+    "type" character varying(256),
+    base_type character varying(256),
+    repo_type character varying(256)
+);
+
+
+alter table public.file owner to postgres;
+
+--
+-- name: file_code_unique; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only file
+    add constraint file_code_unique unique (code);
+
+--
+-- name: file_file_name_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create index file_file_name_idx on file using btree (file_name);
+
+--
+-- name: file_access; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table file_access (
+    id integer not null,
+    file_code integer not null,
+    "login" character varying(100),
+    "timestamp" timestamp without time zone default now() not null
+);
+
+
+alter table public.file_access owner to postgres;
+
+--
+-- name: file_access_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence file_access_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.file_access_id_seq owner to postgres;
+
+--
+-- name: file_access_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence file_access_id_seq owned by file_access.id;
+
+
+--
+-- name: file_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence file_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.file_id_seq owner to postgres;
+
+--
+-- name: file_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence file_id_seq owned by file.id;
+
+
+--
+-- name: group_notification; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table group_notification (
+    id integer not null,
+    login_group character varying(100) not null,
+    notification_id integer not null
+);
+
+
+alter table public.group_notification owner to postgres;
+
+--
+-- name: group_notification_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence group_notification_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.group_notification_id_seq owner to postgres;
+
+--
+-- name: group_notification_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence group_notification_id_seq owned by group_notification.id;
+
+
+--
+-- name: login; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table "login" (
+    id integer not null,
+    code character varying(512),
+    "login" character varying(100) not null,
+    "password" character varying(255),
+    login_groups text,
+    first_name character varying(100),
+    last_name character varying(100),
+    email character varying(200),
+    phone_number character varying(32),
+    department character varying(256),
+    namespace character varying(255),
+    snapshot text,
+    s_status character varying(30),
+    project_code text,
+    license_type character varying(256)
+);
+
+
+alter table public."login" owner to postgres;
+
+--
+-- name: login_group; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table login_group (
+    id integer not null,
+    code character varying(256),
+    login_group character varying(100) not null,
+    sub_groups text,
+    access_rules text,
+    redirect_url text,
+    namespace character varying(255),
+    description text,
+    project_code text,
+    access_level character varying(32),
+    s_status character varying(256)
+);
+
+
+alter table public.login_group owner to postgres;
+
+--
+-- name: login_group_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence login_group_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.login_group_id_seq owner to postgres;
+
+--
+-- name: login_group_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence login_group_id_seq owned by login_group.id;
+
+
+--
+-- name: login_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence login_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.login_id_seq owner to postgres;
+
+--
+-- name: login_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence login_id_seq owned by "login".id;
+
+
+--
+-- name: login_in_group; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table login_in_group (
+    id integer not null,
+    code character varying(256),
+    "login" character varying(100) not null,
+    login_group character varying(100) not null
+);
+
+
+alter table public.login_in_group owner to postgres;
+
+--
+-- name: login_in_group_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence login_in_group_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.login_in_group_id_seq owner to postgres;
+
+--
+-- name: login_in_group_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence login_in_group_id_seq owned by login_in_group.id;
+
+
+--
+-- name: milestone; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table milestone (
+    id integer not null,
+    code character varying(200),
+    project_code character varying(30),
+    description text,
+    due_date timestamp without time zone
+);
+
+
+alter table public.milestone owner to postgres;
+
+--
+-- name: milestone_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence milestone_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.milestone_id_seq owner to postgres;
+
+--
+-- name: milestone_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence milestone_id_seq owned by milestone.id;
+
+
+--
+-- name: note; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table note (
+    id integer not null,
+    project_code character varying(30),
+    search_type character varying(200),
+    search_id integer,
+    "login" character varying(30),
+    context character varying(60),
+    "timestamp" timestamp without time zone default now(),
+    note text,
+    title character varying(1024),
+    parent_id bigint,
+    status character varying(256),
+    label character varying(256),
+    process character varying(60),
+    "sort_order" integer,
+    code character varying(256),
+    "access" character varying(256)
+);
+
+
+alter table public.note owner to postgres;
+
+--
+-- name: note_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence note_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.note_id_seq owner to postgres;
+
+--
+-- name: note_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence note_id_seq owned by note.id;
+
+
+--
+-- name: notification; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table notification (
+    id integer not null,
+    code character varying(30),
+    event character varying(256),
+    listen_event character varying(256),
+    data text,
+    description text,
+    process varchar(256),
+    "type" character varying(30) not null,
+    search_type character varying(100),
+    project_code character varying(30),
+    rules text,
+    subject text,
+    message text,
+    email_handler_cls character varying(200),
+    mail_to text,
+    mail_cc text,
+    mail_bcc text,
+    s_status character varying(30)
+);
+
+
+alter table public.notification owner to postgres;
+
+--
+-- name: notification_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence notification_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.notification_id_seq owner to postgres;
+
+--
+-- name: notification_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence notification_id_seq owned by notification.id;
+
+
+--
+-- name: notification_log; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table notification_log (
+    id integer not null,
+    project_code character varying(256),
+    "login" character varying(256),
+    command_cls character varying(256),
+    subject text,
+    message text,
+    "timestamp" timestamp without time zone default now()
+);
+
+
+alter table public.notification_log owner to postgres;
+
+--
+-- name: notification_log_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence notification_log_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.notification_log_id_seq owner to postgres;
+
+--
+-- name: notification_log_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence notification_log_id_seq owned by notification_log.id;
+
+
+--
+-- name: notification_login; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table notification_login (
+    id integer not null,
+    notification_log_id integer,
+    "login" character varying(256),
+    "type" character varying(256),
+    project_code character varying(256),
+    "timestamp" timestamp without time zone default now()
+);
+
+
+alter table public.notification_login owner to postgres;
+
+--
+-- name: notification_login_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence notification_login_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.notification_login_id_seq owner to postgres;
+
+--
+-- name: notification_login_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence notification_login_id_seq owned by notification_login.id;
+
+
+set default_with_oids = true;
+
+--
+-- name: pg_ts_cfg; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pg_ts_cfg (
+    ts_name text not null,
+    prs_name text not null,
+    locale text
+);
+
+
+alter table public.pg_ts_cfg owner to postgres;
+
+--
+-- name: pg_ts_cfgmap; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pg_ts_cfgmap (
+    ts_name text not null,
+    tok_alias text not null,
+    dict_name text[]
+);
+
+
+alter table public.pg_ts_cfgmap owner to postgres;
+
+--
+-- name: pg_ts_dict; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pg_ts_dict (
+    dict_name text not null,
+    dict_init regprocedure,
+    dict_initoption text,
+    dict_lexize regprocedure not null,
+    dict_comment text
+);
+
+
+alter table public.pg_ts_dict owner to postgres;
+
+--
+-- name: pg_ts_parser; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pg_ts_parser (
+    prs_name text not null,
+    prs_start regprocedure not null,
+    prs_nexttoken regprocedure not null,
+    prs_end regprocedure not null,
+    prs_headline regprocedure not null,
+    prs_lextype regprocedure not null,
+    prs_comment text
+);
+
+
+alter table public.pg_ts_parser owner to postgres;
+
+--
+-- name: pga_diagrams; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_diagrams (
+    diagramname character varying(64) not null,
+    diagramtables text,
+    diagramlinks text
+);
+
+
+alter table public.pga_diagrams owner to postgres;
+
+--
+-- name: pga_forms; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_forms (
+    formname character varying(64) not null,
+    formsource text
+);
+
+
+alter table public.pga_forms owner to postgres;
+
+--
+-- name: pga_graphs; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_graphs (
+    graphname character varying(64) not null,
+    graphsource text,
+    graphcode text
+);
+
+
+alter table public.pga_graphs owner to postgres;
+
+--
+-- name: pga_images; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_images (
+    imagename character varying(64) not null,
+    imagesource text
+);
+
+
+alter table public.pga_images owner to postgres;
+
+set default_with_oids = false;
+
+--
+-- name: pga_layout; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_layout (
+    tablename character varying(64),
+    nrcols smallint,
+    colnames text,
+    colwidth text
+);
+
+
+alter table public.pga_layout owner to postgres;
+
+set default_with_oids = true;
+
+--
+-- name: pga_queries; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_queries (
+    queryname character varying(64) not null,
+    querytype character(1),
+    querycommand text,
+    querytables text,
+    querylinks text,
+    queryresults text,
+    querycomments text
+);
+
+
+alter table public.pga_queries owner to postgres;
+
+set default_with_oids = false;
+
+--
+-- name: pga_reports; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_reports (
+    reportname character varying(64),
+    reportsource text,
+    reportbody text,
+    reportprocs text,
+    reportoptions text
+);
+
+
+alter table public.pga_reports owner to postgres;
+
+--
+-- name: pga_schema; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_schema (
+    schemaname character varying(64),
+    schematables text,
+    schemalinks text
+);
+
+
+alter table public.pga_schema owner to postgres;
+
+set default_with_oids = true;
+
+--
+-- name: pga_scripts; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_scripts (
+    scriptname character varying(64) not null,
+    scriptsource text
+);
+
+
+alter table public.pga_scripts owner to postgres;
+
+set default_with_oids = false;
+
+--
+-- name: pipeline; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pipeline (
+    id integer not null,
+    code character varying(128) not null,
+    pipeline text,
+    "timestamp" timestamp without time zone default now() not null,
+    search_type character varying(100),
+    project_code character varying(30),
+    description text,
+    color varchar(256),
+    autocreate_tasks boolean,
+    s_status character varying(30)
+);
+
+
+alter table public.pipeline owner to postgres;
+
+--
+-- name: pipeline_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence pipeline_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.pipeline_id_seq owner to postgres;
+
+--
+-- name: pipeline_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence pipeline_id_seq owned by pipeline.id;
+
+
+--
+-- name: pref_list; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pref_list (
+    id integer not null,
+    "key" character varying(256),
+    description text,
+    options text,
+    "type" character varying(256),
+    category character varying(256),
+    "timestamp" timestamp without time zone default now(),
+    title text
+);
+
+
+alter table public.pref_list owner to postgres;
+
+--
+-- name: pref_list_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence pref_list_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.pref_list_id_seq owner to postgres;
+
+--
+-- name: pref_list_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence pref_list_id_seq owned by pref_list.id;
+
+
+--
+-- name: pref_setting; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pref_setting (
+    id integer not null,
+    project_code character varying(256),
+    "login" character varying(256),
+    "key" character varying(256),
+    value text,
+    "timestamp" timestamp without time zone default now()
+);
+
+
+alter table public.pref_setting owner to postgres;
+
+--
+-- name: pref_setting_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence pref_setting_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.pref_setting_id_seq owner to postgres;
+
+--
+-- name: pref_setting_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence pref_setting_id_seq owned by pref_setting.id;
+
+
+--
+-- name: prod_setting; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table prod_setting (
+    id integer not null,
+    "key" character varying(100),
+    value text,
+    description text,
+    "type" character varying(30),
+    search_type character varying(200)
+);
+
+
+alter table public.prod_setting owner to postgres;
+
+--
+-- name: prod_setting_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence prod_setting_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.prod_setting_id_seq owner to postgres;
+
+--
+-- name: prod_setting_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence prod_setting_id_seq owned by prod_setting.id;
+
+
+--
+-- name: project; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table project (
+    id integer not null,
+    code character varying(30) not null,
+    title character varying(100),
+    sobject_mapping_cls character varying(100),
+    dir_naming_cls character varying(200),
+    code_naming_cls character varying(200),
+    pipeline character varying(30),
+    snapshot text,
+    "type" character varying(256),
+    last_db_update timestamp without time zone,
+    description text,
+    initials character varying(30),
+    file_naming_cls character varying(200),
+    reg_hours numeric,
+    node_naming_cls character varying(200),
+    s_status character varying(30),
+    status character varying(256),
+    last_version_update character varying(256)
+);
+
+
+alter table public.project owner to postgres;
+
+--
+-- name: project_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence project_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.project_id_seq owner to postgres;
+
+--
+-- name: project_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence project_id_seq owned by project.id;
+
+
+--
+-- name: project_type; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table project_type (
+    id integer not null,
+    code character varying(256),
+    dir_naming_cls character varying(200),
+    file_naming_cls character varying(200),
+    code_naming_cls character varying(200),
+    node_naming_cls character varying(200),
+    sobject_mapping_cls character varying(200),
+    s_status character varying(32),
+    "type" character varying(100) not null,
+    repo_handler_cls character varying(200)
+);
+
+
+alter table public.project_type owner to postgres;
+
+--
+-- name: project_type_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence project_type_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.project_type_id_seq owner to postgres;
+
+--
+-- name: project_type_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence project_type_id_seq owned by project_type.id;
+
+
+--
+-- name: queue; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table queue (
+    id integer not null,
+    queue character varying(30) not null,
+    priority character varying(10) not null,
+    description text,
+    state character varying(30) default 'pending'::character varying not null,
+    "login" character varying(30) not null,
+    "timestamp" timestamp without time zone default now() not null,
+    command character varying(200) not null,
+    serialized text not null,
+    s_status character varying(30),
+    project_code character varying(100),
+    search_id integer,
+    search_type character varying(100),
+    dispatcher_id integer,
+    policy_code character varying(30),
+    host character varying(256)
+);
+
+
+alter table public.queue owner to postgres;
+
+--
+-- name: queue_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence queue_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.queue_id_seq owner to postgres;
+
+--
+-- name: queue_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence queue_id_seq owned by queue.id;
+
+
+--
+-- name: remote_repo; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table remote_repo (
+    id integer not null,
+    code character varying(30),
+    ip_address character varying(30),
+    ip_mask character varying(30),
+    repo_base_dir character varying(200),
+    sandbox_base_dir character varying(200),
+    "login" character varying(100)
+);
+
+
+alter table public.remote_repo owner to postgres;
+
+--
+-- name: remote_repo_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence remote_repo_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.remote_repo_id_seq owner to postgres;
+
+--
+-- name: remote_repo_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence remote_repo_id_seq owned by remote_repo.id;
+
+
+--
+-- name: repo; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table repo (
+    id integer not null,
+    code character varying(30) not null,
+    description character varying(200) not null,
+    "handler" character varying(100) not null,
+    web_dir text not null,
+    lib_dir text not null
+);
+
+
+alter table public.repo owner to postgres;
+
+--
+-- name: repo_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence repo_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.repo_id_seq owner to postgres;
+
+--
+-- name: repo_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence repo_id_seq owned by repo.id;
+
+
+--
+-- name: retire_log; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table retire_log (
+    id integer not null,
+    search_type character varying(100),
+    search_id character varying(100),
+    "login" character varying(100) not null,
+    "timestamp" timestamp without time zone default now() not null
+);
+
+
+alter table public.retire_log owner to postgres;
+
+--
+-- name: retire_log_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence retire_log_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.retire_log_id_seq owner to postgres;
+
+--
+-- name: retire_log_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence retire_log_id_seq owned by retire_log.id;
+
+
+--
+-- name: schema; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table "schema" (
+    id integer not null,
+    code character varying(256),
+    description text,
+    "schema" text,
+    "timestamp" timestamp without time zone default now(),
+    "login" character varying(256),
+    s_status character varying(30)
+);
+
+
+alter table public."schema" owner to postgres;
+
+--
+-- name: schema_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence schema_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.schema_id_seq owner to postgres;
+
+--
+-- name: schema_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence schema_id_seq owned by "schema".id;
+
+
+--
+-- name: search_object; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table search_object (
+    id integer not null,
+    code character varying(256),
+    search_type character varying(100) not null,
+    namespace character varying(200) not null,
+    description text,
+    "database" character varying(100) not null,
+    table_name character varying(100) not null,
+    class_name character varying(100) not null,
+    title character varying(100),
+    "schema" character varying(100)
+);
+
+
+alter table public.search_object owner to postgres;
+
+--
+-- name: search_object_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence search_object_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.search_object_id_seq owner to postgres;
+
+--
+-- name: search_object_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence search_object_id_seq owned by search_object.id;
+
+
+--
+-- name: snapshot; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table snapshot (
+    id integer not null,
+    search_type character varying(100) not null,
+    search_id integer not null,
+    column_name character varying(100) not null,
+    snapshot text not null,
+    description text,
+    process varchar(256),
+    "login" character varying(100) not null,
+    "lock_login" character varying(100),
+    "timestamp" timestamp without time zone default now() not null,
+    lock_date timestamp,
+    context character varying(256),
+    version integer,
+    s_status character varying(30),
+    snapshot_type character varying(30),
+    code character varying(30),
+    repo character varying(30),
+    is_current boolean,
+    label character varying(100),
+    revision smallint,
+    level_type character varying(256),
+    level_id integer,
+    metadata text,
+    is_latest boolean,
+    status character varying(256),
+    project_code character varying(256),
+    search_code character varying(256),
+    is_synced boolean
+);
+
+
+alter table public.snapshot owner to postgres;
+
+--
+-- name: snapshot_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence snapshot_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.snapshot_id_seq owner to postgres;
+
+--
+-- name: snapshot_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence snapshot_id_seq owned by snapshot.id;
+
+
+
+--
+-- name: snapshot_type; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table snapshot_type (
+    id integer not null,
+    code character varying(256),
+    pipeline_code text,
+    "timestamp" timestamp without time zone default now(),
+    "login" character varying(256),
+    s_status character varying(30),
+    relpath text,
+    project_code character varying(256),
+    subcontext text,
+    snapshot_flavor text,
+    relfile text
+);
+
+
+alter table public.snapshot_type owner to postgres;
+
+--
+-- name: snapshot_type_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence snapshot_type_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.snapshot_type_id_seq owner to postgres;
+
+--
+-- name: snapshot_type_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence snapshot_type_id_seq owned by snapshot_type.id;
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table snapshot_type alter column id set default nextval('snapshot_type_id_seq'::regclass);
+
+
+--
+-- name: snapshot_type_code_unique; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only snapshot_type
+    add constraint snapshot_type_code_unique unique (code);
+
+
+
+--
+-- name: sobject_log; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table sobject_log (
+    id integer not null,
+    search_type character varying(100) not null,
+    search_id integer not null,
+    data text,
+    "login" character varying(100) not null,
+    "timestamp" timestamp without time zone default now() not null,
+    transaction_log_id integer
+);
+
+
+alter table public.sobject_log owner to postgres;
+
+--
+-- name: sobject_log_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence sobject_log_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.sobject_log_id_seq owner to postgres;
+
+--
+-- name: sobject_log_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence sobject_log_id_seq owned by sobject_log.id;
+
+
+--
+-- name: special_day; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table special_day (
+    id integer not null,
+    week smallint,
+    mon real,
+    tue real,
+    wed real,
+    thu real,
+    fri real,
+    sat real,
+    sun real,
+    "year" integer,
+    "login" character varying(100),
+    description text,
+    "type" character varying(100),
+    project_code character varying(30)
+);
+
+
+alter table public.special_day owner to postgres;
+
+--
+-- name: special_day_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence special_day_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.special_day_id_seq owner to postgres;
+
+--
+-- name: special_day_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence special_day_id_seq owned by special_day.id;
+
+
+--
+-- name: status_log; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table status_log (
+    id integer not null,
+    search_type character varying(100) not null,
+    search_id integer not null,
+    status text,
+    "login" character varying(100) not null,
+    "timestamp" timestamp without time zone default now() not null,
+    to_status character varying(256),
+    from_status character varying(256),
+    project_code character varying(256)
+);
+
+
+alter table public.status_log owner to postgres;
+
+--
+-- name: status_log_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence status_log_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.status_log_id_seq owner to postgres;
+
+--
+-- name: status_log_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence status_log_id_seq owned by status_log.id;
+
+
+--
+-- name: task; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table task (
+    id integer not null,
+    assigned character varying(100),
+    description text,
+    status text,
+    discussion text,
+    bid_start_date timestamp without time zone,
+    bid_end_date timestamp without time zone,
+    bid_duration double precision,
+    actual_start_date timestamp without time zone,
+    actual_end_date timestamp without time zone,
+    search_type character varying(100),
+    search_id integer,
+    "timestamp" timestamp without time zone default now(),
+    s_status character varying(30),
+    priority smallint,
+    process character varying(256),
+    context character varying(256),
+    milestone_code character varying(200),
+    pipeline_code character varying(256),
+    parent_id integer,
+    sort_order smallint,
+    depend_id integer,
+    project_code character varying(100),
+    supervisor character varying(100),
+    code character varying(256),
+    login character varying(256),
+    completion float
+);
+
+
+alter table public.task owner to postgres;
+
+--
+-- name: task_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence task_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.task_id_seq owner to postgres;
+
+--
+-- name: task_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence task_id_seq owned by task.id;
+
+
+--
+-- name: ticket; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table ticket (
+    id integer not null,
+    ticket character varying(100) not null,
+    "login" character varying(256),
+    "timestamp" timestamp without time zone default now(),
+    expiry timestamp without time zone
+);
+
+
+alter table public.ticket owner to postgres;
+
+--
+-- name: ticket_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence ticket_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.ticket_id_seq owner to postgres;
+
+--
+-- name: ticket_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence ticket_id_seq owned by ticket.id;
+
+
+--
+-- name: timecard; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table timecard (
+    id integer not null,
+    search_type character varying(100),
+    search_id integer,
+    week smallint,
+    mon real,
+    tue real,
+    wed real,
+    thu real,
+    fri real,
+    sat real,
+    sun real,
+    "login" character varying(100),
+    project_code character varying(30),
+    "year" integer,
+    description text
+);
+
+
+alter table public.timecard owner to postgres;
+
+--
+-- name: timecard_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence timecard_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.timecard_id_seq owner to postgres;
+
+--
+-- name: timecard_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence timecard_id_seq owned by timecard.id;
+
+
+--
+-- name: transaction_log; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table transaction_log (
+    id integer not null,
+    "transaction" text,
+    "login" character varying(100) not null,
+    "timestamp" timestamp without time zone default now() not null,
+    description text,
+    command character varying(100),
+    title text,
+    "type" character varying(30),
+    namespace character varying(100),
+    code character varying(256),
+    ticket character varying(256),
+    state character varying(256),
+    server_code character varying(256)
+);
+
+
+alter table public.transaction_log owner to postgres;
+
+--
+-- name: transaction_log_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence transaction_log_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.transaction_log_id_seq owner to postgres;
+
+--
+-- name: transaction_log_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence transaction_log_id_seq owned by transaction_log.id;
+
+
+--
+-- name: transaction_state; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table transaction_state (
+    id integer not null,
+    ticket character varying(100),
+    "timestamp" timestamp without time zone default now(),
+    data text
+);
+
+
+alter table public.transaction_state owner to postgres;
+
+--
+-- name: transaction_state_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence transaction_state_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.transaction_state_id_seq owner to postgres;
+
+--
+-- name: transaction_state_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence transaction_state_id_seq owned by transaction_state.id;
+
+
+--
+-- name: translation; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table translation (
+    id integer not null,
+    "language" character varying(32),
+    msgid text,
+    msgstr text,
+    line text,
+    "login" character varying(256),
+    "timestamp" timestamp without time zone default now()
+);
+
+
+alter table public.translation owner to postgres;
+
+--
+-- name: translation_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence translation_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.translation_id_seq owner to postgres;
+
+--
+-- name: translation_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence translation_id_seq owned by translation.id;
+
+
+--
+-- name: trigger; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table "trigger" (
+    id integer not null,
+    class_name character varying(256),
+    script_path character varying(256),
+    description text,
+    event character varying(256),
+    mode character varying(256),
+    project_code character varying(256),
+    process character varying(256),
+    s_status character varying(256)
+);
+
+
+alter table public."trigger" owner to postgres;
+
+--
+-- name: trigger_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence trigger_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.trigger_id_seq owner to postgres;
+
+--
+-- name: trigger_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence trigger_id_seq owned by "trigger".id;
+
+
+--
+-- name: trigger_in_command; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table trigger_in_command (
+    id integer not null,
+    command_code character varying(100) not null,
+    trigger_code character varying(100) not null
+);
+
+
+alter table public.trigger_in_command owner to postgres;
+
+--
+-- name: trigger_in_command_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence trigger_in_command_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.trigger_in_command_id_seq owner to postgres;
+
+--
+-- name: trigger_in_command_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence trigger_in_command_id_seq owned by trigger_in_command.id;
+
+
+--
+-- name: wdg_settings; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table wdg_settings (
+    id integer not null,
+    "key" character varying(255) not null,
+    "login" character varying(100) not null,
+    data text,
+    "timestamp" timestamp without time zone default now() not null,
+    project_code character varying(30)
+);
+
+
+alter table public.wdg_settings owner to postgres;
+
+--
+-- name: wdg_settings_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence wdg_settings_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.wdg_settings_id_seq owner to postgres;
+
+--
+-- name: wdg_settings_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence wdg_settings_id_seq owned by wdg_settings.id;
+
+--
+-- name: widget_config; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table widget_config (
+    id integer not null,
+    code character varying(256),
+    "view" character varying(256),
+    category character varying(256),
+    search_type character varying(256),
+    "login" character varying(256),
+    config text,
+    "timestamp" timestamp without time zone default now(),
+    s_status character varying(32),
+    project_code character varying(256)
+);
+
+
+alter table public.widget_config owner to postgres;
+
+--
+-- name: widget_config_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence widget_config_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.widget_config_id_seq owner to postgres;
+
+--
+-- name: widget_config_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence widget_config_id_seq owned by widget_config.id;
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table widget_config alter column id set default nextval('widget_config_id_seq'::regclass);
+
+
+--
+-- name: widget_config_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only widget_config
+    add constraint widget_config_pkey primary key (id);
+
+
+--
+-- name: widget_config_code_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create unique index widget_config_code_idx on widget_config using btree (code);
+
+
+--
+-- name: widget_extend; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table widget_extend (
+    id integer not null,
+    "key" character varying(256),
+    "type" character varying(256),
+    data text,
+    project_code character varying(256),
+    "login" character varying(32),
+    "timestamp" timestamp without time zone,
+    s_status character varying(32),
+    description text
+);
+
+
+alter table public.widget_extend owner to postgres;
+
+--
+-- name: widget_extend_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence widget_extend_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.widget_extend_id_seq owner to postgres;
+
+--
+-- name: widget_extend_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence widget_extend_id_seq owned by widget_extend.id;
+
+
+--
+-- name: cache; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table "cache" (
+    id integer not null,
+    "key" character varying(256),
+    mtime timestamp without time zone
+);
+
+
+alter table public."cache" owner to postgres;
+
+--
+-- name: cache_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence cache_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.cache_id_seq owner to postgres;
+
+--
+-- name: cache_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence cache_id_seq owned by "cache".id;
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table "cache" alter column id set default nextval('cache_id_seq'::regclass);
+
+
+--
+-- name: cache_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only "cache"
+    add constraint cache_pkey primary key (id);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table access_rule alter column id set default nextval('access_rule_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table access_rule_in_group alter column id set default nextval('access_rule_in_group_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table annotation alter column id set default nextval('annotation_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table clipboard alter column id set default nextval('clipboard_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table command alter column id set default nextval('command_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table command_log alter column id set default nextval('command_log_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table "connection" alter column id set default nextval('connection_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table debug_log alter column id set default nextval('debug_log_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table exception_log alter column id set default nextval('exception_log_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table file alter column id set default nextval('file_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table file_access alter column id set default nextval('file_access_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table group_notification alter column id set default nextval('group_notification_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table "login" alter column id set default nextval('login_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table login_group alter column id set default nextval('login_group_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table login_in_group alter column id set default nextval('login_in_group_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table milestone alter column id set default nextval('milestone_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table note alter column id set default nextval('note_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table notification alter column id set default nextval('notification_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table notification_log alter column id set default nextval('notification_log_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table notification_login alter column id set default nextval('notification_login_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table pipeline alter column id set default nextval('pipeline_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table pref_list alter column id set default nextval('pref_list_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table pref_setting alter column id set default nextval('pref_setting_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table prod_setting alter column id set default nextval('prod_setting_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table project alter column id set default nextval('project_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table project_type alter column id set default nextval('project_type_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table queue alter column id set default nextval('queue_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table remote_repo alter column id set default nextval('remote_repo_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table repo alter column id set default nextval('repo_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table retire_log alter column id set default nextval('retire_log_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table "schema" alter column id set default nextval('schema_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table search_object alter column id set default nextval('search_object_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table snapshot alter column id set default nextval('snapshot_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table snapshot_type alter column id set default nextval('snapshot_type_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table sobject_log alter column id set default nextval('sobject_log_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table special_day alter column id set default nextval('special_day_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table status_log alter column id set default nextval('status_log_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table task alter column id set default nextval('task_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table ticket alter column id set default nextval('ticket_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table timecard alter column id set default nextval('timecard_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table transaction_log alter column id set default nextval('transaction_log_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table transaction_state alter column id set default nextval('transaction_state_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table translation alter column id set default nextval('translation_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table "trigger" alter column id set default nextval('trigger_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table trigger_in_command alter column id set default nextval('trigger_in_command_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table wdg_settings alter column id set default nextval('wdg_settings_id_seq'::regclass);
+
+
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table widget_extend alter column id set default nextval('widget_extend_id_seq'::regclass);
+
+
+--
+-- name: access_rule_code_key; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only access_rule
+    add constraint access_rule_code_key unique (code);
+
+
+--
+-- name: access_rule_in_group_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only access_rule_in_group
+    add constraint access_rule_in_group_pkey primary key (id);
+
+
+--
+-- name: access_rule_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only access_rule
+    add constraint access_rule_pkey primary key (id);
+
+
+--
+-- name: annotation_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only annotation
+    add constraint annotation_pkey primary key (id);
+
+
+--
+-- name: clipboard_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only clipboard
+    add constraint clipboard_pkey primary key (id);
+
+
+--
+-- name: code_key; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only project_type
+    add constraint code_key unique (code);
+
+
+--
+-- name: command_class_name_key; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only command
+    add constraint command_class_name_key unique (class_name);
+
+
+--
+-- name: command_log_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only command_log
+    add constraint command_log_pkey primary key (id);
+
+
+--
+-- name: command_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only command
+    add constraint command_pkey primary key (id);
+
+
+--
+-- name: connection_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only "connection"
+    add constraint connection_pkey primary key (id);
+
+
+--
+-- name: exception_log_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only exception_log
+    add constraint exception_log_pkey primary key (id);
+
+
+--
+-- name: file_access_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only file_access
+    add constraint file_access_pkey primary key (id);
+
+
+--
+-- name: file_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only file
+    add constraint file_pkey primary key (id);
+
+
+--
+-- name: group_notification_login_group_code_key; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only group_notification
+    add constraint group_notification_login_group_code_key unique (login_group, notification_id);
+
+
+--
+-- name: group_notification_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only group_notification
+    add constraint group_notification_pkey primary key (id);
+
+
+--
+-- name: login_group_login_group_key; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only login_group
+    add constraint login_group_login_group_key unique (login_group);
+
+
+--
+-- name: login_group_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only login_group
+    add constraint login_group_pkey primary key (id);
+
+
+--
+-- name: login_in_group_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only login_in_group
+    add constraint login_in_group_pkey primary key (id);
+
+
+--
+-- name: login_login_key; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only "login"
+    add constraint login_login_key unique ("login");
+
+
+--
+-- name: login_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only "login"
+    add constraint login_pkey primary key (id);
+
+
+--
+-- name: milestone_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only milestone
+    add constraint milestone_pkey primary key (id);
+
+
+--
+-- name: milestone_unique; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only milestone
+    add constraint milestone_unique unique (code);
+
+
+--
+-- name: note_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only note
+    add constraint note_pkey primary key (id);
+
+
+--
+-- name: notification_log_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only notification_log
+    add constraint notification_log_pkey primary key (id);
+
+
+--
+-- name: notification_login_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only notification_login
+    add constraint notification_login_pkey primary key (id);
+
+
+--
+-- name: notification_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only notification
+    add constraint notification_pkey primary key (id);
+
+
+--
+-- name: pg_ts_cfg_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only pg_ts_cfg
+    add constraint pg_ts_cfg_pkey primary key (ts_name);
+
+
+--
+-- name: pg_ts_cfgmap_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only pg_ts_cfgmap
+    add constraint pg_ts_cfgmap_pkey primary key (ts_name, tok_alias);
+
+
+--
+-- name: pg_ts_dict_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only pg_ts_dict
+    add constraint pg_ts_dict_pkey primary key (dict_name);
+
+
+--
+-- name: pg_ts_parser_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only pg_ts_parser
+    add constraint pg_ts_parser_pkey primary key (prs_name);
+
+
+--
+-- name: pga_diagrams_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only pga_diagrams
+    add constraint pga_diagrams_pkey primary key (diagramname);
+
+
+--
+-- name: pga_forms_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only pga_forms
+    add constraint pga_forms_pkey primary key (formname);
+
+
+--
+-- name: pga_graphs_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only pga_graphs
+    add constraint pga_graphs_pkey primary key (graphname);
+
+
+--
+-- name: pga_images_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only pga_images
+    add constraint pga_images_pkey primary key (imagename);
+
+
+--
+-- name: pga_queries_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only pga_queries
+    add constraint pga_queries_pkey primary key (queryname);
+
+
+--
+-- name: pga_scripts_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only pga_scripts
+    add constraint pga_scripts_pkey primary key (scriptname);
+
+
+--
+-- name: pipeline_name_key; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only pipeline
+    add constraint pipeline_name_key unique (code);
+
+
+--
+-- name: pipeline_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only pipeline
+    add constraint pipeline_pkey primary key (id);
+
+
+--
+-- name: pref_list_key_idx; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only pref_list
+    add constraint pref_list_key_idx unique ("key");
+
+
+--
+-- name: pref_list_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only pref_list
+    add constraint pref_list_pkey primary key (id);
+
+
+--
+-- name: pref_setting_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only pref_setting
+    add constraint pref_setting_pkey primary key (id);
+
+
+--
+-- name: project_code_key; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only project
+    add constraint project_code_key unique (code);
+
+
+--
+-- name: project_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only project
+    add constraint project_pkey primary key (id);
+
+
+--
+-- name: project_type_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only project_type
+    add constraint project_type_pkey primary key (id);
+
+
+--
+-- name: queue_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only queue
+    add constraint queue_pkey primary key (id);
+
+
+--
+-- name: remote_repo_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only remote_repo
+    add constraint remote_repo_pkey primary key (id);
+
+
+--
+-- name: repo_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only repo
+    add constraint repo_pkey primary key (id);
+
+
+--
+-- name: retire_log_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only retire_log
+    add constraint retire_log_pkey primary key (id);
+
+
+--
+-- name: schema_code_unique; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only "schema"
+    add constraint schema_code_unique unique (code);
+
+
+--
+-- name: schema_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only "schema"
+    add constraint schema_pkey primary key (id);
+
+
+--
+-- name: search_object_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only search_object
+    add constraint search_object_pkey primary key (id);
+
+
+--
+-- name: snapshot_code_key; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only snapshot
+    add constraint snapshot_code_key unique (code);
+
+
+--
+-- name: snapshot_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only snapshot
+    add constraint snapshot_pkey primary key (id);
+
+
+--
+-- name: snapshot_type_code_unique; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only snapshot_type
+    add constraint snapshot_type_code_unique unique (code);
+
+
+
+
+--
+-- name: sobject_log_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only sobject_log
+    add constraint sobject_log_pkey primary key (id);
+
+
+--
+-- name: special_day_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only special_day
+    add constraint special_day_pkey primary key (id);
+
+
+--
+-- name: status_log_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only status_log
+    add constraint status_log_pkey primary key (id);
+
+
+--
+-- name: task_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only task
+    add constraint task_pkey primary key (id);
+
+--
+-- name: ticket_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only ticket
+    add constraint ticket_pkey primary key (id);
+
+--
+-- name: ticket_unique; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only ticket
+    add constraint ticket_unique unique (ticket);
+
+
+--
+-- name: timecard_general_unique; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only timecard
+    add constraint timecard_general_unique unique (description, week, "year", project_code, "login");
+
+
+--
+-- name: timecard_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only timecard
+    add constraint timecard_pkey primary key (id);
+
+
+--
+-- name: timecard_task_unique; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only timecard
+    add constraint timecard_task_unique unique (search_type, search_id, week, "year", project_code, "login");
+
+
+--
+-- name: transaction_log_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only transaction_log
+    add constraint transaction_log_pkey primary key (id);
+
+
+--
+-- name: translation_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only translation
+    add constraint translation_pkey primary key (id);
+
+
+
+--
+-- name: trigger_class_name_event_unique; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only "trigger"
+    add constraint trigger_class_name_event_unique unique (class_name, event);
+
+--
+-- name: trigger_in_command_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only trigger_in_command
+    add constraint trigger_in_command_pkey primary key (id);
+
+
+--
+-- name: trigger_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only "trigger"
+    add constraint trigger_pkey primary key (id);
+
+
+--
+-- name: wdg_settings_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only wdg_settings
+    add constraint wdg_settings_pkey primary key (id);
+
+
+--
+-- name: wdg_settings_unique; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only wdg_settings
+    add constraint wdg_settings_unique unique ("key", "login", project_code);
+
+
+--
+-- name: login_in_group_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create unique index login_in_group_idx on login_in_group using btree ("login", login_group);
+
+--
+-- name: note_search_type_search_id_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create index note_search_type_search_id_idx on note using btree (search_type, search_id);
+
+
+
+--
+-- name: snapshot_project_code_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create index snapshot_project_code_idx on snapshot using btree (project_code);
+
+
+--
+-- name: snapshot_search_code_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create index snapshot_search_code_idx on snapshot using btree (search_code);
+
+--
+-- name: snapshot_search_type_search_id_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create index snapshot_search_type_search_id_idx on snapshot using btree (search_type, search_id);
+
+
+--
+-- name: queue_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create index queue_idx on queue using btree (queue, state);
+
+
+--
+-- name: search_object_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create unique index search_object_idx on search_object using btree (search_type);
+
+--
+-- name: task_process_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create index task_process_idx on task using btree (process);
+
+--
+-- name: task_search_type_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create index task_search_type_idx on task using btree (search_type);
+
+--
+-- name: task_search_type_search_id_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create index task_search_type_search_id_idx on task using btree (search_type, search_id);
+
+--
+-- name: task_status_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create index task_status_idx on task using btree (status);
+
+--
+-- name: timecard_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create index timecard_idx on timecard using btree (week, "login", project_code);
+
+
+--
+-- name: transaction_log_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create index transaction_log_idx on transaction_log using btree ("timestamp");
+
+
+--
+-- name: transaction_log_idx2; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create index transaction_log_idx2 on transaction_log using btree ("login", namespace, "type");
+
+
+--
+-- name: access_rule_fkey1; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only access_rule_in_group
+    add constraint access_rule_fkey1 foreign key (login_group) references login_group(login_group) on update cascade on delete restrict deferrable initially deferred;
+
+
+--
+-- name: access_rule_fkey2; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only access_rule_in_group
+    add constraint access_rule_fkey2 foreign key (access_rule_code) references access_rule(code) on update cascade on delete restrict deferrable initially deferred;
+
+
+--
+-- name: group_notification_login_group_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only group_notification
+    add constraint group_notification_login_group_fkey foreign key (login_group) references login_group(login_group) on update cascade on delete cascade deferrable initially deferred;
+
+
+--
+-- name: group_notification_notification_id_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only group_notification
+    add constraint group_notification_notification_id_fkey foreign key (notification_id) references notification(id) on update cascade on delete cascade deferrable initially deferred;
+
+
+--
+-- name: login_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only remote_repo
+    add constraint login_fkey foreign key ("login") references "login"("login") on update cascade on delete restrict deferrable initially deferred;
+
+
+--
+-- name: login_foreign; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only timecard
+    add constraint login_foreign foreign key ("login") references "login"("login") on update cascade on delete restrict deferrable initially deferred;
+
+
+--
+-- name: milestone_code_foreign; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only task
+    add constraint milestone_code_foreign foreign key (milestone_code) references milestone(code) on update cascade on delete restrict deferrable initially deferred;
+
+
+--
+-- name: notification_search_type_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only notification
+    add constraint notification_search_type_fkey foreign key (search_type) references search_object(search_type) on update cascade on delete restrict deferrable initially deferred;
+
+
+--
+-- name: pipeline_code_foreign; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only task
+    add constraint pipeline_code_foreign foreign key (pipeline_code) references pipeline(code) on update cascade on delete restrict deferrable initially deferred;
+
+
+--
+-- name: pipeline_search_type_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only pipeline
+    add constraint pipeline_search_type_fkey foreign key (search_type) references search_object(search_type) on update cascade on delete restrict deferrable initially deferred;
+
+
+--
+-- name: pref_setting_key_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only pref_setting
+    add constraint pref_setting_key_fkey foreign key ("key") references pref_list("key") on update cascade on delete restrict deferrable initially deferred;
+
+
+--
+-- name: pref_setting_login_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+-- alter table only pref_setting
+--    add constraint pref_setting_login_fkey foreign key ("login") references "login"("login") on update cascade on delete restrict deferrable initially deferred;
+
+
+--
+-- name: project_code_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only file
+    add constraint project_code_fkey foreign key (project_code) references project(code) on update cascade on delete restrict deferrable initially deferred;
+
+
+--
+-- name: project_code_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only queue
+    add constraint project_code_fkey foreign key (project_code) references project(code) on update cascade on delete restrict deferrable initially deferred;
+
+
+--
+-- name: project_code_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only task
+    add constraint project_code_fkey foreign key (project_code) references project(code) on update cascade on delete restrict deferrable initially deferred;
+
+
+--
+-- name: project_code_foreign; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only timecard
+    add constraint project_code_foreign foreign key (project_code) references project(code) on update cascade on delete restrict deferrable initially deferred;
+
+
+
+--
+-- name: project_code_foreign; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only special_day
+    add constraint project_code_foreign foreign key (project_code) references project(code) on update cascade on delete restrict deferrable initially deferred;
+
+
+--
+-- name: transaction_log_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only sobject_log
+    add constraint transaction_log_fkey foreign key (transaction_log_id) references transaction_log(id) on update cascade on delete cascade deferrable initially deferred;
+
+
+--
+-- name: trigger_in_command_command_code_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only trigger_in_command
+    add constraint trigger_in_command_command_code_fkey foreign key (command_code) references command(class_name) on update cascade on delete cascade deferrable initially deferred;
+
+
+--
+-- name: trigger_in_command_trigger_code_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only trigger_in_command
+    add constraint trigger_in_command_trigger_code_fkey foreign key (trigger_code) references "trigger"(class_name) on update cascade on delete cascade deferrable initially deferred;
+
+
+--
+-- name: wdg_settings_login_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+-- alter table only wdg_settings
+--    add constraint wdg_settings_login_fkey foreign key ("login") references "login"("login") on update cascade deferrable initially deferred;
+
+
+--
+-- name: wdg_settings_project_code_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+--alter table only wdg_settings
+--    add constraint wdg_settings_project_code_fkey foreign key (project_code) references project(code) on update cascade on delete restrict deferrable initially deferred;
+
+
+--
+-- name: work_hour; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table work_hour (
+    id integer not null,
+    code character varying(256),
+    project_code character varying(256),
+    description text,
+    category character varying(256),
+    process character varying(256),
+    "login" character varying(256),
+    "day" timestamp without time zone,
+    start_time timestamp without time zone,
+    end_time timestamp without time zone,
+    straight_time double precision,
+    over_time double precision,
+    search_type character varying(256),
+    search_id integer,
+    status character varying(256),
+    task_code character varying(256)
+);
+
+
+alter table public.work_hour owner to postgres;
+
+--
+-- name: work_hour_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence work_hour_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.work_hour_id_seq owner to postgres;
+
+--
+-- name: work_hour_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence work_hour_id_seq owned by work_hour.id;
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table work_hour alter column id set default nextval('work_hour_id_seq'::regclass);
+
+
+--
+-- name: work_hour_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only work_hour
+    add constraint work_hour_pkey primary key (id);
+
+
+--
+-- name: public; type: acl; schema: -; owner: postgres
+--
+
+revoke all on schema public from public;
+revoke all on schema public from postgres;
+grant all on schema public to postgres;
+grant all on schema public to public;
+
+
+--
+-- name: pga_layout; type: acl; schema: public; owner: postgres
+--
+
+revoke all on table pga_layout from public;
+revoke all on table pga_layout from postgres;
+grant all on table pga_layout to postgres;
+grant all on table pga_layout to public;
+
+
+--
+-- name: pga_reports; type: acl; schema: public; owner: postgres
+--
+
+revoke all on table pga_reports from public;
+revoke all on table pga_reports from postgres;
+grant all on table pga_reports to postgres;
+grant all on table pga_reports to public;
+
+
+--
+-- name: pga_schema; type: acl; schema: public; owner: postgres
+--
+
+revoke all on table pga_schema from public;
+revoke all on table pga_schema from postgres;
+grant all on table pga_schema to postgres;
+grant all on table pga_schema to public;
+
+
+--
+-- postgresql database dump complete
+--
+
+
+ 

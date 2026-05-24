@@ -1,0 +1,2161 @@
+﻿--
+-- postgresql database dump
+--
+
+set client_encoding = 'utf8';
+set standard_conforming_strings = off;
+set check_function_bodies = false;
+set client_min_messages = warning;
+set escape_string_warning = off;
+
+--
+-- name: schema public; type: comment; schema: -; owner: postgres
+--
+
+comment on schema public is 'standard public schema';
+
+
+set search_path = public, pg_catalog;
+
+--
+-- name: plpgsql_call_handler(); type: function; schema: public; owner: postgres
+--
+
+create function plpgsql_call_handler() returns language_handler
+    as '$libdir/plpgsql', 'plpgsql_call_handler'
+    language c;
+
+
+alter function public.plpgsql_call_handler() owner to postgres;
+
+set default_tablespace = '';
+
+set default_with_oids = false;
+
+--
+-- name: art_reference; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table art_reference (
+    id integer not null,
+    name_old character varying(256),
+    description text,
+    snapshot text,
+    category character varying(256),
+    s_status character varying(30),
+    keywords text,
+    "timestamp" timestamp without time zone default now()
+);
+
+
+alter table public.art_reference owner to postgres;
+
+--
+-- name: art_reference_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence art_reference_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.art_reference_id_seq owner to postgres;
+
+--
+-- name: art_reference_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence art_reference_id_seq owned by art_reference.id;
+
+
+--
+-- name: asset; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table asset (
+    id integer not null,
+    code character varying(256),
+    name character varying(256),
+    asset_type character varying(30),
+    description text,
+    "timestamp" timestamp without time zone default now(),
+    images text,
+    status text,
+    snapshot text,
+    retire_status character varying(30),
+    asset_library character varying(100),
+    pipeline_code character varying(256),
+    s_status character varying(30),
+    short_code character varying(256)
+);
+
+
+alter table public.asset owner to postgres;
+
+--
+-- name: asset_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence asset_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.asset_id_seq owner to postgres;
+
+--
+-- name: asset_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence asset_id_seq owned by asset.id;
+
+
+--
+-- name: asset_library; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table asset_library (
+    id integer not null,
+    code character varying(30) not null,
+    title character varying(100),
+    description text,
+    padding smallint,
+    "type" character varying(30),
+    s_status character varying(30)
+);
+
+
+alter table public.asset_library owner to postgres;
+
+--
+-- name: asset_library_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence asset_library_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.asset_library_id_seq owner to postgres;
+
+--
+-- name: asset_library_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence asset_library_id_seq owned by asset_library.id;
+
+
+--
+-- name: asset_type; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table asset_type (
+    id integer not null,
+    code character varying(30) not null,
+    description text
+);
+
+
+alter table public.asset_type owner to postgres;
+
+--
+-- name: asset_type_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence asset_type_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.asset_type_id_seq owner to postgres;
+
+--
+-- name: asset_type_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence asset_type_id_seq owned by asset_type.id;
+
+
+--
+-- name: bin; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table bin (
+    id integer not null,
+    code character varying(256),
+    description text,
+    "type" character varying(100),
+    s_status character varying(30),
+    label character varying(100)
+);
+
+
+alter table public.bin owner to postgres;
+
+--
+-- name: bin_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence bin_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.bin_id_seq owner to postgres;
+
+--
+-- name: bin_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence bin_id_seq owned by bin.id;
+
+
+--
+-- name: camera; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table camera (
+    id integer not null,
+    shot_code character varying(30),
+    description text,
+    "timestamp" timestamp without time zone default now(),
+    s_status character varying(30)
+);
+
+
+alter table public.camera owner to postgres;
+
+--
+-- name: camera_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence camera_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.camera_id_seq owner to postgres;
+
+--
+-- name: camera_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence camera_id_seq owned by camera.id;
+
+
+--
+-- name: composite; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table composite (
+    id integer not null,
+    name character varying(100),
+    description text,
+    shot_code character varying(100),
+    snapshot text,
+    "timestamp" timestamp without time zone default now()
+);
+
+
+alter table public.composite owner to postgres;
+
+--
+-- name: composite_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence composite_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.composite_id_seq owner to postgres;
+
+--
+-- name: composite_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence composite_id_seq owned by composite.id;
+
+
+
+--
+-- name: cut_sequence; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table cut_sequence (
+    id integer not null,
+    shot_code character varying(30),
+    "type" character varying(100),
+    "timestamp" timestamp without time zone default now(),
+    s_status character varying(30),
+    description text,
+    sequence_code character varying(100)
+);
+
+
+alter table public.cut_sequence owner to postgres;
+
+--
+-- name: cut_sequence_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence cut_sequence_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.cut_sequence_id_seq owner to postgres;
+
+--
+-- name: cut_sequence_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence cut_sequence_id_seq owned by cut_sequence.id;
+
+
+--
+-- name: episode; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table episode (
+    id integer not null,
+    code character varying(256) not null,
+    description text,
+    "timestamp" timestamp without time zone default now(),
+    s_status character varying(30),
+    sort_order smallint
+);
+
+
+alter table public.episode owner to postgres;
+
+--
+-- name: episode_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence episode_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.episode_id_seq owner to postgres;
+
+--
+-- name: episode_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence episode_id_seq owned by episode.id;
+
+
+--
+-- name: geo_cache; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table geo_cache (
+    id integer not null,
+    shot_code character varying(256),
+    instance character varying(256),
+    "timestamp" timestamp without time zone default now(),
+    s_status character varying(30)
+);
+
+
+alter table public.geo_cache owner to postgres;
+
+--
+-- name: geo_cache_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence geo_cache_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.geo_cache_id_seq owner to postgres;
+
+--
+-- name: geo_cache_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence geo_cache_id_seq owned by geo_cache.id;
+
+
+--
+-- name: instance; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table instance (
+    id integer not null,
+    code character varying(256),
+    shot_code character varying(30) not null,
+    asset_code character varying(100) not null,
+    name character varying(100) not null,
+    "timestamp" timestamp without time zone default now(),
+    status text,
+    "type" character varying(30)
+);
+
+
+alter table public.instance owner to postgres;
+
+--
+-- name: instance_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence instance_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.instance_id_seq owner to postgres;
+
+--
+-- name: instance_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence instance_id_seq owned by instance.id;
+
+
+--
+-- name: layer; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table layer (
+    id integer not null,
+    name character varying(100),
+    description text,
+    shot_code character varying(100),
+    snapshot text,
+    "timestamp" timestamp without time zone default now(),
+    sort_order integer,
+    s_status character varying(30)
+);
+
+
+alter table public.layer owner to postgres;
+
+--
+-- name: layer_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence layer_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.layer_id_seq owner to postgres;
+
+--
+-- name: layer_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence layer_id_seq owned by layer.id;
+
+
+--
+-- name: layer_instance; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table layer_instance (
+    id integer not null,
+    asset_code character varying(100),
+    "type" character varying(30),
+    "timestamp" timestamp without time zone default now(),
+    status text,
+    name character varying(100),
+    layer_id integer
+);
+
+
+alter table public.layer_instance owner to postgres;
+
+--
+-- name: layer_instance_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence layer_instance_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.layer_instance_id_seq owner to postgres;
+
+--
+-- name: layer_instance_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence layer_instance_id_seq owned by layer_instance.id;
+
+
+
+
+
+--
+-- name: pga_forms; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_forms (
+    formname character varying(64),
+    formsource text
+);
+
+
+alter table public.pga_forms owner to postgres;
+
+--
+-- name: pga_layout; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_layout (
+    tablename character varying(64),
+    nrcols smallint,
+    colnames text,
+    colwidth text
+);
+
+
+alter table public.pga_layout owner to postgres;
+
+--
+-- name: pga_queries; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_queries (
+    queryname character varying(64),
+    querytype character(1),
+    querycommand text,
+    querytables text,
+    querylinks text,
+    queryresults text,
+    querycomments text
+);
+
+
+alter table public.pga_queries owner to postgres;
+
+--
+-- name: pga_reports; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_reports (
+    reportname character varying(64),
+    reportsource text,
+    reportbody text,
+    reportprocs text,
+    reportoptions text
+);
+
+
+alter table public.pga_reports owner to postgres;
+
+--
+-- name: pga_schema; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_schema (
+    schemaname character varying(64),
+    schematables text,
+    schemalinks text
+);
+
+
+alter table public.pga_schema owner to postgres;
+
+--
+-- name: pga_scripts; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table pga_scripts (
+    scriptname character varying(64),
+    scriptsource text
+);
+
+
+alter table public.pga_scripts owner to postgres;
+
+--
+-- name: plate; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table plate (
+    id integer not null,
+    shot_code character varying(30),
+    "type" character varying(30),
+    "timestamp" timestamp without time zone default now(),
+    s_status character varying(30),
+    description text,
+    code character varying(256),
+    pipeline_code character varying(256)
+);
+
+
+alter table public.plate owner to postgres;
+
+--
+-- name: plate_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence plate_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.plate_id_seq owner to postgres;
+
+--
+-- name: plate_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence plate_id_seq owned by plate.id;
+
+
+--
+-- name: process; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table process (
+    id integer not null,
+    code character varying(30) not null,
+    description text,
+    "timestamp" timestamp without time zone default now()
+);
+
+
+alter table public.process owner to postgres;
+
+--
+-- name: process_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence process_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.process_id_seq owner to postgres;
+
+--
+-- name: process_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence process_id_seq owned by process.id;
+
+
+--
+-- name: prod_setting; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table prod_setting (
+    id integer not null,
+    "key" character varying(100),
+    value text,
+    description text,
+    "type" character varying(30),
+    search_type character varying(200),
+    category character varying(256)
+);
+
+
+alter table public.prod_setting owner to postgres;
+
+--
+-- name: prod_setting_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence prod_setting_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.prod_setting_id_seq owner to postgres;
+
+--
+-- name: prod_setting_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence prod_setting_id_seq owned by prod_setting.id;
+
+
+--
+-- name: render; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table render (
+    id integer not null,
+    _images text,
+    _session text,
+    "login" character varying(100),
+    "timestamp" timestamp without time zone default now(),
+    _snapshot text,
+    search_type character varying(100),
+    search_id integer,
+    _snapshot_code character varying(30),
+    _version smallint,
+    _file_range character varying(200),
+    code character varying(256),
+    "type" character varying(256),
+    name character varying(256),
+    s_status character varying(30)
+);
+
+
+alter table public.render owner to postgres;
+
+--
+-- name: render_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence render_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.render_id_seq owner to postgres;
+
+--
+-- name: render_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence render_id_seq owned by render.id;
+
+
+--
+-- name: render_stage; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table render_stage (
+    id integer not null,
+    search_type character varying(100),
+    search_id integer,
+    context character varying(30),
+    snapshot text,
+    "login" character varying(100) not null,
+    "timestamp" timestamp without time zone default now()
+);
+
+
+alter table public.render_stage owner to postgres;
+
+--
+-- name: render_stage_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence render_stage_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.render_stage_id_seq owner to postgres;
+
+--
+-- name: render_stage_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence render_stage_id_seq owned by render_stage.id;
+
+--
+-- name: render_policy; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table render_policy (
+    id integer not null,
+    code character varying(30),
+    description text,
+    width smallint,
+    height smallint,
+    frame_by smallint,
+    extra_settings text
+);
+
+
+alter table public.render_policy owner to postgres;
+
+--
+-- name: render_policy_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence render_policy_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.render_policy_id_seq owner to postgres;
+
+--
+-- name: render_policy_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence render_policy_id_seq owned by render_policy.id;
+
+
+--
+-- name: render_policy_id_seq; type: sequence set; schema: public; owner: postgres
+--
+
+select pg_catalog.setval('render_policy_id_seq', 1, true);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table render_policy alter column id set default nextval('render_policy_id_seq'::regclass);
+
+
+--
+-- name: script; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table script (
+    id integer not null,
+    files text,
+    "timestamp" timestamp without time zone default now(),
+    code character varying(30),
+    description text,
+    sequence_code character varying(30),
+    stage character varying(256),
+    title text,
+    author character varying(256)
+);
+
+
+alter table public.script owner to postgres;
+
+--
+-- name: script_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence script_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.script_id_seq owner to postgres;
+
+--
+-- name: script_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence script_id_seq owned by script.id;
+
+
+--
+-- name: sequence; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table "sequence" (
+    id integer not null,
+    code character varying(30) not null,
+    description text,
+    "timestamp" timestamp without time zone default now(),
+    s_status character varying(30),
+    sort_order smallint,
+    episode_code character varying(256)
+);
+
+
+alter table public."sequence" owner to postgres;
+
+--
+-- name: sequence_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence sequence_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.sequence_id_seq owner to postgres;
+
+--
+-- name: sequence_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence sequence_id_seq owned by "sequence".id;
+
+
+--
+-- name: sequence_instance; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table sequence_instance (
+    id integer not null,
+    sequence_code character varying(30) not null,
+    asset_code character varying(100) not null,
+    "timestamp" timestamp without time zone default now(),
+    status text,
+    "type" character varying(30)
+);
+
+
+alter table public.sequence_instance owner to postgres;
+
+--
+-- name: sequence_instance_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence sequence_instance_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.sequence_instance_id_seq owner to postgres;
+
+--
+-- name: sequence_instance_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence sequence_instance_id_seq owned by sequence_instance.id;
+
+
+--
+-- name: session_contents; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table session_contents (
+    id integer not null,
+    "login" character varying(100) not null,
+    pid integer not null,
+    data text,
+    "session" text,
+    "timestamp" timestamp without time zone default now()
+);
+
+
+alter table public.session_contents owner to postgres;
+
+--
+-- name: session_contents_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence session_contents_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.session_contents_id_seq owner to postgres;
+
+--
+-- name: session_contents_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence session_contents_id_seq owned by session_contents.id;
+
+
+--
+-- name: shot; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table shot (
+    id integer not null,
+    code character varying(30) not null,
+    description text,
+    "timestamp" timestamp without time zone default now(),
+    status text,
+    images text,
+    tc_frame_start integer default 1,
+    tc_frame_end integer default 1,
+    pipeline_code character varying(30),
+    s_status character varying(30),
+    parent_code character varying(30),
+    sequence_code character varying(30),
+    sort_order smallint,
+    complexity smallint,
+    frame_in integer,
+    frame_out integer,
+    frame_note text,
+    scan_status character varying(256),
+    "type" character varying(256),
+    priority character varying(30),
+    short_code character varying(256)
+);
+
+
+alter table public.shot owner to postgres;
+
+--
+-- name: shot_audio; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table shot_audio (
+    id integer not null,
+    title character varying(30),
+    shot_code character varying(100)
+);
+
+
+alter table public.shot_audio owner to postgres;
+
+--
+-- name: shot_audio_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence shot_audio_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.shot_audio_id_seq owner to postgres;
+
+--
+-- name: shot_audio_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence shot_audio_id_seq owned by shot_audio.id;
+
+
+--
+-- name: shot_definition; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table shot_definition (
+    id integer not null,
+    code character varying(30) not null,
+    description text,
+    pipeline character varying(30) not null
+);
+
+
+alter table public.shot_definition owner to postgres;
+
+--
+-- name: shot_definition_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence shot_definition_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.shot_definition_id_seq owner to postgres;
+
+--
+-- name: shot_definition_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence shot_definition_id_seq owned by shot_definition.id;
+
+
+--
+-- name: shot_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence shot_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.shot_id_seq owner to postgres;
+
+--
+-- name: shot_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence shot_id_seq owned by shot.id;
+
+
+--
+-- name: shot_texture; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table shot_texture (
+    id integer not null,
+    description text,
+    shot_code character varying(256),
+    category character varying(256),
+    "timestamp" timestamp without time zone default now(),
+    snapshot text,
+    s_status character varying(32),
+    code character varying(256),
+    pipeline_code character varying(256),
+    asset_context character varying(256),
+    search_type character varying(256),
+    search_id integer
+);
+
+
+alter table public.shot_texture owner to postgres;
+
+--
+-- name: shot_texture_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence shot_texture_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.shot_texture_id_seq owner to postgres;
+
+--
+-- name: shot_texture_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence shot_texture_id_seq owned by shot_texture.id;
+
+
+--
+-- name: storyboard; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table storyboard (
+    id integer not null,
+    files text,
+    "timestamp" timestamp without time zone default now(),
+    code character varying(30),
+    shot_code character varying(30),
+    description text
+);
+
+
+alter table public.storyboard owner to postgres;
+
+--
+-- name: storyboard_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence storyboard_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.storyboard_id_seq owner to postgres;
+
+--
+-- name: storyboard_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence storyboard_id_seq owned by storyboard.id;
+
+
+--
+-- name: submission; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table submission (
+    id integer not null,
+    code character varying(256),
+    search_type character varying(200),
+    search_id integer,
+    snapshot_code character varying(30),
+    context character varying(100),
+    version integer,
+    description text,
+    "login" character varying(30),
+    "timestamp" timestamp without time zone default now(),
+    s_status character varying(30),
+    artist character varying(256),
+    status character varying(100)
+);
+
+
+alter table public.submission owner to postgres;
+
+--
+-- name: submission_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence submission_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.submission_id_seq owner to postgres;
+
+--
+-- name: submission_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence submission_id_seq owned by submission.id;
+
+
+--
+-- name: submission_in_bin; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table submission_in_bin (
+    id integer not null,
+    submission_id integer not null,
+    bin_id integer not null
+);
+
+
+alter table public.submission_in_bin owner to postgres;
+
+--
+-- name: submission_in_bin_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence submission_in_bin_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.submission_in_bin_id_seq owner to postgres;
+
+--
+-- name: submission_in_bin_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence submission_in_bin_id_seq owned by submission_in_bin.id;
+
+
+
+
+--
+-- name: texture; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table texture (
+    id integer not null,
+    description text,
+    asset_code character varying(256),
+    category character varying(256),
+    "timestamp" timestamp without time zone default now(),
+    snapshot text,
+    s_status character varying(32),
+    code character varying(256),
+    pipeline_code character varying(256),
+    asset_context character varying(256)
+);
+
+
+alter table public.texture owner to postgres;
+
+--
+-- name: texture_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence texture_id_seq
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.texture_id_seq owner to postgres;
+
+--
+-- name: texture_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence texture_id_seq owned by texture.id;
+
+
+
+--
+-- name: texture_asset_code_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create index texture_asset_code_idx on texture using btree (asset_code);
+
+
+--
+-- name: texture_code_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create index texture_code_idx on texture using btree (code);
+
+
+
+
+
+--
+-- name: texture_source; type: table; schema: public; owner: postgres; tablespace: 
+--
+
+create table texture_source (
+    id integer not null,
+    description text,
+    asset_code character varying(50),
+    category character varying(200),
+    "timestamp" timestamp without time zone default now(),
+    s_status character varying(32),
+    code character varying(100)
+);
+
+
+alter table public.texture_source owner to postgres;
+
+--
+-- name: texture_source_id_seq; type: sequence; schema: public; owner: postgres
+--
+
+create sequence texture_source_id_seq
+    start with 1
+    increment by 1
+    no maxvalue
+    no minvalue
+    cache 1;
+
+
+alter table public.texture_source_id_seq owner to postgres;
+
+--
+-- name: texture_source_id_seq; type: sequence owned by; schema: public; owner: postgres
+--
+
+alter sequence texture_source_id_seq owned by texture_source.id;
+
+
+--
+-- widget config table
+--
+create table widget_config (
+    id serial,
+    code character varying(256),
+    "view" character varying(256),
+    category character varying(256),
+    search_type character varying(256),
+    "login" character varying(256),
+    config text,
+    "timestamp" timestamp without time zone default now(),
+    s_status character varying(32),
+    primary key (id)
+);
+
+
+
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table art_reference alter column id set default nextval('art_reference_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table asset alter column id set default nextval('asset_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table asset_library alter column id set default nextval('asset_library_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table asset_type alter column id set default nextval('asset_type_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table bin alter column id set default nextval('bin_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table camera alter column id set default nextval('camera_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table composite alter column id set default nextval('composite_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table custom_property alter column id set default nextval('custom_property_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table cut_sequence alter column id set default nextval('cut_sequence_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table episode alter column id set default nextval('episode_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table geo_cache alter column id set default nextval('geo_cache_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table instance alter column id set default nextval('instance_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table layer alter column id set default nextval('layer_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table layer_instance alter column id set default nextval('layer_instance_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table naming alter column id set default nextval('naming_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table plate alter column id set default nextval('plate_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table process alter column id set default nextval('process_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table prod_setting alter column id set default nextval('prod_setting_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table render alter column id set default nextval('render_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table render_stage alter column id set default nextval('render_stage_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table script alter column id set default nextval('script_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table "sequence" alter column id set default nextval('sequence_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table sequence_instance alter column id set default nextval('sequence_instance_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table session_contents alter column id set default nextval('session_contents_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table shot alter column id set default nextval('shot_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table shot_audio alter column id set default nextval('shot_audio_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table shot_definition alter column id set default nextval('shot_definition_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table shot_texture alter column id set default nextval('shot_texture_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table storyboard alter column id set default nextval('storyboard_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table submission alter column id set default nextval('submission_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table submission_in_bin alter column id set default nextval('submission_in_bin_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table texture alter column id set default nextval('texture_id_seq'::regclass);
+
+
+--
+-- name: id; type: default; schema: public; owner: postgres
+--
+
+alter table texture_source alter column id set default nextval('texture_source_id_seq'::regclass);
+
+
+--
+-- name: art_reference_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only art_reference
+    add constraint art_reference_pkey primary key (id);
+
+
+--
+-- name: asset_code_key; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only asset
+    add constraint asset_code_key unique (code);
+
+
+--
+-- name: asset_library_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only asset_library
+    add constraint asset_library_pkey primary key (code);
+
+
+--
+-- name: asset_name_key; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only asset
+    add constraint asset_name_key unique (name);
+
+
+--
+-- name: asset_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only asset
+    add constraint asset_pkey primary key (code);
+
+
+--
+-- name: asset_type_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only asset_type
+    add constraint asset_type_pkey primary key (code);
+
+
+--
+-- name: bin_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only bin
+    add constraint bin_pkey primary key (id);
+
+
+--
+-- name: camera_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only camera
+    add constraint camera_pkey primary key (id);
+
+
+--
+-- name: composite_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only composite
+    add constraint composite_pkey primary key (id);
+
+
+--
+-- name: custom_property_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only custom_property
+    add constraint custom_property_pkey primary key (id);
+
+
+--
+-- name: cut_sequence_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only cut_sequence
+    add constraint cut_sequence_pkey primary key (id);
+
+
+--
+-- name: episode_code_unique; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only episode
+    add constraint episode_code_unique unique (code);
+
+
+--
+-- name: geo_cache_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only geo_cache
+    add constraint geo_cache_pkey primary key (id);
+
+
+--
+-- name: instance_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only instance
+    add constraint instance_pkey primary key (id);
+
+
+--
+-- name: instance_shot_code_type_key; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only instance
+    add constraint instance_shot_code_type_key unique (shot_code, name, "type");
+
+
+--
+-- name: key_search_type_unique; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only prod_setting
+    add constraint key_search_type_unique unique ("key", search_type);
+
+
+--
+-- name: layer_instance_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only layer_instance
+    add constraint layer_instance_pkey primary key (id);
+
+
+--
+-- name: layer_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only layer
+    add constraint layer_pkey primary key (id);
+
+
+--
+-- name: layer_shot_code_key; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only layer
+    add constraint layer_shot_code_key unique (shot_code, name);
+
+
+--
+-- name: naming_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only naming
+    add constraint naming_pkey primary key (id);
+
+
+--
+-- name: plate_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only plate
+    add constraint plate_pkey primary key (id);
+
+
+--
+-- name: process_code_key; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only process
+    add constraint process_code_key unique (code);
+
+
+--
+-- name: process_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only process
+    add constraint process_pkey primary key (code);
+
+
+--
+-- name: prod_setting_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only prod_setting
+    add constraint prod_setting_pkey primary key (id);
+
+
+--
+-- name: render_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only render
+    add constraint render_pkey primary key (id);
+
+
+--
+-- name: render_stage_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only render_stage
+    add constraint render_stage_pkey primary key (id);
+
+
+--
+-- name: script_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only script
+    add constraint script_pkey primary key (id);
+
+
+--
+-- name: sequence_code_key; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only "sequence"
+    add constraint sequence_code_key unique (code);
+
+
+--
+-- name: sequence_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only "sequence"
+    add constraint sequence_pkey primary key (code);
+
+
+--
+-- name: session_contents_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only session_contents
+    add constraint session_contents_pkey primary key (id);
+
+
+--
+-- name: shot_audio_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only shot_audio
+    add constraint shot_audio_pkey primary key (id);
+
+
+--
+-- name: shot_code_key; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only shot
+    add constraint shot_code_key unique (code);
+
+
+--
+-- name: shot_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only shot
+    add constraint shot_pkey primary key (code);
+
+
+--
+-- name: storyboard_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only storyboard
+    add constraint storyboard_pkey primary key (id);
+
+
+--
+-- name: submission_id_bin_id_key; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only submission_in_bin
+    add constraint submission_id_bin_id_key unique (submission_id, bin_id);
+
+
+--
+-- name: submission_in_bin_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only submission_in_bin
+    add constraint submission_in_bin_pkey primary key (id);
+
+
+--
+-- name: submission_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only submission
+    add constraint submission_pkey primary key (id);
+
+
+--
+-- name: texture_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only texture
+    add constraint texture_pkey primary key (id);
+
+
+--
+-- name: texture_source_pkey; type: constraint; schema: public; owner: postgres; tablespace: 
+--
+
+alter table only texture_source
+    add constraint texture_source_pkey primary key (id);
+
+
+--
+-- name: plate_code_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create unique index plate_code_idx on plate using btree (code);
+
+
+--
+-- name: prod_setting_name_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create index prod_setting_name_idx on prod_setting using btree ("key");
+
+
+--
+-- name: render_code_idx; type: index; schema: public; owner: postgres; tablespace: 
+--
+
+create unique index render_code_idx on render using btree (code);
+
+
+--
+-- name: $1; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only layer
+    add constraint "$1" foreign key (shot_code) references shot(code) on update cascade on delete cascade deferrable initially deferred;
+
+
+--
+-- name: $1; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only composite
+    add constraint "$1" foreign key (shot_code) references shot(code) on update cascade on delete cascade deferrable initially deferred;
+
+
+--
+-- name: $1; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only texture
+    add constraint "$1" foreign key (asset_code) references asset(code) on update cascade on delete cascade deferrable initially deferred;
+
+
+--
+-- name: $1; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only asset
+    add constraint "$1" foreign key (asset_type) references asset_type(code) on update cascade on delete cascade deferrable initially deferred;
+
+
+--
+-- name: $1; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only layer_instance
+    add constraint "$1" foreign key (layer_id) references layer(id) on update cascade on delete cascade deferrable initially deferred;
+
+
+--
+-- name: $2; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only layer_instance
+    add constraint "$2" foreign key (asset_code) references asset(code) on update cascade on delete cascade deferrable initially deferred;
+
+
+--
+-- name: asset_code_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only instance
+    add constraint asset_code_fkey foreign key (asset_code) references asset(code) on update cascade on delete restrict deferrable initially deferred;
+
+
+--
+-- name: episode_code_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only "sequence"
+    add constraint episode_code_fkey foreign key (episode_code) references episode(code) on update cascade on delete restrict deferrable initially deferred;
+
+
+--
+-- name: sequence_code_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only cut_sequence
+    add constraint sequence_code_fkey foreign key (sequence_code) references "sequence"(code) on update cascade on delete restrict deferrable initially deferred;
+
+
+--
+-- name: shot_code_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only storyboard
+    add constraint shot_code_fkey foreign key (shot_code) references shot(code) on update cascade on delete restrict deferrable initially deferred;
+
+
+
+--
+-- name: shot_code_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only plate
+    add constraint shot_code_fkey foreign key (shot_code) references shot(code) on update cascade on delete restrict deferrable initially deferred;
+
+
+--
+-- name: shot_code_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only cut_sequence
+    add constraint shot_code_fkey foreign key (shot_code) references shot(code) on update cascade on delete restrict deferrable initially deferred;
+
+
+--
+-- name: shot_code_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only shot_audio
+    add constraint shot_code_fkey foreign key (shot_code) references shot(code) on update cascade on delete restrict deferrable initially deferred;
+
+
+--
+-- name: submission_in_bin_bin_id_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only submission_in_bin
+    add constraint submission_in_bin_bin_id_fkey foreign key (bin_id) references bin(id) on update cascade on delete cascade deferrable initially deferred;
+
+
+--
+-- name: submission_in_bin_submission_id_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only submission_in_bin
+    add constraint submission_in_bin_submission_id_fkey foreign key (submission_id) references submission(id) on update cascade on delete cascade deferrable initially deferred;
+
+
+--
+-- name: texture_source_asset_code_fkey; type: fk constraint; schema: public; owner: postgres
+--
+
+alter table only texture_source
+    add constraint texture_source_asset_code_fkey foreign key (asset_code) references asset(code) on update cascade on delete restrict deferrable initially deferred;
+
+
+--
+-- name: public; type: acl; schema: -; owner: postgres
+--
+
+revoke all on schema public from public;
+revoke all on schema public from postgres;
+grant all on schema public to postgres;
+grant all on schema public to public;
+
+
+--
+-- name: pga_forms; type: acl; schema: public; owner: postgres
+--
+
+revoke all on table pga_forms from public;
+revoke all on table pga_forms from postgres;
+grant all on table pga_forms to postgres;
+grant all on table pga_forms to public;
+
+
+--
+-- name: pga_layout; type: acl; schema: public; owner: postgres
+--
+
+revoke all on table pga_layout from public;
+revoke all on table pga_layout from postgres;
+grant all on table pga_layout to postgres;
+grant all on table pga_layout to public;
+
+
+--
+-- name: pga_queries; type: acl; schema: public; owner: postgres
+--
+
+revoke all on table pga_queries from public;
+revoke all on table pga_queries from postgres;
+grant all on table pga_queries to postgres;
+grant all on table pga_queries to public;
+
+
+--
+-- name: pga_reports; type: acl; schema: public; owner: postgres
+--
+
+revoke all on table pga_reports from public;
+revoke all on table pga_reports from postgres;
+grant all on table pga_reports to postgres;
+grant all on table pga_reports to public;
+
+
+--
+-- name: pga_schema; type: acl; schema: public; owner: postgres
+--
+
+revoke all on table pga_schema from public;
+revoke all on table pga_schema from postgres;
+grant all on table pga_schema to postgres;
+grant all on table pga_schema to public;
+
+
+--
+-- name: pga_scripts; type: acl; schema: public; owner: postgres
+--
+
+revoke all on table pga_scripts from public;
+revoke all on table pga_scripts from postgres;
+grant all on table pga_scripts to postgres;
+grant all on table pga_scripts to public;
+
+
+--
+-- postgresql database dump complete
+--
+
+
+ 
