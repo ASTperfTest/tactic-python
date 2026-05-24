@@ -1,6 +1,6 @@
 ###########################################################
 #
-# Copyright (c) 2005-2010, Southpaw Technology
+# Copyright (c) 2010, Southpaw Technology
 #                     All Rights Reserved
 #
 # PROPRIETARY INFORMATION.  This software is proprietary to
@@ -10,12 +10,16 @@
 #
 #
 
-from element_definition_wdg import *
-from format_definition_wdg import *
+from chart_data import *
+from chart_builder_wdg import *
+from chart_wdg import *
 
-from base_section_wdg import *
-from view_section_wdg import *
+from bar_chart_wdg import *
+#from date_chart_wdg import *
 
-from view_manager_wdg import *
+from sample_chart_wdg import *
 
+#from chart2_wdg import *
+
+from sobject_chart_wdg import *
 
